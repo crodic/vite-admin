@@ -1,11 +1,9 @@
-// import { useNavigate, useRouter } from '@tanstack/react-router'
 import { useNavigate } from 'react-router'
 import { Button } from '@/components/ui/button'
 
 export function UnauthorizedError() {
-  // const navigate = useNavigate()
-  // const { history } = useRouter()
   const navigate = useNavigate()
+
   return (
     <div className='h-svh'>
       <div className='m-auto flex h-full w-full flex-col items-center justify-center gap-2'>

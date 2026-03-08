@@ -10,14 +10,10 @@ import { PageAdminOverview } from '@/pages/admins'
 import { PageAdminCreate } from '@/pages/admins/create'
 import { PageAdminEdit } from '@/pages/admins/edit'
 import { PageAdminShow } from '@/pages/admins/show'
-import { Apps } from '@/pages/apps'
 import { ForgotPassword } from '@/pages/auth/forgot-password'
-import { Otp } from '@/pages/auth/otp'
 import { ResetPassword } from '@/pages/auth/reset-password'
 import { SignIn } from '@/pages/auth/sign-in'
-import { SignIn2 } from '@/pages/auth/sign-in/sign-in-2'
 import { SignUp } from '@/pages/auth/sign-up'
-import { Chats } from '@/pages/chats'
 import { Dashboard } from '@/pages/dashboard'
 import { ForbiddenError } from '@/pages/errors/forbidden'
 import { GeneralError } from '@/pages/errors/general-error'
@@ -48,10 +44,10 @@ const routes: RouteObject[] = [
     path: '/sign-in',
     element: <SignIn />,
   },
-  {
-    path: '/sign-in-2',
-    element: <SignIn2 />,
-  },
+  // {
+  //   path: '/sign-in-2',
+  //   element: <SignIn2 />,
+  // },
   {
     path: '/sign-up',
     element: <SignUp />,
@@ -60,10 +56,10 @@ const routes: RouteObject[] = [
     path: '/forgot-password',
     element: <ForgotPassword />,
   },
-  {
-    path: '/otp',
-    element: <Otp />,
-  },
+  // {
+  //   path: '/otp',
+  //   element: <Otp />,
+  // },
   {
     path: '/reset-password',
     element: <ResetPassword />,
@@ -81,22 +77,22 @@ const routes: RouteObject[] = [
           </RouteAuthorize>
         ),
       },
-      {
-        path: '/apps',
-        element: (
-          <RouteAuthorize action='read' subject='ADMIN'>
-            <Apps />
-          </RouteAuthorize>
-        ),
-      },
-      {
-        path: '/chats',
-        element: (
-          <RouteAuthorize action='read' subject='ADMIN'>
-            <Chats />
-          </RouteAuthorize>
-        ),
-      },
+      // {
+      //   path: '/apps',
+      //   element: (
+      //     <RouteAuthorize action='read' subject='ADMIN'>
+      //       <Apps />
+      //     </RouteAuthorize>
+      //   ),
+      // },
+      // {
+      //   path: '/chats',
+      //   element: (
+      //     <RouteAuthorize action='read' subject='ADMIN'>
+      //       <Chats />
+      //     </RouteAuthorize>
+      //   ),
+      // },
       {
         path: '/admins',
         children: [
