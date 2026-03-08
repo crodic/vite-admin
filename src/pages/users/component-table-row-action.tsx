@@ -5,7 +5,6 @@ import type { Row } from '@tanstack/react-table'
 import { Edit2Icon, Trash2Icon } from 'lucide-react'
 import { Link } from 'react-router'
 import { toast } from 'sonner'
-import { useAuthStore } from '@/stores/auth-store'
 import { Button } from '@/components/ui/button'
 import { DeleteAlertDialog } from '@/components/common/delete-alert-dialog'
 import { apiDeleteUser } from '../users/queries'
@@ -16,7 +15,6 @@ export default function ComponentTableRowActions({
 }: {
   row: Row<UserSchema>
 }) {
-  const { id } = useAuthStore()
   const queryClient = useQueryClient()
   const [isShowDeleteDialog, setIsShowDeleteDialog] = useState(false)
 
@@ -59,7 +57,6 @@ export default function ComponentTableRowActions({
       <Button
         variant='ghost'
         size='icon'
-        disabled={row.original.id === id}
         onClick={() => setIsShowDeleteDialog(true)}
       >
         <Trash2Icon size={16} className='text-destructive' />

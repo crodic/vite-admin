@@ -11,10 +11,21 @@ export function getActivitiesTableColumns({
 }): ColumnDef<ActivityLogSchema>[] {
   return [
     {
+      id: ColumnKey.id,
+      accessorFn: (row) => row.id,
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} label='ID' />
+      ),
+      cell: ({ row }) => (
+        <p className='truncate overflow-hidden'>{row.original.id}</p>
+      ),
+      enableColumnFilter: false,
+    },
+    {
       id: ColumnKey.entityId,
       accessorFn: (row) => row.entityId,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='ID' />
+        <DataTableColumnHeader column={column} label='Entity ID' />
       ),
       meta: {
         variant: 'text',
@@ -31,14 +42,14 @@ export function getActivitiesTableColumns({
       id: ColumnKey.entity,
       accessorFn: (row) => row.entity,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Entity' />
+        <DataTableColumnHeader column={column} label='Entity Name' />
       ),
       cell: ({ row }) => (
         <p className='truncate overflow-hidden'>{row.original.entity}</p>
       ),
       meta: {
         variant: 'text',
-        placeholder: 'Entity',
+        placeholder: 'Entity Name',
         label: 'Entity',
         icon: TextIcon,
       },
@@ -66,19 +77,29 @@ export function getActivitiesTableColumns({
       id: ColumnKey.userId,
       accessorFn: (row) => row.userId,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='User ID' />
+        <DataTableColumnHeader column={column} label='Actor' />
       ),
       cell: ({ row }) => (
-        <p className='truncate overflow-hidden'>{row.original.userId}</p>
+        <p className='truncate overflow-hidden'>
+          {row.original.user ? (
+            <span>
+              [{row.original.user?.id}] {row.original.user?.fullName} (
+              {row.original.user?.email})
+            </span>
+          ) : (
+            <span>{row.original.userId}</span>
+          )}
+        </p>
       ),
       meta: {
         variant: 'text',
-        placeholder: 'User ID',
-        label: 'User ID',
+        placeholder: 'Actor ID',
+        label: 'Actor ID',
         icon: TextIcon,
       },
       enableHiding: false,
       enableSorting: false,
+      enableColumnFilter: true,
     },
     {
       id: ColumnKey.createdAt,

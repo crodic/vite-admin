@@ -17,6 +17,13 @@ export const logSchema = z.object({
   userId: z.string().nullish(),
   oldValue: z.any().nullish(),
   newValue: z.any().nullish(),
+  user: z
+    .object({
+      id: z.string(),
+      fullName: z.string().nullable(),
+      email: z.string().nullable(),
+    })
+    .nullish(),
   createdAt: z.string(),
 })
 

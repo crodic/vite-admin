@@ -66,6 +66,14 @@ export default function PageActivityLogShow() {
                   value={data.userId || '-'}
                 />
                 <DescriptionItem
+                  label='Actor Information'
+                  value={
+                    data.user
+                      ? `[${data.user?.id}] ${data.user?.fullName} (${data.user?.email})`
+                      : undefined
+                  }
+                />
+                <DescriptionItem
                   label={t('page_log_detail.action')}
                   value={data.action || ''}
                 />
