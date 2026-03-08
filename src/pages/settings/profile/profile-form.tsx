@@ -31,6 +31,7 @@ export function ProfileForm({ user }: { user: User }) {
     mutationFn: apiUpdateMe,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['authenticated_user'] })
+      toast.success('Profile updated successfully')
     },
     onError: (error) => {
       if (isAxiosError(error)) {
