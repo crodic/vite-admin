@@ -10,6 +10,7 @@ import { DataTableDateFilter } from '@/components/data-table/data-table-date-fil
 import { DataTableFacetedFilter } from '@/components/data-table/data-table-faceted-filter'
 import { DataTableSliderFilter } from '@/components/data-table/data-table-slider-filter'
 import { DataTableViewOptions } from '@/components/data-table/data-table-view-options'
+import { DataTableAsyncSelectFilter } from './data-table-async-select-filter'
 
 interface DataTableToolbarProps<TData> extends React.ComponentProps<'div'> {
   table: Table<TData>
@@ -151,6 +152,16 @@ function DataTableToolbarFilter<TData>({
               title={columnMeta.label ?? column.id}
               options={columnMeta.options ?? []}
               multiple={columnMeta.variant === 'multiSelect'}
+            />
+          )
+
+        case 'asyncSelect':
+          return (
+            <DataTableAsyncSelectFilter
+              column={column}
+              title={columnMeta.label ?? column.id}
+              multiple={true}
+              fetchOptions={columnMeta.fetchOptions}
             />
           )
 

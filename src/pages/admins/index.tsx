@@ -68,12 +68,6 @@ export function PageAdminOverview() {
     pageCount: totalPages,
     initialState: {
       columnPinning: { right: ['actions'] },
-      columnFilters: [
-        {
-          id: 'email',
-          value: 'Hello World',
-        },
-      ],
     },
     getRowId: (row) => row.id,
   })

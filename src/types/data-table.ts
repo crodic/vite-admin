@@ -1,5 +1,6 @@
 import type { ColumnSort, Row, RowData } from '@tanstack/react-table'
 import type { DataTableConfig } from '@/config/data-table'
+import { type PaginateQueryParams } from '@/global'
 import type { FilterItemSchema } from '@/lib/parsers'
 
 declare module '@tanstack/react-table' {
@@ -17,6 +18,8 @@ declare module '@tanstack/react-table' {
     range?: [number, number]
     unit?: string
     icon?: React.FC<React.SVGProps<SVGSVGElement>>
+    fetchOptions?: (params: PaginateQueryParams) => Promise<any>
+    searchKey?: string
   }
 }
 
