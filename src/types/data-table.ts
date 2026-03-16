@@ -2,6 +2,7 @@ import type { ColumnSort, Row, RowData } from '@tanstack/react-table'
 import type { DataTableConfig } from '@/config/data-table'
 import { type PaginateQueryParams } from '@/global'
 import type { FilterItemSchema } from '@/lib/parsers'
+import { type AsyncSelectResponse } from '@/components/data-table/data-table-async-select-filter'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,7 +19,7 @@ declare module '@tanstack/react-table' {
     range?: [number, number]
     unit?: string
     icon?: React.FC<React.SVGProps<SVGSVGElement>>
-    fetchOptions?: (params: PaginateQueryParams) => Promise<any>
+    fetchOptions?: (params: PaginateQueryParams) => Promise<AsyncSelectResponse>
     searchKey?: string
   }
 }

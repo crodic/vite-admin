@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/popover'
 import { Separator } from '@/components/ui/separator'
 
-interface AsyncSelectResponse {
+export interface AsyncSelectResponse {
   data: Option[]
   meta?: {
     totalItems?: number
@@ -36,14 +36,14 @@ interface DataTableAsyncSelectFilterProps<TData, TValue> {
   title?: string
   multiple?: boolean
   limit?: number
-  fetchOptions: (params: PaginateQueryParams) => Promise<AsyncSelectResponse>
+  fetchOptions?: (params: PaginateQueryParams) => Promise<AsyncSelectResponse>
 }
 
 export function DataTableAsyncSelectFilter<TData, TValue>({
   column,
   title,
   multiple,
-  fetchOptions,
+  fetchOptions = async () => ({ data: [] }),
   limit = 20,
 }: DataTableAsyncSelectFilterProps<TData, TValue>) {
   const [open, setOpen] = React.useState(false)

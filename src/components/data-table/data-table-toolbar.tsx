@@ -45,7 +45,11 @@ export function DataTableToolbar<TData>({
     >
       <div className='flex flex-1 flex-wrap items-center gap-2'>
         {columns.map((column) => (
-          <DataTableToolbarFilter key={column.id} column={column} />
+          <DataTableToolbarFilter
+            key={column.id}
+            column={column}
+            table={table}
+          />
         ))}
         {isFiltered && (
           <Button
@@ -69,13 +73,15 @@ export function DataTableToolbar<TData>({
 }
 interface DataTableToolbarFilterProps<TData> {
   column: Column<TData>
+  table: Table<TData>
 }
 
 function DataTableToolbarFilter<TData>({
   column,
+  table,
 }: DataTableToolbarFilterProps<TData>) {
   {
-    const columnMeta = column.columnDef.meta
+    const columnMeta = table.getColumn(column.id)?.columnDef.meta
 
     const onFilterRender = React.useCallback(() => {
       if (!columnMeta?.variant) return null

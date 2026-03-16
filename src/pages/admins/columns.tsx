@@ -1,6 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table'
 import { CheckSquareIcon, MailIcon, TextIcon, XSquareIcon } from 'lucide-react'
-import http from '@/lib/http'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
 import { type RoleSchema } from '../roles/schema'
@@ -111,17 +110,24 @@ export function getAdminsTableColumns({
         fetchOptions: async (params) => {
           const query = new URLSearchParams(params as any)
 
-          const res = await http.get(`/admin-users?${query.toString()}`)
+          const res = await fetch(
+            `https://dummyjson.com/users?${query.toString()}`
+          )
+          const data = await res.json()
 
           return {
-            data: res.data.data.map((admin: AdminSchema) => ({
-              label: admin.fullName,
-              value: admin.id,
+            data: data.users.map((u) => ({
+              label: u.firstName + ' ' + u.lastName,
+              value: u.id,
             })),
-            meta: res.data.meta,
-            searchKey: 'email',
+            meta: {
+              total: data.total,
+              limit: data.limit,
+              skip: data.skip,
+            },
           }
         },
+        searchKey: 'q',
       },
     },
     {
