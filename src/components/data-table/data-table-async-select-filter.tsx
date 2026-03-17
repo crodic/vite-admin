@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import type { Column } from '@tanstack/react-table'
 import type { PaginateQueryParams } from '@/global'
 import type { Option } from '@/types/data-table'
@@ -48,16 +49,9 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
 }: DataTableAsyncSelectFilterProps<TData, TValue>) {
   const [open, setOpen] = React.useState(false)
 
-  const [options, setOptions] = React.useState<Option[]>([])
-  const [loading, setLoading] = React.useState(false)
-
   const [search, setSearch] = React.useState('')
   const [debouncedSearch, setDebouncedSearch] = React.useState('')
 
-  const [offset, setOffset] = React.useState(0)
-  const [totalItems, setTotalItems] = React.useState<number>()
-
-  const requestIdRef = React.useRef(0)
   const parentRef = React.useRef<HTMLDivElement>(null)
 
   const columnFilterValue = column?.getFilterValue()
@@ -76,61 +70,56 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search)
-      setOffset(0)
-    }, 300)
+    }, 500)
 
     return () => clearTimeout(timer)
   }, [search])
 
   /*
-  fetch data
+  query
   */
 
-  const fetchData = React.useCallback(
-    async (append = false) => {
-      const requestId = ++requestIdRef.current
+  const query = useInfiniteQuery({
+    queryKey: [
+      'datatable-async-filter',
+      column?.id,
+      debouncedSearch,
+      limit,
+      searchKey,
+    ],
 
-      setLoading(true)
+    enabled: open,
 
-      try {
-        const params: PaginateQueryParams = {
-          limit,
-          offset,
-          [searchKey]: debouncedSearch,
-        }
+    refetchOnMount: 'always',
 
-        const res = await fetchOptions(params)
+    initialPageParam: 0,
 
-        if (requestId !== requestIdRef.current) return
-
-        setOptions((prev) => (append ? [...prev, ...res.data] : res.data))
-
-        setTotalItems(res.meta?.totalItems)
-      } finally {
-        if (requestId === requestIdRef.current) {
-          setLoading(false)
-        }
+    queryFn: async ({ pageParam }) => {
+      const params: PaginateQueryParams = {
+        limit,
+        offset: pageParam,
+        [searchKey]: debouncedSearch,
       }
+
+      return fetchOptions(params)
     },
-    [fetchOptions, limit, offset, debouncedSearch, searchKey]
-  )
 
-  React.useEffect(() => {
-    if (!open) return
-    fetchData(offset !== 0)
-  }, [offset, debouncedSearch, open, fetchData])
+    getNextPageParam: (lastPage, pages) => {
+      const loaded = pages.flatMap((p) => p.data).length
+      const total = lastPage.meta?.totalItems
 
-  /*
-  infinite scroll
-  */
+      if (total === undefined) return loaded + limit
 
-  const hasNextPage =
-    totalItems === undefined || offset + options.length < totalItems
+      return loaded < total ? loaded : undefined
+    },
 
-  const loadMore = React.useCallback(() => {
-    if (!hasNextPage || loading) return
-    setOffset((prev) => prev + limit)
-  }, [hasNextPage, loading, limit])
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+  })
+
+  const options = React.useMemo(() => {
+    return query.data?.pages.flatMap((p) => p.data) ?? []
+  }, [query.data?.pages])
 
   /*
   virtualization
@@ -139,24 +128,45 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
   const rowVirtualizer = useVirtualizer({
     count: options.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 32,
-    overscan: 8,
+    estimateSize: () => 40,
+    overscan: 10,
   })
+
+  React.useLayoutEffect(() => {
+    if (!open) return
+
+    requestAnimationFrame(() => {
+      rowVirtualizer.measure()
+    })
+  }, [open, rowVirtualizer])
+
+  React.useEffect(() => {
+    if (!open) {
+      query.refetch()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
 
   const virtualItems = rowVirtualizer.getVirtualItems()
 
   React.useEffect(() => {
     if (!virtualItems.length) return
 
-    const lastItem = virtualItems[virtualItems.length - 1]
+    const last = virtualItems[virtualItems.length - 1]
 
-    if (lastItem.index >= options.length - 5) {
-      loadMore()
+    if (
+      last.index >= options.length - 5 &&
+      query.hasNextPage &&
+      !query.isFetchingNextPage &&
+      !query.isFetching
+    ) {
+      query.fetchNextPage()
     }
-  }, [virtualItems, options.length, loadMore])
+    // eslint-disable-next-line @tanstack/query/no-unstable-deps
+  }, [virtualItems, options.length, query])
 
   /*
-  select option
+  select
   */
 
   const onItemSelect = (option: Option, isSelected: boolean) => {
@@ -214,16 +224,17 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
       </PopoverTrigger>
 
       <PopoverContent className='w-64 p-0' align='start'>
-        <Command>
+        <Command shouldFilter={false}>
           <CommandInput
             placeholder={title}
             value={search}
             onValueChange={setSearch}
           />
 
-          <CommandList>
+          {/* SCROLL CONTAINER */}
+          <CommandList ref={parentRef} className='max-h-72 overflow-auto'>
             <CommandEmpty>
-              {loading && options.length === 0 ? (
+              {query.isLoading ? (
                 <div className='flex items-center gap-2 p-2 text-sm'>
                   <Loader2 className='h-4 w-4 animate-spin' />
                   Searching...
@@ -234,57 +245,55 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
             </CommandEmpty>
 
             <CommandGroup>
-              <div ref={parentRef} className='max-h-72 overflow-auto'>
-                <div
-                  style={{
-                    height: rowVirtualizer.getTotalSize(),
-                    position: 'relative',
-                  }}
-                >
-                  {virtualItems.map((virtualRow) => {
-                    const option = options[virtualRow.index]
+              <div
+                style={{
+                  height: rowVirtualizer.getTotalSize(),
+                  position: 'relative',
+                }}
+              >
+                {virtualItems.map((virtualRow) => {
+                  const option = options[virtualRow.index]
 
-                    if (!option) return null
+                  if (!option) return null
 
-                    const isSelected = selectedValues.has(option.value)
+                  const isSelected = selectedValues.has(option.value)
 
-                    return (
-                      <CommandItem
-                        key={option.value}
-                        onSelect={() => onItemSelect(option, isSelected)}
-                        style={{
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          width: '100%',
-                          transform: `translateY(${virtualRow.start}px)`,
-                        }}
+                  return (
+                    <CommandItem
+                      key={option.value}
+                      onSelect={() => onItemSelect(option, isSelected)}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        transform: `translateY(${virtualRow.start}px)`,
+                      }}
+                    >
+                      <div
+                        className={cn(
+                          'border-primary flex size-4 items-center justify-center rounded-sm border',
+                          isSelected
+                            ? 'bg-primary'
+                            : 'opacity-50 [&_svg]:invisible'
+                        )}
                       >
-                        <div
-                          className={cn(
-                            'border-primary flex size-4 items-center justify-center rounded-sm border',
-                            isSelected
-                              ? 'bg-primary'
-                              : 'opacity-50 [&_svg]:invisible'
-                          )}
-                        >
-                          <Check className='h-3 w-3 text-white' />
-                        </div>
+                        <Check className='h-3 w-3 text-white' />
+                      </div>
 
-                        {option.icon && <option.icon />}
+                      {option.icon && <option.icon />}
 
-                        <span className='truncate'>{option.label}</span>
-                      </CommandItem>
-                    )
-                  })}
-                </div>
-
-                {loading && options.length > 0 && (
-                  <div className='flex items-center justify-center p-2'>
-                    <Loader2 className='h-4 w-4 animate-spin' />
-                  </div>
-                )}
+                      <span className='truncate'>{option.label}</span>
+                    </CommandItem>
+                  )
+                })}
               </div>
+
+              {query.isFetchingNextPage && (
+                <div className='flex items-center justify-center p-2'>
+                  <Loader2 className='h-4 w-4 animate-spin' />
+                </div>
+              )}
             </CommandGroup>
 
             {selectedValues.size > 0 && (
