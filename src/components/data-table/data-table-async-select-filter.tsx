@@ -3,11 +3,12 @@
 import * as React from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import type { Column } from '@tanstack/react-table'
-import type { PaginateQueryParams } from '@/global'
-import type { Option } from '@/types/data-table'
+import { type PaginateQueryParams } from '@/global'
+import { type Option } from '@/types/data-table'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { Check, Loader2, PlusCircle, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import useDebounce from '@/hooks/use-debounce'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -44,39 +45,30 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
   column,
   title,
   multiple,
-  fetchOptions = async () => ({ data: [] }),
-  limit = 20,
+  fetchOptions,
+  limit = 10,
 }: DataTableAsyncSelectFilterProps<TData, TValue>) {
   const [open, setOpen] = React.useState(false)
-
   const [search, setSearch] = React.useState('')
-  const [debouncedSearch, setDebouncedSearch] = React.useState('')
 
   const parentRef = React.useRef<HTMLDivElement>(null)
 
+  const debouncedSearch = useDebounce(search, 400)
+
   const columnFilterValue = column?.getFilterValue()
 
-  const selectedValues = new Set(
-    Array.isArray(columnFilterValue) ? columnFilterValue : []
+  const selectedValues = React.useMemo(
+    () => new Set(Array.isArray(columnFilterValue) ? columnFilterValue : []),
+    [columnFilterValue]
   )
 
   const searchKey =
-    (column?.columnDef.meta as any)?.searchKey ?? column?.columnDef.id
+    column?.columnDef.meta?.searchKey ?? column?.columnDef.id ?? 'search'
 
   /*
-  debounce search
-  */
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search)
-    }, 500)
-
-    return () => clearTimeout(timer)
-  }, [search])
-
-  /*
-  query
+  =========================
+  QUERY
+  =========================
   */
 
   const query = useInfiniteQuery({
@@ -85,19 +77,22 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
       column?.id,
       debouncedSearch,
       limit,
+      fetchOptions,
       searchKey,
     ],
 
     enabled: open,
 
-    refetchOnMount: 'always',
-
-    initialPageParam: 0,
+    initialPageParam: 1,
 
     queryFn: async ({ pageParam }) => {
+      if (!fetchOptions) {
+        return { data: [], meta: { totalItems: 0 } }
+      }
+
       const params: PaginateQueryParams = {
-        limit,
-        offset: pageParam,
+        per_page: limit,
+        page: pageParam,
         [searchKey]: debouncedSearch,
       }
 
@@ -105,68 +100,63 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
     },
 
     getNextPageParam: (lastPage, pages) => {
-      const loaded = pages.flatMap((p) => p.data).length
-      const total = lastPage.meta?.totalItems
+      const total = lastPage.meta?.totalItems ?? 0
+      const loaded = pages.length * limit
 
-      if (total === undefined) return loaded + limit
+      if (loaded >= total) return undefined
 
-      return loaded < total ? loaded : undefined
+      return pages.length + 1
     },
 
-    staleTime: 60_000,
     refetchOnWindowFocus: false,
   })
 
-  const options = React.useMemo(() => {
-    return query.data?.pages.flatMap((p) => p.data) ?? []
-  }, [query.data?.pages])
+  const options = React.useMemo(
+    () => query.data?.pages.flatMap((p) => p.data) ?? [],
+    [query.data]
+  )
 
   /*
-  virtualization
+  =========================
+  VIRTUALIZATION
+  =========================
   */
 
   const rowVirtualizer = useVirtualizer({
     count: options.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 40,
-    overscan: 10,
+    overscan: 8,
   })
 
-  React.useLayoutEffect(() => {
-    if (!open) return
-
-    requestAnimationFrame(() => {
-      rowVirtualizer.measure()
-    })
-  }, [open, rowVirtualizer])
-
-  React.useEffect(() => {
-    if (!open) {
-      query.refetch()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
-
   const virtualItems = rowVirtualizer.getVirtualItems()
+
+  /*
+  =========================
+  INFINITE SCROLL
+  =========================
+  */
 
   React.useEffect(() => {
     if (!virtualItems.length) return
 
-    const last = virtualItems[virtualItems.length - 1]
+    const lastItem = virtualItems[virtualItems.length - 1]
 
     if (
-      last.index >= options.length - 5 &&
+      options.length > 0 &&
+      lastItem.index >= options.length - 3 &&
       query.hasNextPage &&
-      !query.isFetchingNextPage &&
-      !query.isFetching
+      !query.isFetchingNextPage
     ) {
-      query.fetchNextPage()
+      void query.fetchNextPage()
     }
-    // eslint-disable-next-line @tanstack/query/no-unstable-deps
-  }, [virtualItems, options.length, query])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [virtualItems, options.length])
 
   /*
-  select
+  =========================
+  SELECT
+  =========================
   */
 
   const onItemSelect = (option: Option, isSelected: boolean) => {
@@ -189,7 +179,14 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
 
   const onReset = () => {
     column?.setFilterValue(undefined)
+    setSearch('')
   }
+
+  /*
+  =========================
+  RENDER
+  =========================
+  */
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -199,7 +196,6 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
             <div
               role='button'
               tabIndex={0}
-              className='flex items-center'
               onPointerDown={(e) => {
                 e.preventDefault()
                 e.stopPropagation()
@@ -231,11 +227,14 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
             onValueChange={setSearch}
           />
 
-          {/* SCROLL CONTAINER */}
-          <CommandList ref={parentRef} className='max-h-72 overflow-auto'>
+          <CommandList
+            ref={parentRef}
+            key={String(open)}
+            className='max-h-72 overflow-auto'
+          >
             <CommandEmpty>
-              {query.isLoading ? (
-                <div className='flex items-center gap-2 p-2 text-sm'>
+              {query.isLoading || query.isFetching ? (
+                <div className='flex flex-col items-center gap-2 p-2 text-sm'>
                   <Loader2 className='h-4 w-4 animate-spin' />
                   Searching...
                 </div>
@@ -260,8 +259,10 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
 
                   return (
                     <CommandItem
-                      key={option.value}
-                      onSelect={() => onItemSelect(option, isSelected)}
+                      key={option.value + Math.random().toString(36).slice(2)}
+                      onSelect={() => {
+                        onItemSelect(option, isSelected)
+                      }}
                       style={{
                         position: 'absolute',
                         top: 0,
@@ -290,7 +291,7 @@ export function DataTableAsyncSelectFilter<TData, TValue>({
               </div>
 
               {query.isFetchingNextPage && (
-                <div className='flex items-center justify-center p-2'>
+                <div className='flex justify-center p-2'>
                   <Loader2 className='h-4 w-4 animate-spin' />
                 </div>
               )}

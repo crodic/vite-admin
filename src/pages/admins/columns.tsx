@@ -103,30 +103,6 @@ export function getAdminsTableColumns({
       enableHiding: false,
       enableSorting: false,
       enableColumnFilter: true,
-      meta: {
-        label: 'Extra Email',
-        variant: 'asyncSelect',
-
-        fetchOptions: async (params) => {
-          const query = new URLSearchParams(params as any)
-
-          const res = await fetch(
-            `https://api.slingacademy.com/v1/sample-data/users?${query.toString()}`
-          )
-          const data = await res.json()
-
-          return {
-            data: data.users.map((u: any) => ({
-              label: u.email,
-              value: u.id,
-            })),
-            meta: {
-              totalItems: data.total_users,
-            },
-          }
-        },
-        searchKey: 'search',
-      },
     },
     {
       id: 'actions',
