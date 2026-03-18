@@ -162,11 +162,12 @@ function DataTableToolbarFilter<TData>({
           )
 
         case 'asyncSelect':
+        case 'multiAsyncSelect':
           return (
             <DataTableAsyncSelectFilter
               column={column}
               title={columnMeta.label ?? column.id}
-              multiple={true}
+              multiple={columnMeta.variant === 'multiAsyncSelect'}
               fetchOptions={columnMeta.fetchOptions}
             />
           )
