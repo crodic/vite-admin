@@ -14,6 +14,7 @@ import {
   stylesSelect,
   themeSelect,
 } from '@/styles/styles-config'
+import Fuse from 'fuse.js'
 import Select, {
   type MultiValue,
   type OnChangeValue,
@@ -52,6 +53,7 @@ type Props = Omit<SelectProps, 'options' | 'value' | 'onChange'> & {
   onCreateOption?: (
     inputValue: string
   ) => Promise<Option[] | Option> | Option[] | Option
+  defaultOptions?: Option[]
 }
 
 const AutoCompleteTagControl = ({
@@ -64,6 +66,7 @@ const AutoCompleteTagControl = ({
   isMulti = false,
   isLoading = false,
   ref,
+  defaultOptions = [],
   ...props
 }: Props) => {
   const form = useFormContext()
@@ -73,15 +76,11 @@ const AutoCompleteTagControl = ({
 
   const [remoteOptions, setRemoteOptions] = useState<SelectOption[]>([])
   const [searchLoading, setSearchLoading] = useState(false)
+  const [createdOptions, setCreatedOptions] = useState<Option[]>([])
 
-  const debounceRef = useRef<NodeJS.Timeout | null>(null)
+  const debounceRef = useRef<number | null>(null)
 
-  /*
-     --------------------------------
-     Backend search
-     --------------------------------
-    */
-
+  // ================= SEARCH =================
   const handleSearch = useCallback(
     (keyword: string) => {
       if (!onSearch) return
@@ -90,12 +89,15 @@ const AutoCompleteTagControl = ({
         clearTimeout(debounceRef.current)
       }
 
-      debounceRef.current = setTimeout(async () => {
+      if (!keyword.trim()) {
+        setRemoteOptions([])
+        return
+      }
+
+      debounceRef.current = window.setTimeout(async () => {
         try {
           setSearchLoading(true)
-
           const data = await onSearch(keyword)
-
           setRemoteOptions(data.map(convertToSelectOption))
         } finally {
           setSearchLoading(false)
@@ -105,56 +107,57 @@ const AutoCompleteTagControl = ({
     [onSearch]
   )
 
-  /*
-     --------------------------------
-     Static filter (fallback mode)
-     --------------------------------
-    */
+  // ================= LOCAL SEARCH =================
+  const fuse = useMemo(() => {
+    return new Fuse(options, {
+      keys: ['name'],
+      threshold: 0.6,
+    })
+  }, [options])
 
   const filteredOptions = useMemo(() => {
+    if (onSearch) return []
+
     if (!inputValue) {
       return options.slice(0, 20).map(convertToSelectOption)
     }
 
-    const lowerInput = inputValue.toLowerCase()
-
-    return options
-      .filter((option) => option.name.toLowerCase().includes(lowerInput))
+    return fuse
+      .search(inputValue)
       .slice(0, 20)
-      .map(convertToSelectOption)
-  }, [options, inputValue])
-
-  /*
-     --------------------------------
-     Selected value mapping
-     --------------------------------
-    */
+      .map((r) => convertToSelectOption(r.item))
+  }, [options, inputValue, fuse, onSearch])
 
   const selectedValue = useMemo(() => {
-    if (value == null) {
-      return isMulti ? [] : null
-    }
+    if (value == null) return isMulti ? [] : null
 
-    const source = onSearch ? remoteOptions : options.map(convertToSelectOption)
+    const values = Array.isArray(value) ? value : [value]
 
-    if (isMulti) {
-      const values = Array.isArray(value) ? value : [value]
+    const mergedOptions: Option[] = [
+      ...defaultOptions,
+      ...options,
+      ...createdOptions,
+      ...remoteOptions.map((o) => ({
+        id: o.value,
+        name: o.label,
+      })),
+    ]
 
-      return source.filter((option) => values.includes(option.value))
-    }
+    const mapped = values.map((v) => {
+      const found = mergedOptions.find((o) => o.id === v)
 
-    return source.find((option) => option.value === value) ?? null
-  }, [value, isMulti, options, remoteOptions, onSearch])
+      return found
+        ? convertToSelectOption(found)
+        : { value: v, label: String(v) }
+    })
 
-  /*
-     --------------------------------
-     Change handler
-     --------------------------------
-    */
+    return isMulti ? mapped : mapped[0]
+  }, [value, isMulti, defaultOptions, options, createdOptions, remoteOptions])
 
+  // ================= CHANGE =================
   const handleOnChange = useCallback(
     (v: OnChangeValue<SelectOption, boolean>) => {
-      if (v == null) {
+      if (!v) {
         if (name) {
           form.resetField(name, {
             defaultValue: isMulti ? [] : null,
@@ -174,28 +177,23 @@ const AutoCompleteTagControl = ({
     [form, name, onChange, isMulti]
   )
 
-  /*
-     --------------------------------
-     Create option
-     --------------------------------
-    */
-
+  // ================= CREATE =================
   const handleCreateOption = useCallback(
     async (input: string) => {
+      const value = [...new Set(input.split(';').map((i) => i.trim()))]
       if (!onCreateOption) return
 
       try {
         setIsCreating(true)
 
-        const result = await onCreateOption(input)
-
+        const result = await onCreateOption(value.join(';'))
         const newOptions = Array.isArray(result) ? result : [result]
+        setCreatedOptions((prev) => [...prev, ...newOptions])
 
         const mapped = newOptions.map(convertToSelectOption)
 
         if (isMulti) {
           const current = Array.isArray(selectedValue) ? selectedValue : []
-
           handleOnChange([...current, ...mapped])
         } else {
           handleOnChange(mapped[0] ?? null)
@@ -207,19 +205,7 @@ const AutoCompleteTagControl = ({
     [onCreateOption, selectedValue, isMulti, handleOnChange]
   )
 
-  /*
-     --------------------------------
-     Options source
-     --------------------------------
-    */
-
   const selectOptions = onSearch ? remoteOptions : filteredOptions
-
-  /*
-     --------------------------------
-     Common props
-     --------------------------------
-    */
 
   const commonProps = {
     ref,
@@ -232,11 +218,15 @@ const AutoCompleteTagControl = ({
     isClearable: true,
 
     isLoading: isLoading || isCreating || searchLoading,
+    isDisabled: isLoading || isCreating,
 
     styles: stylesSelect as object,
     theme: themeSelect,
     classNames: classNamesSelect,
     components: componentsSelect,
+
+    blurInputOnSelect: false,
+    autoFocus: false,
 
     filterOption: onSearch ? () => true : undefined,
 
@@ -248,49 +238,40 @@ const AutoCompleteTagControl = ({
       }
     },
 
-    noOptionsMessage: ({ inputValue }: { inputValue: string }) =>
-      inputValue.trim() === '' ? 'Type to search' : 'No results found',
+    noOptionsMessage: ({ inputValue }: { inputValue: string }) => {
+      if (searchLoading) return 'Zoeken...'
+      return inputValue.trim() === ''
+        ? 'Typ om te zoeken'
+        : 'Geen resultaten gevonden'
+    },
 
     ...props,
   }
 
-  /*
-     --------------------------------
-     Loading fallback
-     --------------------------------
-    */
-
   if (isLoading) {
     return (
-      <Input disabled placeholder='Loading data, please wait a moment...' />
+      <Input
+        disabled
+        placeholder='Gegevens worden geladen, even geduld alstublieft...'
+      />
     )
   }
-
-  /*
-     --------------------------------
-     Creatable mode
-     --------------------------------
-    */
 
   if (onCreateOption) {
     return (
       <CreatableSelect<SelectOption, boolean>
         {...commonProps}
         onCreateOption={(val) => void handleCreateOption(val)}
-        formatCreateLabel={(val) => `Add "${val}"`}
+        formatCreateLabel={(val) => `Toevoegen "${val}"`}
         isValidNewOption={(input) =>
+          !searchLoading &&
           input.trim().length > 0 &&
+          selectOptions.length === 0 &&
           !options.some((o) => o.name.toLowerCase() === input.toLowerCase())
         }
       />
     )
   }
-
-  /*
-     --------------------------------
-     Normal select
-     --------------------------------
-    */
 
   return <Select<SelectOption, boolean> {...commonProps} />
 }
