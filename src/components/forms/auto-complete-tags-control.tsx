@@ -53,7 +53,6 @@ type Props = Omit<SelectProps, 'options' | 'value' | 'onChange'> & {
   onCreateOption?: (
     inputValue: string
   ) => Promise<Option[] | Option> | Option[] | Option
-  defaultOptions?: Option[]
 }
 
 const AutoCompleteTagControl = ({
@@ -66,7 +65,6 @@ const AutoCompleteTagControl = ({
   isMulti = false,
   isLoading = false,
   ref,
-  defaultOptions = [],
   ...props
 }: Props) => {
   const form = useFormContext()
@@ -76,7 +74,6 @@ const AutoCompleteTagControl = ({
 
   const [remoteOptions, setRemoteOptions] = useState<SelectOption[]>([])
   const [searchLoading, setSearchLoading] = useState(false)
-  const [createdOptions, setCreatedOptions] = useState<Option[]>([])
 
   const debounceRef = useRef<number | null>(null)
 
@@ -94,9 +91,10 @@ const AutoCompleteTagControl = ({
         return
       }
 
+      setSearchLoading(true)
+
       debounceRef.current = window.setTimeout(async () => {
         try {
-          setSearchLoading(true)
           const data = await onSearch(keyword)
           setRemoteOptions(data.map(convertToSelectOption))
         } finally {
@@ -111,7 +109,8 @@ const AutoCompleteTagControl = ({
   const fuse = useMemo(() => {
     return new Fuse(options, {
       keys: ['name'],
-      threshold: 0.6,
+      threshold: 0.4,
+      ignoreLocation: true,
     })
   }, [options])
 
@@ -134,9 +133,7 @@ const AutoCompleteTagControl = ({
     const values = Array.isArray(value) ? value : [value]
 
     const mergedOptions: Option[] = [
-      ...defaultOptions,
       ...options,
-      ...createdOptions,
       ...remoteOptions.map((o) => ({
         id: o.value,
         name: o.label,
@@ -152,7 +149,7 @@ const AutoCompleteTagControl = ({
     })
 
     return isMulti ? mapped : mapped[0]
-  }, [value, isMulti, defaultOptions, options, createdOptions, remoteOptions])
+  }, [value, isMulti, options, remoteOptions])
 
   // ================= CHANGE =================
   const handleOnChange = useCallback(
@@ -180,15 +177,13 @@ const AutoCompleteTagControl = ({
   // ================= CREATE =================
   const handleCreateOption = useCallback(
     async (input: string) => {
-      const value = [...new Set(input.split(';').map((i) => i.trim()))]
       if (!onCreateOption) return
 
       try {
         setIsCreating(true)
 
-        const result = await onCreateOption(value.join(';'))
+        const result = await onCreateOption(input)
         const newOptions = Array.isArray(result) ? result : [result]
-        setCreatedOptions((prev) => [...prev, ...newOptions])
 
         const mapped = newOptions.map(convertToSelectOption)
 
@@ -218,7 +213,6 @@ const AutoCompleteTagControl = ({
     isClearable: true,
 
     isLoading: isLoading || isCreating || searchLoading,
-    isDisabled: isLoading || isCreating,
 
     styles: stylesSelect as object,
     theme: themeSelect,
@@ -239,10 +233,8 @@ const AutoCompleteTagControl = ({
     },
 
     noOptionsMessage: ({ inputValue }: { inputValue: string }) => {
-      if (searchLoading) return 'Zoeken...'
-      return inputValue.trim() === ''
-        ? 'Typ om te zoeken'
-        : 'Geen resultaten gevonden'
+      if (searchLoading) return 'Searching...'
+      return inputValue.trim() === '' ? 'Type to search' : 'No results found'
     },
 
     ...props,
@@ -250,10 +242,7 @@ const AutoCompleteTagControl = ({
 
   if (isLoading) {
     return (
-      <Input
-        disabled
-        placeholder='Gegevens worden geladen, even geduld alstublieft...'
-      />
+      <Input disabled placeholder='Loading data, please wait a moment...' />
     )
   }
 
@@ -262,11 +251,9 @@ const AutoCompleteTagControl = ({
       <CreatableSelect<SelectOption, boolean>
         {...commonProps}
         onCreateOption={(val) => void handleCreateOption(val)}
-        formatCreateLabel={(val) => `Toevoegen "${val}"`}
+        formatCreateLabel={(val) => `Add "${val}"`}
         isValidNewOption={(input) =>
-          !searchLoading &&
           input.trim().length > 0 &&
-          selectOptions.length === 0 &&
           !options.some((o) => o.name.toLowerCase() === input.toLowerCase())
         }
       />

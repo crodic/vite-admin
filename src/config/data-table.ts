@@ -62,6 +62,7 @@ export const dataTableConfig = {
     'select',
     'multiSelect',
     'asyncSelect',
+    'multiAsyncSelect',
   ] as const,
   operators: [
     'iLike',
