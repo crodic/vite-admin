@@ -1,4 +1,10 @@
-import { useState, type ReactElement } from 'react'
+import { type ReactElement } from 'react'
+import {
+  classNamesSelect,
+  componentsSelect,
+  stylesSelect,
+  themeSelect,
+} from '@/styles/styles-config'
 import type { GroupBase } from 'react-select'
 import { withAsyncPaginate } from 'react-select-async-paginate'
 import type {
@@ -7,6 +13,7 @@ import type {
 } from 'react-select-async-paginate'
 import Creatable from 'react-select/creatable'
 import type { CreatableProps } from 'react-select/creatable'
+import { cn } from '@/lib/utils'
 
 type AsyncPaginateCreatableProps<
   OptionType,
@@ -30,61 +37,37 @@ const AsyncPaginateCreatable = withAsyncPaginate(
   Creatable
 ) as AsyncPaginateCreatableType
 
-export default AsyncPaginateCreatable
+export type OptionValue = string | number | boolean
 
-type Option = {
-  value: string
-  label: string
+export interface Option {
+  id: OptionValue
+  name: string
+  data?: Record<string, unknown>
 }
 
-export const TestComponent = () => {
-  const [value, setValue] = useState<Option[]>([])
+// ===== TYPES =====
+type IsMulti = boolean
+
+type AsyncCreatableSelectProps<Additional = unknown> = React.ComponentProps<
+  typeof AsyncPaginateCreatable<Option, GroupBase<Option>, Additional, IsMulti>
+>
+
+function AsyncCreatableSelect<Additional = unknown>({
+  className,
+  ...props
+}: AsyncCreatableSelectProps<Additional>): ReactElement {
   return (
-    <AsyncPaginateCreatable<Option, any, { page: number }, true>
-      isMulti
-      value={value}
-      onChange={(val) => {
-        setValue(val as Option[])
-      }}
-      loadOptions={async (search, _loadedOptions, { page }) => {
-        if (!search) {
-          return {
-            options: [],
-            hasMore: false,
-            additional: { page: 1 },
-          }
-        }
-
-        const res = await fetch(
-          `https://api.github.com/search/users?q=${search}&page=${page}&per_page=10`
-        ).then((r) => r.json())
-
-        const options = res.items.map((user: any) => ({
-          value: user.login,
-          label: user.login,
-        }))
-
-        return {
-          options,
-          hasMore: res.items.length === 10,
-          additional: {
-            page: page + 1,
-          },
-        }
-      }}
-      // ================= CREATE =================
-      onCreateOption={(inputValue) => {
-        const newOption = {
-          value: inputValue,
-          label: inputValue,
-        }
-
-        setValue((prev) => [...prev, newOption])
-      }}
-      additional={{ page: 1 }}
-      debounceTimeout={300}
-      isClearable
-      placeholder='Search GitHub users...'
+    <AsyncPaginateCreatable
+      className={cn('w-full', className)}
+      styles={stylesSelect}
+      classNames={classNamesSelect}
+      theme={themeSelect}
+      components={componentsSelect}
+      getOptionLabel={(option) => option.name}
+      getOptionValue={(option) => String(option.id)}
+      {...props}
     />
   )
 }
+
+export default AsyncCreatableSelect

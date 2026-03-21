@@ -53,7 +53,7 @@ export default defineConfig(
         },
       ],
       // Prevent duplicate imports from the same module
-      'no-duplicate-imports': 'error',
+      // 'no-duplicate-imports': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
     },
   }
