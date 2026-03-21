@@ -1,3 +1,5 @@
+import { ComingSoon } from '@/components/coming-soon'
+
 export default function WebsiteForm() {
-  return <div>WebsiteForm</div>
+  return <ComingSoon />
 }
