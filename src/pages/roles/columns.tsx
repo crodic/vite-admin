@@ -50,19 +50,6 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       enableColumnFilter: true,
     },
     {
-      id: ColumnKey.description,
-      accessorFn: (row) => row.description,
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Description' />
-      ),
-      cell: ({ row }) => (
-        <p className='truncate overflow-hidden'>{row.original.description}</p>
-      ),
-      enableHiding: false,
-      enableSorting: false,
-      enableColumnFilter: false,
-    },
-    {
       id: ColumnKey.permissions,
       accessorFn: (row) => row.permissions,
       header: ({ column }) => (

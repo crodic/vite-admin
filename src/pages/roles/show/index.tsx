@@ -139,12 +139,6 @@ export default function PageRoleShow() {
                     }
                   />
                 </div>
-                <div className='col-span-3'>
-                  <DescriptionItem
-                    label={t('page_role_detail.description')}
-                    value={data.description}
-                  />
-                </div>
                 <DescriptionItem
                   label={t('page_role_detail.created_at')}
                   value={format(data.createdAt, 'yyyy-MM-dd HH:mm aa')}

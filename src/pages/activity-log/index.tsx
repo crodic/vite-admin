@@ -1,12 +1,10 @@
 import { useMemo } from 'react'
-import { PlusIcon } from 'lucide-react'
 import { parseAsArrayOf, parseAsString } from 'nuqs'
 import { useNavigate } from 'react-router'
 import { PaginateQueryBuilder } from '@/lib/query-builder'
 import { sortParser } from '@/lib/utils'
 import { useDataTable } from '@/hooks/use-data-table'
 import useGetFilterParams from '@/hooks/use-get-filter-params'
-import { Button } from '@/components/ui/button'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { DataTable } from '@/components/data-table/data-table'
 import { DataTableSortList } from '@/components/data-table/data-table-sort-list'
@@ -93,12 +91,6 @@ export function PageActivityLogOverview() {
             <p className='text-muted-foreground'>
               Manage your activity log here.
             </p>
-          </div>
-          <div>
-            <Button onClick={() => navigate('create')}>
-              <PlusIcon />
-              Create
-            </Button>
           </div>
         </div>
         <DataTable
