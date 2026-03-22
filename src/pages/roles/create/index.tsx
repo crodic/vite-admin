@@ -45,7 +45,7 @@ export default function PageRoleCreate() {
   const createRoleMutate = useMutation({
     mutationFn: apiCreateRole,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['role_overview_key'] })
+      queryClient.invalidateQueries({ queryKey: ['roles'] })
       toast.success('Role created successfully')
       navigate('/roles')
     },

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from 'zod'
 
 export const CURRENT_PAGE = 1
@@ -65,7 +64,7 @@ export const apiMetaSchema = z.object({
   totalItems: z.number(),
   currentPage: z.number(),
   totalPages: z.number(),
-  sortBy: z.array(z.tuple([z.string(), z.string()])), // ví dụ [["color", "DESC"]]
+  sortBy: z.array(z.tuple([z.string(), z.string()])),
   search: z.string().nullable().optional(),
   filter: z.record(z.string(), z.any()).optional(),
 })

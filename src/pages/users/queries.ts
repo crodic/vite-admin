@@ -1,8 +1,11 @@
 import z from 'zod'
 import { useQuery } from '@tanstack/react-query'
-import { type ApiMetadata, apiMetadataSchema } from '@/global'
+import {
+  type ApiMetadata,
+  apiMetadataSchema,
+  type PaginateQueryParams,
+} from '@/global'
 import http from '@/lib/http'
-import { type PaginateQueryParams } from '@/lib/query-builder'
 import {
   type UserCreateSchema,
   type UserEditSchema,
@@ -46,18 +49,18 @@ export async function apiEditUser({
 
 export const useDataUserOverview = (params: PaginateQueryParams) =>
   useQuery({
-    queryKey: ['user_overview_key', params],
+    queryKey: ['users', params],
     queryFn: () => getUserListing(params),
   })
 
 export const useDataGetUserEdit = (id: string) =>
   useQuery<UserSchema>({
-    queryKey: ['user_edit_key', id],
+    queryKey: ['user', id],
     queryFn: () => apiGetUserById(id),
   })
 
 export const useDataGetUserDetail = (id: string) =>
   useQuery<UserSchema>({
-    queryKey: ['user_detail_key', id],
+    queryKey: ['user', id],
     queryFn: () => apiGetUserById(id),
   })

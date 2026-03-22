@@ -55,24 +55,24 @@ export async function apiEditRole({
 
 export const useDataRoleOverview = (params: PaginateQueryParams) =>
   useQuery({
-    queryKey: ['role_overview_key', params],
+    queryKey: ['roles', params],
     queryFn: () => apiGetRoleListing(params),
   })
 
 export const useDataRoleById = (id: string) =>
   useQuery({
-    queryKey: ['role_detail_key', id],
+    queryKey: ['role', id],
     queryFn: () => apiGetRoleById(id),
   })
 
 export const useDataRoleEdit = (id: string) =>
   useQuery({
-    queryKey: ['role_edit_key', id],
+    queryKey: ['role', id],
     queryFn: () => apiGetRoleById(id),
   })
 
 export const useDataRoleFormOptions = () =>
   useQuery({
-    queryKey: ['role_form_options_key'],
+    queryKey: ['role_form_options'],
     queryFn: () => apiRoleFormOptions(),
   })

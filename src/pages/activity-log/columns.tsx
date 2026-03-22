@@ -83,7 +83,7 @@ export function getActivitiesTableColumns({
         <p className='truncate overflow-hidden'>
           {row.original.user ? (
             <span>
-              [{row.original.user?.id}] {row.original.user?.fullName} (
+              [ID: {row.original.user?.id}] {row.original.user?.fullName} (
               {row.original.user?.email})
             </span>
           ) : (

@@ -48,8 +48,8 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
   const editRoleMutation = useMutation({
     mutationFn: apiEditRole,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['role_detail_key'] })
-      queryClient.invalidateQueries({ queryKey: ['role_edit_key'] })
+      queryClient.invalidateQueries({ queryKey: ['role'] })
+      queryClient.invalidateQueries({ queryKey: ['role'] })
       toast.success('Role updated successfully')
       navigate(-1)
     },

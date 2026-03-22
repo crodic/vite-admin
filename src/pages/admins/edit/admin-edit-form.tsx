@@ -59,9 +59,9 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
   const editAdminMutation = useMutation({
     mutationFn: apiEditAdmin,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['admin_detail_key'] })
-      queryClient.invalidateQueries({ queryKey: ['admin_overview_key'] })
-      queryClient.invalidateQueries({ queryKey: ['admin_edit_key'] })
+      queryClient.invalidateQueries({ queryKey: ['admin'] })
+      queryClient.invalidateQueries({ queryKey: ['admins'] })
+      queryClient.invalidateQueries({ queryKey: ['admin'] })
       toast.success('Admin updated successfully')
       navigate(-1)
     },

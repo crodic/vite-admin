@@ -239,10 +239,8 @@ const AutoCompleteTagControl = ({
     },
 
     noOptionsMessage: ({ inputValue }: { inputValue: string }) => {
-      if (searchLoading) return 'Zoeken...'
-      return inputValue.trim() === ''
-        ? 'Typ om te zoeken'
-        : 'Geen resultaten gevonden'
+      if (searchLoading) return 'Loading...'
+      return inputValue.trim() === '' ? 'Type to search' : 'No results found'
     },
 
     ...props,
@@ -250,10 +248,7 @@ const AutoCompleteTagControl = ({
 
   if (isLoading) {
     return (
-      <Input
-        disabled
-        placeholder='Gegevens worden geladen, even geduld alstublieft...'
-      />
+      <Input disabled placeholder='Loading...' className='cursor-not-allowed' />
     )
   }
 
@@ -262,7 +257,7 @@ const AutoCompleteTagControl = ({
       <CreatableSelect<SelectOption, boolean>
         {...commonProps}
         onCreateOption={(val) => void handleCreateOption(val)}
-        formatCreateLabel={(val) => `Toevoegen "${val}"`}
+        formatCreateLabel={(val) => `Add "${val}"`}
         isValidNewOption={(input) =>
           !searchLoading &&
           input.trim().length > 0 &&

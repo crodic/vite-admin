@@ -49,18 +49,18 @@ export async function deleteAdmin(id: string) {
 
 export const useDataAdminOverview = (params: PaginateQueryParams) =>
   useQuery({
-    queryKey: ['admin_overview_key', params],
+    queryKey: ['admins', params],
     queryFn: () => getAdminListing(params),
   })
 
 export const useDataGetAdminEdit = (id: string) =>
   useQuery<AdminSchema>({
-    queryKey: ['admin_edit_key', id],
+    queryKey: ['admin', id],
     queryFn: () => apiGetAdminById(id),
   })
 
 export const useDataGetAdminDetail = (id: string) =>
   useQuery<AdminSchema>({
-    queryKey: ['admin_detail_key', id],
+    queryKey: ['admin', id],
     queryFn: () => apiGetAdminById(id),
   })

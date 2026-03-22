@@ -26,12 +26,12 @@ export async function apiGetLogById(id: string): Promise<ActivityLogSchema> {
 
 export const useDataLogOverview = (params: PaginateQueryParams) =>
   useQuery({
-    queryKey: ['log_overview_key', params],
+    queryKey: ['activity_logs', params],
     queryFn: () => getLogListing(params),
   })
 
 export const useDataGetLogDetail = (id: string) =>
   useQuery<ActivityLogSchema>({
-    queryKey: ['log_detail_key', id],
+    queryKey: ['activity_log', id],
     queryFn: () => apiGetLogById(id),
   })

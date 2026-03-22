@@ -32,7 +32,7 @@ export default function PageRoleShow() {
     mutationFn: apiDeleteRole,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['role_overview_key'],
+        queryKey: ['roles'],
       })
       toast.success('Role deleted successfully.')
       setIsShowDeleteDialog(false)

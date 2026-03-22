@@ -11,17 +11,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  server: {
-    proxy: {
-      '/nestlens': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-      },
-    },
-  },
-  // server: {
-  //   proxy: {
-  //     '/uploads': 'http://localhost:3000',
-  //   },
-  // },
 })

@@ -25,7 +25,7 @@ export default function ComponentTableRowActions({
     mutationFn: deleteAdmin,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['admin_overview_key'],
+        queryKey: ['admins'],
       })
       toast.success('Admin deleted successfully')
       setIsShowDeleteDialog(false)

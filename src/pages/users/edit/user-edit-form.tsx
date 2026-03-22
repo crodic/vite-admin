@@ -47,8 +47,8 @@ export function UserEditForm({ data }: { data: UserSchema }) {
   const editUserMutation = useMutation({
     mutationFn: apiEditUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user_detail_key'] })
-      queryClient.invalidateQueries({ queryKey: ['user_edit_key'] })
+      queryClient.invalidateQueries({ queryKey: ['user'] })
+      queryClient.invalidateQueries({ queryKey: ['user'] })
       toast.success('User updated successfully')
       navigate(-1)
     },

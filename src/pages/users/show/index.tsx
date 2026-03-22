@@ -35,7 +35,7 @@ export function PageUserShow() {
     mutationFn: apiDeleteUser,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['user_overview_key'],
+        queryKey: ['users'],
       })
       toast.success('User deleted successfully')
       setIsShowDeleteDialog(false)

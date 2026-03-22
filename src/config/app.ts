@@ -1,6 +1,6 @@
 export default {
-  name: 'shadcn-admin',
-  description: 'Shadcn Admin Template',
+  name: 'vite-admin',
+  description: 'Vite Admin',
   isSupperAdmin: (permissions: string[]) =>
     permissions
       .map((perm) => ({
