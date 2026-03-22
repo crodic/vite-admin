@@ -24,13 +24,13 @@ const LanguageSelect = () => {
         <SelectItem value='en'>
           <div className='flex items-center gap-2'>
             <US title='United States' className='size-4' />
-            <p>{t('config.language_english')}</p>
+            <p>{t('config.language.english')}</p>
           </div>
         </SelectItem>
         <SelectItem value='vi'>
           <div className='flex items-center gap-2'>
             <VN title='Vietnamese' className='size-4' />
-            <p>{t('config.language_vietnamese')}</p>
+            <p>{t('config.language.vietnamese')}</p>
           </div>
         </SelectItem>
       </SelectContent>

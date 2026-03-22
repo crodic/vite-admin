@@ -103,14 +103,14 @@ export function PageAdminShow() {
               }}
             >
               <ArrowLeftIcon className='h-4 w-4' />
-              {t('button.cancel')}
+              {t('buttons.cancel')}
             </Button>
             <Button
               onClick={() => navigate(`/admins/${data?.id}/edit`)}
               disabled={id === userId}
             >
               <EditIcon className='h-4 w-4' />
-              {t('button.edit')}
+              {t('buttons.edit')}
             </Button>
             <Button
               variant='destructive'
@@ -118,7 +118,7 @@ export function PageAdminShow() {
               disabled={id === userId}
             >
               <TrashIcon className='h-4 w-4' />
-              {t('button.delete')}
+              {t('buttons.delete')}
             </Button>
           </div>
         </div>

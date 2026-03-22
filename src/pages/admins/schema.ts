@@ -1,5 +1,6 @@
 import z from 'zod'
 import { IMAGE_ACCEPTED_FORMATS, MAX_IMAGE_SIZE_MB } from '@/global'
+import i18n from '@/i18n'
 import { roleSchema } from '../roles/schema'
 
 export const ColumnKeys = {
@@ -53,18 +54,22 @@ const passwordSchema = z
 
 export const adminCreateSchema = z
   .object({
-    username: z.string().nullish(),
-    firstName: z.string().min(1, 'First name is required'),
-    lastName: z.string().min(1, 'Last name is required'),
+    username: z.string().optional(),
+    firstName: z
+      .string({ error: i18n.t('validation.required') })
+      .min(1, 'First name is required'),
+    lastName: z
+      .string({ error: i18n.t('validation.required') })
+      .min(1, 'Last name is required'),
     phone: z.string().optional(),
     birthday: z.string().nullish(),
     email: z.email('Invalid email address'),
     password: passwordSchema,
     confirmPassword: z
-      .string()
+      .string({ error: i18n.t('validation.required') })
       .min(8, 'Confirm Password must be at least 8 characters'),
-    roleId: z.string(),
-    bio: z.string().nullish(),
+    roleId: z.string({ error: i18n.t('validation.required') }),
+    bio: z.string().optional(),
     image: z
       .instanceof(File)
       .optional()
@@ -86,13 +91,17 @@ export type AdminCreateSchema = z.infer<typeof adminCreateSchema>
 
 export const adminEditSchema = z.object({
   username: z.string().nullish(),
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
+  firstName: z
+    .string({ error: i18n.t('validation.required') })
+    .min(1, 'First name is required'),
+  lastName: z
+    .string({ error: i18n.t('validation.required') })
+    .min(1, 'Last name is required'),
   phone: z.string().optional(),
   birthday: z.string().nullish(),
   email: z.email('Invalid email address'),
-  roleId: z.string(),
-  bio: z.string().nullish(),
+  roleId: z.string({ error: i18n.t('validation.required') }),
+  bio: z.string({ error: i18n.t('validation.required') }).nullish(),
   image: z
     .instanceof(File)
     .optional()

@@ -108,7 +108,7 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('page_role_edit.title')}
+              {t('pages.roleEdit.title')}
             </h2>
             <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
               <Button
@@ -117,20 +117,20 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
                 onClick={() => navigate(-1)}
               >
                 <ArrowLeftIcon className='h-4 w-4' />
-                {t('button.cancel')}
+                {t('buttons.cancel')}
               </Button>
               <Button type='submit' disabled={isSystemRole}>
                 <SaveIcon className='h-4 w-4' />
-                {t('button.save')}
+                {t('buttons.save')}
               </Button>
             </div>
           </div>
 
           <Card>
             <CardHeader>
-              <CardTitle>Role Information</CardTitle>
+              <CardTitle>{t('pages.roleEdit.title')}</CardTitle>
               <CardDescription>
-                Fill in the details to update this role.
+                {t('pages.roleEdit.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
@@ -141,12 +141,12 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
                 render={({ field }) => (
                   <FormItem className='md:col-span-3'>
                     <FormLabel required>
-                      {t('page_role_create.create_name')}
+                      {t('pages.roleEdit.fields.name')}
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder={t('page_role_create.create_name')}
+                        placeholder={t('pages.roleEdit.fields.name')}
                         disabled={isSystemRole}
                       />
                     </FormControl>
@@ -163,7 +163,7 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
                     'font-semibold'
                   )}
                 >
-                  {t('page_role_create.create_permissions')}
+                  {t('pages.roleEdit.fields.permissions')}
                 </h6>
                 <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
                   {groupPermission

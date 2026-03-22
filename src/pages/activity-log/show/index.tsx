@@ -42,31 +42,31 @@ export default function PageActivityLogShow() {
       <Main>
         <div className='space-y-8'>
           <div className='flex items-center justify-between'>
-            <h1 className='text-2xl font-bold'>{t('page_log_detail.title')}</h1>
+            <h1 className='text-2xl font-bold'>{t('pages.logDetail.title')}</h1>
             <div className='flex items-center gap-2'>
               <Button onClick={() => navigate(-1)} variant='outline'>
                 <ArrowLeftIcon size={16} />
-                <span>{t('page_log_detail.button_back')}</span>
+                <span>{t('buttons.back')}</span>
               </Button>
             </div>
           </div>
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('page_log_detail.card_title')}</CardTitle>
+              <CardTitle>{t('pages.logDetail.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem
-                  label={t('page_log_detail.id')}
+                  label={t('pages.logDetail.fields.id')}
                   value={data.id}
                 />
                 <DescriptionItem
-                  label={t('page_log_detail.actor')}
+                  label={t('pages.logDetail.fields.actor')}
                   value={data.userId || '-'}
                 />
                 <DescriptionItem
-                  label='Actor Information'
+                  label={t('pages.logDetail.fields.actorInformation')}
                   value={
                     data.user
                       ? `[${data.user?.id}] ${data.user?.fullName} (${data.user?.email})`
@@ -74,15 +74,15 @@ export default function PageActivityLogShow() {
                   }
                 />
                 <DescriptionItem
-                  label={t('page_log_detail.action')}
+                  label={t('pages.logDetail.fields.action')}
                   value={data.action || ''}
                 />
                 <DescriptionItem
-                  label={t('page_log_detail.entity')}
+                  label={t('pages.logDetail.fields.entity')}
                   value={data.entity}
                 />
                 <DescriptionItem
-                  label={t('page_log_detail.timestamp')}
+                  label={t('pages.logDetail.fields.timestamp')}
                   value={format(data.createdAt, 'yyyy-MM-dd HH:mm aa')}
                 />
 

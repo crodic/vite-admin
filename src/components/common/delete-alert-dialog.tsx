@@ -38,22 +38,22 @@ export function DeleteAlertDialog({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {t('page_admin_overview.popup_delete_title')}
+            {t('pages.adminOverview.popupDelete.title')}
           </AlertDialogTitle>
           <AlertDialogDescription>
-            {t('page_admin_overview.popup_delete_description')}
+            {t('pages.adminOverview.popupDelete.description')}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isLoading}>
-            {t('button.cancel')}
+            {t('buttons.cancel')}
           </AlertDialogCancel>
           <AlertDialogAction
             variant='destructive'
             onClick={handleDelete}
             disabled={isLoading}
           >
-            {t('button.delete')}
+            {t('buttons.delete')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

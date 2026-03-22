@@ -95,11 +95,11 @@ export function PageAdminCreate() {
                   }}
                 >
                   <ArrowLeftIcon className='h-4 w-4' />
-                  {t('button.cancel')}
+                  {t('buttons.cancel')}
                 </Button>
                 <Button type='submit'>
                   <SaveIcon className='h-4 w-4' />
-                  {t('button.save')}
+                  {t('buttons.save')}
                 </Button>
               </div>
             </div>
@@ -294,11 +294,11 @@ export function PageAdminCreate() {
                   }}
                 >
                   <ArrowLeftIcon className='h-4 w-4' />
-                  {t('button.cancel')}
+                  {t('buttons.cancel')}
                 </Button>
                 <Button type='submit'>
                   <SaveIcon className='h-4 w-4' />
-                  {t('button.save')}
+                  {t('buttons.save')}
                 </Button>
               </div>
             </div>

@@ -48,7 +48,7 @@ export const userCreateSchema = z
   .object({
     username: z.string().nullish(),
     firstName: z.string().min(1, 'First name is required'),
-    lastName: z.string().nullish(),
+    lastName: z.string().optional(),
     email: z.email('Invalid email address'),
     password: passwordSchema,
     confirmPassword: z
@@ -66,7 +66,7 @@ export type UserCreateSchema = z.infer<typeof userCreateSchema>
 export const userEditSchema = z.object({
   username: z.string().nullish(),
   firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().nullish(),
+  lastName: z.string().optional(),
   email: z.email('Invalid email address'),
   bio: z.string().nullish(),
 })

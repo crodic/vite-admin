@@ -21,7 +21,7 @@ export function DescriptionItem({ label, value, children }: ItemProps) {
     } else {
       return (
         <p className='text-secondary-foreground mt-2 text-sm font-normal italic'>
-          {t('form.not_available')}
+          {t('forms.notAvailable')}
         </p>
       )
     }
@@ -61,7 +61,7 @@ export function DescriptionValue({ value, children }: ValueProps) {
   } else {
     return (
       <p className='text-secondary-foreground my-1 text-sm font-normal italic'>
-        {t('form.not_available')}
+        {t('forms.notAvailable')}
       </p>
     )
   }

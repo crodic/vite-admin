@@ -87,12 +87,12 @@ export default function PageRoleShow() {
         <div className='space-y-8'>
           <div className='flex items-center justify-between'>
             <h1 className='text-2xl font-bold'>
-              {t('page_role_detail.title')}
+              {t('pages.roleDetail.title')}
             </h1>
             <div className='flex items-center gap-2'>
               <Button onClick={() => navigate(-1)} variant='outline'>
                 <ArrowLeftIcon size={16} />
-                <span>{t('page_role_detail.button_back')}</span>
+                <span>{t('buttons.back')}</span>
               </Button>
               <Button
                 onClick={() => navigate(`/roles/${data.id}/edit`)}
@@ -100,7 +100,7 @@ export default function PageRoleShow() {
                 disabled={isSuperAdmin}
               >
                 <Edit2Icon size={16} />
-                <span>{t('page_role_detail.button_edit')}</span>
+                <span>{t('buttons.edit')}</span>
               </Button>
               <Button
                 variant='destructive'
@@ -108,7 +108,7 @@ export default function PageRoleShow() {
                 disabled={isSuperAdmin}
               >
                 <Trash2Icon size={16} />
-                <span>{t('page_role_detail.button_delete')}</span>
+                <span>{t('buttons.delete')}</span>
               </Button>
             </div>
           </div>
@@ -120,16 +120,16 @@ export default function PageRoleShow() {
             <CardContent>
               <Descriptions>
                 <DescriptionItem
-                  label={t('page_role_detail.id')}
+                  label={t('pages.roleDetail.fields.id')}
                   value={data.id}
                 />
                 <DescriptionItem
-                  label={t('page_role_detail.name')}
+                  label={t('pages.roleDetail.fields.name')}
                   value={data.name}
                 />
                 <div className='col-span-3'>
                   <DescriptionItem
-                    label={t('page_role_detail.permissions')}
+                    label={t('pages.roleDetail.fields.permissions')}
                     value={
                       isSuperAdmin
                         ? 'SUPER ADMIN'
@@ -140,11 +140,11 @@ export default function PageRoleShow() {
                   />
                 </div>
                 <DescriptionItem
-                  label={t('page_role_detail.created_at')}
+                  label={t('pages.roleDetail.fields.createdAt')}
                   value={format(data.createdAt, 'yyyy-MM-dd HH:mm aa')}
                 />
                 <DescriptionItem
-                  label={t('page_role_detail.updated_at')}
+                  label={t('pages.roleDetail.fields.updatedAt')}
                   value={format(data.updatedAt, 'yyyy-MM-dd HH:mm aa')}
                 />
               </Descriptions>

@@ -96,11 +96,11 @@ export function PageUserShow() {
               }}
             >
               <ArrowLeftIcon className='h-4 w-4' />
-              {t('button.cancel')}
+              {t('buttons.cancel')}
             </Button>
             <Button onClick={() => navigate(`/users/${data?.id}/edit`)}>
               <EditIcon className='h-4 w-4' />
-              {t('button.edit')}
+              {t('buttons.edit')}
             </Button>
             <Button
               variant='destructive'
@@ -108,7 +108,7 @@ export function PageUserShow() {
               disabled={data.id === id}
             >
               <TrashIcon className='h-4 w-4' />
-              {t('button.delete')}
+              {t('buttons.delete')}
             </Button>
           </div>
         </div>

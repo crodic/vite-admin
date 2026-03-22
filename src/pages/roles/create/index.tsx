@@ -109,7 +109,7 @@ export default function PageRoleCreate() {
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='flex items-center justify-between'>
               <h3 className='text-2xl font-bold'>
-                {t('page_role_create.title')}
+                {t('pages.roleCreate.title')}
               </h3>
               <div className='flex items-center gap-2'>
                 <Button
@@ -118,11 +118,11 @@ export default function PageRoleCreate() {
                   onClick={() => navigate(-1)}
                 >
                   <ArrowLeftIcon size={16} />
-                  {t('page_role_create.button_cancel')}
+                  {t('buttons.cancel')}
                 </Button>
                 <Button type='submit'>
                   <SaveIcon size={16} />
-                  {t('page_role_create.button_save')}
+                  {t('buttons.save')}
                 </Button>
               </div>
             </div>
@@ -135,12 +135,12 @@ export default function PageRoleCreate() {
                   render={({ field }) => (
                     <FormItem className='md:col-span-3'>
                       <FormLabel required>
-                        {t('page_role_create.create_name')}
+                        {t('pages.roleCreate.fields.name')}
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder={t('page_role_create.create_name')}
+                          placeholder={t('pages.roleCreate.fields.name')}
                         />
                       </FormControl>
                       <FormMessage />
@@ -155,7 +155,7 @@ export default function PageRoleCreate() {
                       'font-semibold'
                     )}
                   >
-                    {t('page_role_create.create_permissions')}
+                    {t('pages.roleCreate.fields.permissions')}
                   </h6>
                   <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
                     {groupPermission
