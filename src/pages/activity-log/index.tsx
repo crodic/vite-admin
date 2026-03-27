@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { parseAsArrayOf, parseAsString } from 'nuqs'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { PaginateQueryBuilder } from '@/lib/query-builder'
 import { sortParser } from '@/lib/utils'
@@ -27,6 +28,7 @@ const activitiesFilterParsers = {
 
 export function PageActivityLogOverview() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const {
     page,
@@ -86,10 +88,10 @@ export function PageActivityLogOverview() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              Activity Log Overview
+              {t('pages.activityLogOverview.title')}
             </h2>
             <p className='text-muted-foreground'>
-              Manage your activity log here.
+              {t('pages.activityLogOverview.description')}
             </p>
           </div>
         </div>

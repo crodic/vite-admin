@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { parseAsArrayOf, parseAsString } from 'nuqs'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { PaginateQueryBuilder } from '@/lib/query-builder'
 import { sortParser } from '@/lib/utils'
@@ -29,6 +30,7 @@ const adminsFilterParsers = {
 
 export function PageAdminOverview() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const {
     page,
@@ -91,16 +93,16 @@ export function PageAdminOverview() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              Admin Overview
+              {t('pages.adminOverview.title')}
             </h2>
             <p className='text-muted-foreground'>
-              Manage your admins and their roles here.
+              {t('pages.adminOverview.description')}
             </p>
           </div>
           <div>
             <Button onClick={() => navigate('create')}>
               <PlusIcon />
-              Create
+              {t('buttons.create')}
             </Button>
           </div>
         </div>

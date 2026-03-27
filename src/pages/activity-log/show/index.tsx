@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { ArrowLeftIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { DescriptionItem, Descriptions } from '@/components/common/descriptions'
@@ -22,11 +22,7 @@ export default function PageActivityLogShow() {
 
   const { data, isFetching } = useDataGetLogDetail(params.id as string)
 
-  if (isFetching) return <DataLoader />
-
-  if (!data) {
-    return <Navigate to='/errors/not-found' />
-  }
+  if (isFetching || !data) return <DataLoader />
 
   return (
     <>
@@ -42,7 +38,9 @@ export default function PageActivityLogShow() {
       <Main>
         <div className='space-y-8'>
           <div className='flex items-center justify-between'>
-            <h1 className='text-2xl font-bold'>{t('pages.logDetail.title')}</h1>
+            <h1 className='text-2xl font-bold'>
+              {t('pages.activityLogDetail.title')}
+            </h1>
             <div className='flex items-center gap-2'>
               <Button onClick={() => navigate(-1)} variant='outline'>
                 <ArrowLeftIcon size={16} />
@@ -53,20 +51,20 @@ export default function PageActivityLogShow() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.logDetail.cardTitle')}</CardTitle>
+              <CardTitle>{t('pages.activityLogDetail.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem
-                  label={t('pages.logDetail.fields.id')}
+                  label={t('pages.activityLogDetail.fields.id')}
                   value={data.id}
                 />
                 <DescriptionItem
-                  label={t('pages.logDetail.fields.actor')}
+                  label={t('pages.activityLogDetail.fields.actor')}
                   value={data.userId || '-'}
                 />
                 <DescriptionItem
-                  label={t('pages.logDetail.fields.actorInformation')}
+                  label={t('pages.activityLogDetail.fields.actorInformation')}
                   value={
                     data.user
                       ? `[${data.user?.id}] ${data.user?.fullName} (${data.user?.email})`
@@ -74,15 +72,15 @@ export default function PageActivityLogShow() {
                   }
                 />
                 <DescriptionItem
-                  label={t('pages.logDetail.fields.action')}
+                  label={t('pages.activityLogDetail.fields.action')}
                   value={data.action || ''}
                 />
                 <DescriptionItem
-                  label={t('pages.logDetail.fields.entity')}
+                  label={t('pages.activityLogDetail.fields.entity')}
                   value={data.entity}
                 />
                 <DescriptionItem
-                  label={t('pages.logDetail.fields.timestamp')}
+                  label={t('pages.activityLogDetail.fields.timestamp')}
                   value={format(data.createdAt, 'yyyy-MM-dd HH:mm aa')}
                 />
 

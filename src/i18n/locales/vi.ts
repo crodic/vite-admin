@@ -46,9 +46,9 @@ export default {
       title: 'Bảng điều khiển',
     },
 
-    logsOverview: {
+    activityLogOverview: {
       title: 'Nhật ký',
-      description: 'Xem nhật ký.',
+      description: 'Xem danh sách nhật ký.',
       empty: 'Không tìm thấy nhật ký.',
       tableColumns: {
         actor: 'Người thực hiện',
@@ -59,7 +59,7 @@ export default {
       },
     },
 
-    logDetail: {
+    activityLogDetail: {
       title: 'Chi tiết nhật ký',
       description: 'Xem chi tiết nhật ký.',
       cardTitle: 'Thông tin nhật ký',
@@ -110,6 +110,7 @@ export default {
       cardTitle: 'Thông tin quản trị viên',
       fields: {
         id: 'ID',
+        username: 'Tên tài khoản',
         firstName: 'Tên',
         lastName: 'Họ',
         fullName: 'Họ và tên',
@@ -118,6 +119,7 @@ export default {
         avatar: 'Ảnh đại diện',
         lastLoginAt: 'Lần đăng nhập cuối',
         emailVerified: 'Email đã xác minh',
+        birthday: 'Ngày sinh',
         active: 'Hoạt động',
         inactive: 'Không hoạt động',
         phoneNumber: 'Số điện thoại',
@@ -145,6 +147,7 @@ export default {
         phoneNumberPlaceholder: 'Nhập số điện thoại',
         password: 'Mật khẩu',
         passwordConfirmation: 'Xác nhận mật khẩu',
+        birthday: 'Ngày sinh',
       },
       buttons: {
         save: 'Lưu',
@@ -178,6 +181,7 @@ export default {
         rolePlaceholder: 'Chọn vai trò',
         phoneNumber: 'Số điện thoại',
         phoneNumberPlaceholder: 'Nhập số điện thoại',
+        birthday: 'Ngày sinh',
       },
       buttons: {
         save: 'Lưu',

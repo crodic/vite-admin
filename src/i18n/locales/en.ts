@@ -46,10 +46,10 @@ export default {
       title: 'Dashboard',
     },
 
-    logsOverview: {
-      title: 'Logs',
-      description: 'View logs.',
-      empty: 'No logs found.',
+    activityLogOverview: {
+      title: 'Activity Logs',
+      description: 'Manage activity logs.',
+      empty: 'No activity logs found.',
       tableColumns: {
         actor: 'Actor',
         action: 'Action',
@@ -59,10 +59,10 @@ export default {
       },
     },
 
-    logDetail: {
-      title: 'Log Detail',
-      description: 'View log detail.',
-      cardTitle: 'Log Information',
+    activityLogDetail: {
+      title: 'Activity Log Detail',
+      description: 'View activity log detail.',
+      cardTitle: 'Activity Log Information',
       fields: {
         id: 'ID',
         action: 'Action',
@@ -110,6 +110,7 @@ export default {
       cardTitle: 'Admin Information',
       fields: {
         id: 'ID',
+        username: 'Username',
         firstName: 'First Name',
         lastName: 'Last Name',
         fullName: 'Full Name',
@@ -118,6 +119,7 @@ export default {
         avatar: 'Avatar',
         lastLoginAt: 'Last Login At',
         emailVerified: 'Email Verified',
+        birthday: 'Birthday',
         active: 'Active',
         inactive: 'Inactive',
         phoneNumber: 'Phone Number',
@@ -145,6 +147,7 @@ export default {
         phoneNumberPlaceholder: 'Enter phone number',
         password: 'Password',
         passwordConfirmation: 'Confirmation Password',
+        birthday: 'Birthday',
       },
       buttons: {
         save: 'Save',
@@ -181,6 +184,7 @@ export default {
         rolePlaceholder: 'Select a role',
         phoneNumber: 'Phone Number',
         phoneNumberPlaceholder: 'Enter phone number',
+        birthday: 'Birthday',
       },
       buttons: {
         save: 'Save',

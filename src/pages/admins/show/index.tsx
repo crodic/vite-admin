@@ -78,8 +78,8 @@ export function PageAdminShow() {
         />
       )}
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -90,9 +90,11 @@ export function PageAdminShow() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              Admin Information
+              {t('pages.adminDetail.title')}
             </h2>
-            <p className='text-muted-foreground'>View information for admin</p>
+            <p className='text-muted-foreground'>
+              {t('pages.adminDetail.description')}
+            </p>
           </div>
           <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
             <Button
@@ -148,22 +150,25 @@ export function PageAdminShow() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Information</CardTitle>
+              <CardTitle>{t('pages.adminDetail.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem label='Email' value={data?.email} />
                 <DescriptionItem
-                  label='Username'
+                  label={t('pages.adminDetail.fields.username')}
                   value={data?.username ?? undefined}
                 />
-                <DescriptionItem label='Fullname' value={data?.fullName} />
                 <DescriptionItem
-                  label='Phone Number'
+                  label={t('pages.adminDetail.fields.fullName')}
+                  value={data?.fullName}
+                />
+                <DescriptionItem
+                  label={t('pages.adminDetail.fields.phoneNumber')}
                   value={data?.phone ?? ''}
                 />
                 <DescriptionItem
-                  label='Birthday'
+                  label={t('pages.adminDetail.fields.birthday')}
                   value={
                     data.birthday
                       ? format(data.birthday, 'dd/MM/yyyy')
@@ -171,15 +176,15 @@ export function PageAdminShow() {
                   }
                 />
                 <DescriptionItem
-                  label='Verified'
+                  label={t('pages.adminDetail.fields.emailVerified')}
                   value={data?.verifiedAt ? 'Active' : 'Inactive'}
                 />
                 <DescriptionItem
-                  label='Joined At'
+                  label={t('pages.adminDetail.fields.createdAt')}
                   value={format(data.createdAt, 'dd/MM/yyyy HH:mm aa')}
                 />
                 <DescriptionItem
-                  label='Last Updated At'
+                  label={t('pages.adminDetail.fields.updatedAt')}
                   value={format(data.updatedAt, 'dd/MM/yyyy HH:mm aa')}
                 />
               </Descriptions>
