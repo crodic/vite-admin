@@ -148,6 +148,8 @@ export default {
         password: 'Password',
         passwordConfirmation: 'Confirmation Password',
         birthday: 'Birthday',
+        username: 'Username',
+        bio: 'Bio',
       },
       buttons: {
         save: 'Save',
@@ -185,6 +187,8 @@ export default {
         phoneNumber: 'Phone Number',
         phoneNumberPlaceholder: 'Enter phone number',
         birthday: 'Birthday',
+        username: 'Username',
+        bio: 'Bio',
       },
       buttons: {
         save: 'Save',

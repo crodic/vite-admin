@@ -71,8 +71,8 @@ export function PageUserShow() {
         />
       )}
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -83,9 +83,11 @@ export function PageUserShow() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              User Information
+              {t('pages.userDetail.title')}
             </h2>
-            <p className='text-muted-foreground'>View information for user</p>
+            <p className='text-muted-foreground'>
+              {t('pages.userDetail.description')}
+            </p>
           </div>
           <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
             <Button
@@ -134,7 +136,7 @@ export function PageUserShow() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Information</CardTitle>
+              <CardTitle>{t('pages.userDetail.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
@@ -164,12 +166,3 @@ export function PageUserShow() {
     </>
   )
 }
-
-// function DescriptionItem({ label, value }: { label: string; value?: string }) {
-//   return (
-//     <div className='col-span-1 p-2'>
-//       <p className='text-base leading-none font-semibold'>{label}:</p>
-//       {value || 'Not Available'}
-//     </div>
-//   )
-// }

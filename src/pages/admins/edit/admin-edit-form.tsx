@@ -189,27 +189,12 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
               />
               <FormField
                 control={form.control}
-                name='username'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder='example@2025'
-                        {...field}
-                        value={field.value ?? undefined}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name='roleId'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>Role</FormLabel>
+                    <FormLabel required>
+                      {t('pages.adminEdit.fields.role')}
+                    </FormLabel>
                     <FormControl>
                       <AutoCompleteSelectControl
                         {...field}
@@ -234,7 +219,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
                   name='bio'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Bio</FormLabel>
+                      <FormLabel>{t('pages.adminEdit.fields.bio')}</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder='Write a short bio about the admin'

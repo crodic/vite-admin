@@ -148,6 +148,8 @@ export default {
         password: 'Mật khẩu',
         passwordConfirmation: 'Xác nhận mật khẩu',
         birthday: 'Ngày sinh',
+        username: 'Tài khoản',
+        bio: 'Giới thiệu',
       },
       buttons: {
         save: 'Lưu',
@@ -182,6 +184,8 @@ export default {
         phoneNumber: 'Số điện thoại',
         phoneNumberPlaceholder: 'Nhập số điện thoại',
         birthday: 'Ngày sinh',
+        username: 'Tài khoản',
+        bio: 'Giới thiệu',
       },
       buttons: {
         save: 'Lưu',

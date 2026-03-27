@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { parseAsString } from 'nuqs'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { PaginateQueryBuilder } from '@/lib/query-builder'
 import { sortParser } from '@/lib/utils'
@@ -26,6 +27,7 @@ const rolesFilterParsers = {
 
 export function PageRoleOverview() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const {
     page,
@@ -66,8 +68,8 @@ export function PageRoleOverview() {
   return (
     <>
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -77,15 +79,17 @@ export function PageRoleOverview() {
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Role Overview</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              {t('pages.roleOverview.title')}
+            </h2>
             <p className='text-muted-foreground'>
-              Manage your roles and permissions.
+              {t('pages.roleOverview.description')}
             </p>
           </div>
           <div>
             <Button onClick={() => navigate('create')}>
               <PlusIcon />
-              Create
+              {t('buttons.create')}
             </Button>
           </div>
         </div>

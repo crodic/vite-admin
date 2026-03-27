@@ -69,8 +69,8 @@ export function PageAdminCreate() {
   return (
     <>
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -83,7 +83,7 @@ export function PageAdminCreate() {
             <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
               <div className='flex flex-row space-x-2'>
                 <h2 className='text-2xl font-bold tracking-tight'>
-                  Create New Admin
+                  {t('pages.adminCreate.title')}
                 </h2>
               </div>
               <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -106,9 +106,9 @@ export function PageAdminCreate() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Admin Information</CardTitle>
+                <CardTitle>{t('pages.adminCreate.title')}</CardTitle>
                 <CardDescription>
-                  Fill in the details to create a new admin account.
+                  {t('pages.adminCreate.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
@@ -117,7 +117,9 @@ export function PageAdminCreate() {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Email Address</FormLabel>
+                      <FormLabel required>
+                        {t('pages.adminCreate.fields.email')}
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder='test@example.com' {...field} />
                       </FormControl>
@@ -130,7 +132,9 @@ export function PageAdminCreate() {
                   name='firstName'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>First name</FormLabel>
+                      <FormLabel required>
+                        {t('pages.adminCreate.fields.firstName')}
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder='John' {...field} />
                       </FormControl>
@@ -143,7 +147,9 @@ export function PageAdminCreate() {
                   name='lastName'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Last name</FormLabel>
+                      <FormLabel required>
+                        {t('pages.adminCreate.fields.lastName')}
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder='Doe' {...field} />
                       </FormControl>
@@ -156,10 +162,14 @@ export function PageAdminCreate() {
                   name='phone'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
+                      <FormLabel>
+                        {t('pages.adminCreate.fields.phoneNumber')}
+                      </FormLabel>
                       <FormControl>
                         <PhoneInput
-                          placeholder='Enter your phone number'
+                          placeholder={t(
+                            'pages.adminCreate.fields.phoneNumberPlaceholder'
+                          )}
                           defaultCountry='VN'
                           international
                           {...field}
@@ -174,7 +184,9 @@ export function PageAdminCreate() {
                   name='birthday'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Birthday</FormLabel>
+                      <FormLabel>
+                        {t('pages.adminCreate.fields.birthday')}
+                      </FormLabel>
                       <FormControl>
                         <DatePickerForm
                           placeholder='Enter your birthday'
@@ -193,7 +205,9 @@ export function PageAdminCreate() {
                   name='username'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Username</FormLabel>
+                      <FormLabel>
+                        {t('pages.adminCreate.fields.username')}
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='example@2025'
@@ -210,7 +224,9 @@ export function PageAdminCreate() {
                   name='password'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Password</FormLabel>
+                      <FormLabel required>
+                        {t('pages.adminCreate.fields.password')}
+                      </FormLabel>
                       <FormControl>
                         <PasswordInput
                           placeholder='Enter password'
@@ -226,7 +242,9 @@ export function PageAdminCreate() {
                   name='confirmPassword'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Confirm Password</FormLabel>
+                      <FormLabel required>
+                        {t('pages.adminCreate.fields.passwordConfirmation')}
+                      </FormLabel>
                       <FormControl>
                         <PasswordInput
                           placeholder='Confirm password'
@@ -242,7 +260,9 @@ export function PageAdminCreate() {
                   name='roleId'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Role</FormLabel>
+                      <FormLabel required>
+                        {t('pages.adminCreate.fields.role')}
+                      </FormLabel>
                       <FormControl>
                         <AutoCompleteSelectControl
                           {...field}
@@ -267,7 +287,9 @@ export function PageAdminCreate() {
                     name='bio'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Bio</FormLabel>
+                        <FormLabel>
+                          {t('pages.adminCreate.fields.bio')}
+                        </FormLabel>
                         <FormControl>
                           <Textarea
                             {...field}

@@ -7,7 +7,13 @@ import { useTranslation } from 'react-i18next'
 import { Navigate, useNavigate, useParams } from 'react-router'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { DeleteAlertDialog } from '@/components/common/delete-alert-dialog'
 import { DescriptionItem, Descriptions } from '@/components/common/descriptions'
 import { ConfigDrawer } from '@/components/config-drawer'
@@ -75,8 +81,8 @@ export default function PageRoleShow() {
         />
       )}
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -115,7 +121,10 @@ export default function PageRoleShow() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Role Information</CardTitle>
+              <CardTitle>{t('pages.roleDetail.cardTitle')}</CardTitle>
+              <CardDescription>
+                {t('pages.roleDetail.description')}
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Descriptions>
