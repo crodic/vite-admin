@@ -35,9 +35,9 @@ export function ProfileDropdown() {
         <DropdownMenuTrigger asChild>
           <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
             <Avatar className='h-8 w-8'>
-              <AvatarImage src={data.image} alt={data.fullName} />
+              <AvatarImage src={data.avatar ?? undefined} alt={data.fullname} />
               <AvatarFallback>
-                {data.fullName?.charAt(0).toUpperCase() || 'U'}
+                {data.fullname?.charAt(0).toUpperCase() || 'U'}
               </AvatarFallback>
             </Avatar>
           </Button>
@@ -46,7 +46,7 @@ export function ProfileDropdown() {
           <DropdownMenuLabel className='font-normal'>
             <div className='flex flex-col gap-1.5'>
               <p className='text-sm leading-none font-medium'>
-                {data.fullName}
+                {data.fullname}
               </p>
               <p className='text-muted-foreground text-xs leading-none'>
                 {data.email}

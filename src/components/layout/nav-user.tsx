@@ -53,12 +53,15 @@ export function NavUser() {
                 className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
               >
                 <Avatar className='h-8 w-8 rounded-lg'>
-                  <AvatarImage src={data.image} alt={data.fullName} />
+                  <AvatarImage
+                    src={data.avatar ?? undefined}
+                    alt={data.fullname}
+                  />
                   <AvatarFallback className='rounded-lg'>SN</AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-start text-sm leading-tight'>
                   <span className='truncate font-semibold'>
-                    {data.fullName}
+                    {data.fullname}
                   </span>
                   <span className='truncate text-xs'>{data.email}</span>
                 </div>
@@ -74,17 +77,20 @@ export function NavUser() {
               <DropdownMenuLabel className='p-0 font-normal'>
                 <div className='flex items-center gap-2 px-1 py-1.5 text-start text-sm'>
                   <Avatar className='h-8 w-8 rounded-lg'>
-                    <AvatarImage src={data.image} alt={data.fullName} />
+                    <AvatarImage
+                      src={data.avatar ?? undefined}
+                      alt={data.fullname}
+                    />
                     <AvatarFallback className='rounded-lg'>
-                      {data.fullName
-                        ? data.fullName?.charAt(0).toUpperCase() +
-                          data.fullName?.charAt(1).toUpperCase()
+                      {data.fullname
+                        ? data.fullname?.charAt(0).toUpperCase() +
+                          data.fullname?.charAt(1).toUpperCase()
                         : 'SN'}
                     </AvatarFallback>
                   </Avatar>
                   <div className='grid flex-1 text-start text-sm leading-tight'>
                     <span className='truncate font-semibold'>
-                      {data.fullName}
+                      {data.fullname}
                     </span>
                     <span className='truncate text-xs'>{data.email}</span>
                   </div>

@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { AppAbilityClass, type AppAbility, type Claim } from '@/lib/ability'
 
-const AUTH_KEY = 'auth'
+const AUTH_KEY = import.meta.env.VITE_AUTH_KEY || 'auth'
 
 type PermissionStatus = 'loading' | 'fetched'
 

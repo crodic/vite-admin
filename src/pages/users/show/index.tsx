@@ -108,7 +108,6 @@ export function PageUserShow() {
             <Button
               variant='destructive'
               onClick={() => setIsShowDeleteDialog(true)}
-              disabled={data.id === id}
             >
               <TrashIcon className='h-4 w-4' />
               {t('buttons.delete')}
