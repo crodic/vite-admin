@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { type User } from '@/types/auth.type'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { showSubmittedData } from '@/lib/show-submitted-data'
 import { Button } from '@/components/ui/button'
@@ -22,6 +23,7 @@ import { apiUpdateCurrentAccount } from '@/pages/auth/queries'
 import { accountFormSchema, type AccountFormSchema } from '../schema'
 
 export function AccountForm({ user }: { user: User }) {
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
   const form = useForm<AccountFormSchema>({
     resolver: zodResolver(accountFormSchema),
@@ -59,9 +61,11 @@ export function AccountForm({ user }: { user: User }) {
             name='firstName'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>
+                  {t('pages.settings.account.fields.firstName')}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder='Your first name' {...field} />
+                  <Input placeholder={user.firstName} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -72,9 +76,11 @@ export function AccountForm({ user }: { user: User }) {
             name='lastName'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>
+                  {t('pages.settings.account.fields.lastName')}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder='Your last name' {...field} />
+                  <Input placeholder={user.lastName} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -86,7 +92,9 @@ export function AccountForm({ user }: { user: User }) {
           name='birthday'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel>
+                {t('pages.settings.account.fields.birthday')}
+              </FormLabel>
               <DatePickerForm
                 field={field}
                 disabled={(date: Date) =>
@@ -94,7 +102,7 @@ export function AccountForm({ user }: { user: User }) {
                 }
               />
               <FormDescription>
-                Your date of birth is used to calculate your age.
+                {t('pages.settings.account.messages.birthdayDescription')}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -105,10 +113,15 @@ export function AccountForm({ user }: { user: User }) {
           name='phone'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>Phone Number</FormLabel>
+              <FormLabel>
+                {t('pages.settings.account.fields.phoneNumber')}
+              </FormLabel>
               <FormControl>
                 <PhoneInput
-                  placeholder='Enter your phone number'
+                  placeholder={
+                    user.phone ||
+                    t('pages.settings.account.fields.phoneNumberPlaceholder')
+                  }
                   defaultCountry='VN'
                   international
                   {...field}
@@ -119,7 +132,9 @@ export function AccountForm({ user }: { user: User }) {
             </FormItem>
           )}
         />
-        <Button type='submit'>Update account</Button>
+        <Button type='submit'>
+          {t('pages.settings.account.button.update')}
+        </Button>
       </form>
     </Form>
   )

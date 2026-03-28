@@ -1,11 +1,5 @@
-import {
-  Monitor,
-  Palette,
-  Wrench,
-  UserCog,
-  PackageIcon,
-  LockIcon,
-} from 'lucide-react'
+import { Palette, Wrench, UserCog, LockIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Outlet } from 'react-router'
 import { Separator } from '@/components/ui/separator'
 import { ConfigDrawer } from '@/components/config-drawer'
@@ -18,49 +12,35 @@ import { SidebarNav } from './components/sidebar-nav'
 
 const sidebarNavItems = [
   {
-    title: 'Profile',
+    title: 'navigation.other.items.profiles',
     href: '/settings',
     icon: <UserCog size={18} />,
   },
   {
-    title: 'Account',
+    title: 'navigation.other.items.account',
     href: '/settings/account',
     icon: <Wrench size={18} />,
   },
   {
-    title: 'Password',
+    title: 'navigation.other.items.password',
     href: '/settings/password',
     icon: <LockIcon size={18} />,
   },
   {
-    title: 'Appearance',
+    title: 'navigation.other.items.appearance',
     href: '/settings/appearance',
     icon: <Palette size={18} />,
-  },
-  // {
-  //   title: 'Notifications',
-  //   href: '/settings/notifications',
-  //   icon: <Bell size={18} />,
-  // },
-  {
-    title: 'Display',
-    href: '/settings/display',
-    icon: <Monitor size={18} />,
-  },
-  {
-    title: 'Website',
-    href: '/settings/website',
-    icon: <PackageIcon size={18} />,
   },
 ]
 
 export function Settings() {
+  const { t } = useTranslation()
   return (
     <>
       {/* ===== Top Heading ===== */}
       <Header>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -70,10 +50,10 @@ export function Settings() {
       <Main fixed>
         <div className='space-y-0.5'>
           <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
-            Settings
+            {t('pages.settings.title')}
           </h1>
           <p className='text-muted-foreground'>
-            Manage your account settings and set e-mail preferences.
+            {t('pages.settings.description')}
           </p>
         </div>
         <Separator className='my-4 lg:my-6' />

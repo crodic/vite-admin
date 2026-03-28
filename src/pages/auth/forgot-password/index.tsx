@@ -30,12 +30,12 @@ export function ForgotPassword() {
         </CardContent>
         <CardFooter>
           <p className='text-muted-foreground mx-auto px-8 text-center text-sm text-balance'>
-            Don't have an account?{' '}
+            Your have an account?{' '}
             <Link
-              to='/sign-up'
+              to='/sign-in'
               className='hover:text-primary underline underline-offset-4'
             >
-              Sign up
+              Sign in
             </Link>
             .
           </p>

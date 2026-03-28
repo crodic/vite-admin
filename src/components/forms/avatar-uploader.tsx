@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { EditIcon, ImageIcon } from 'lucide-react'
 import Cropper from 'react-easy-crop'
+import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { useFormField } from '@/components/ui/form'
 import { Button } from '../ui/button'
@@ -137,6 +138,7 @@ const AvatarUploader = ({
   defaultUri,
 }: ImageCropFieldProps) => {
   const { error } = useFormField()
+  const { t } = useTranslation()
 
   const controlledOnChange = field.onChange
   const controlledValue = field.value || undefined
@@ -287,7 +289,7 @@ const AvatarUploader = ({
             />
           )}
           <Button
-            variant='outline'
+            variant='secondary'
             size='icon-sm'
             type='button'
             className='absolute right-0 bottom-0 z-10'
@@ -305,7 +307,7 @@ const AvatarUploader = ({
               variant='destructive'
               onClick={clearSelection}
             >
-              Remove
+              {t('buttons.remove')}
             </Button>
           )}
         </div>

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { type User } from '@/types/auth.type'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -20,6 +21,7 @@ import { apiUpdateMe } from '@/pages/auth/queries'
 import { profileFormSchema, type ProfileFormSchema } from '../schema'
 
 export function ProfileForm({ user }: { user: User }) {
+  const { t } = useTranslation()
   const form = useForm<ProfileFormSchema>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: { bio: user?.bio, image: undefined },
@@ -55,7 +57,7 @@ export function ProfileForm({ user }: { user: User }) {
           name='image'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Profile photo</FormLabel>
+              <FormLabel>{t('pages.settings.profile.fields.avatar')}</FormLabel>
               <FormControl>
                 <AvatarUploader
                   viewportWidth={100}
@@ -75,24 +77,27 @@ export function ProfileForm({ user }: { user: User }) {
           name='bio'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Bio</FormLabel>
+              <FormLabel>{t('pages.settings.profile.fields.bio')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder='Tell us a little bit about yourself'
+                  placeholder={t(
+                    'pages.settings.profile.fields.bioPlaceholder'
+                  )}
                   className='resize-none'
                   {...field}
                   value={field.value ?? ''}
                 />
               </FormControl>
               <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
+                {t('pages.settings.profile.messages.bioDescription')}
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>Update profile</Button>
+        <Button type='submit'>
+          {t('pages.settings.profile.button.update')}
+        </Button>
       </form>
     </Form>
   )

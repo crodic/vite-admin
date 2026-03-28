@@ -1,13 +1,13 @@
 // import { Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import {
-  BadgeCheck,
-  Bell,
+  BrickWallIcon,
   ChevronsUpDown,
-  CreditCard,
+  Lock,
   LogOut,
-  Sparkles,
+  UserCheck,
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import useDialogState from '@/hooks/use-dialog-state'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -31,6 +31,7 @@ import { SignOutDialog } from '@/components/sign-out-dialog'
 import { apiGetMe } from '@/pages/auth/queries'
 
 export function NavUser() {
+  const { t } = useTranslation()
   const { isMobile } = useSidebar()
   const [open, setOpen] = useDialogState()
 
@@ -91,29 +92,22 @@ export function NavUser() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Sparkles />
-                  Upgrade to Pro
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
                   <Link to='/settings/account'>
-                    <BadgeCheck />
-                    Account
+                    <UserCheck />
+                    {t('pages.settings.account.title')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to='/settings'>
-                    <CreditCard />
-                    Billing
+                  <Link to='/settings/appearance'>
+                    <BrickWallIcon />
+                    {t('pages.settings.appearance.title')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to='/settings/notifications'>
-                    <Bell />
-                    Notifications
+                  <Link to='/settings/password'>
+                    <Lock />
+                    {t('pages.settings.password.title')}
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
@@ -123,7 +117,7 @@ export function NavUser() {
                 onClick={() => setOpen(true)}
               >
                 <LogOut />
-                Sign out
+                {t('common.logout')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

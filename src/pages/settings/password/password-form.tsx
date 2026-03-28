@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { restApiErrorHandler } from '@/lib/rest-api-handler'
 import { showSubmittedData } from '@/lib/show-submitted-data'
@@ -18,6 +19,7 @@ import { apiChangePassword } from '../queries'
 import { passwordFormSchema, type PasswordFormSchema } from '../schema'
 
 export default function PasswordForm() {
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
   const form = useForm<PasswordFormSchema>({
     resolver: zodResolver(passwordFormSchema),
@@ -52,12 +54,11 @@ export default function PasswordForm() {
             name='password'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Current Password</FormLabel>
+                <FormLabel>
+                  {t('pages.settings.password.fields.currentPassword')}
+                </FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    placeholder='Enter your current password'
-                    {...field}
-                  />
+                  <PasswordInput placeholder='***************' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -68,12 +69,11 @@ export default function PasswordForm() {
             name='newPassword'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>New Password</FormLabel>
+                <FormLabel>
+                  {t('pages.settings.password.fields.newPassword')}
+                </FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    placeholder='Enter your new password'
-                    {...field}
-                  />
+                  <PasswordInput placeholder='**************' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -84,19 +84,20 @@ export default function PasswordForm() {
             name='confirmNewPassword'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel>
+                  {t('pages.settings.password.fields.confirmPassword')}
+                </FormLabel>
                 <FormControl>
-                  <PasswordInput
-                    placeholder='Enter your confirm password'
-                    {...field}
-                  />
+                  <PasswordInput placeholder='**************' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <Button type='submit'>Update</Button>
+        <Button type='submit'>
+          {t('pages.settings.password.button.update')}
+        </Button>
       </form>
     </Form>
   )

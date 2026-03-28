@@ -1,4 +1,5 @@
 import { useState, type JSX } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useLocation, useNavigate } from 'react-router'
 // import { useLocation, useNavigate, Link } from '@tanstack/react-router'
 import { cn } from '@/lib/utils'
@@ -21,6 +22,7 @@ type SidebarNavProps = React.HTMLAttributes<HTMLElement> & {
 }
 
 export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
+  const { t } = useTranslation()
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const [val, setVal] = useState(pathname ?? '/settings')
@@ -42,7 +44,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
               <SelectItem key={item.href} value={item.href}>
                 <div className='flex gap-x-4 px-2 py-1'>
                   <span className='scale-125'>{item.icon}</span>
-                  <span className='text-md'>{item.title}</span>
+                  <span className='text-md'>{t(item.title as any)}</span>
                 </div>
               </SelectItem>
             ))}
@@ -75,7 +77,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
               )}
             >
               <span className='me-2'>{item.icon}</span>
-              {item.title}
+              {t(item.title as any)}
             </Link>
           ))}
         </nav>

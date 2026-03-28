@@ -24,10 +24,10 @@ interface DeleteAlertDialogProps {
 export function DeleteAlertDialog({
   handleDelete,
   isLoading,
-  //   title = 'Are you sure?',
-  //   description = 'This action cannot be undone. This will permanently delete your account and remove your data from our servers.',
-  //   confirmText = 'button.delete',
-  //   cancelText = 'button.cancel',
+  title = 'common.popup.deleteTitle',
+  description = 'common.popup.deleteDescription',
+  confirmText = 'buttons.delete',
+  cancelText = 'buttons.cancel',
   open,
   onOpenChange,
 }: DeleteAlertDialogProps) {
@@ -37,23 +37,21 @@ export function DeleteAlertDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            {t('pages.adminOverview.popupDelete.title')}
-          </AlertDialogTitle>
+          <AlertDialogTitle>{t(title as any)}</AlertDialogTitle>
           <AlertDialogDescription>
-            {t('pages.adminOverview.popupDelete.description')}
+            {t(description as any)}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isLoading}>
-            {t('buttons.cancel')}
+            {t(cancelText as any) ?? t('buttons.cancel')}
           </AlertDialogCancel>
           <AlertDialogAction
             variant='destructive'
             onClick={handleDelete}
             disabled={isLoading}
           >
-            {t('buttons.delete')}
+            {t(confirmText as any) ?? t('buttons.delete')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
