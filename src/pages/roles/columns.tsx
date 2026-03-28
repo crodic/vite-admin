@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import type { ColumnDef } from '@tanstack/react-table'
 import app from '@/config/app'
+import i18n from '@/i18n'
 import { Text } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
@@ -36,12 +37,15 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       id: ColumnKey.name,
       accessorFn: (row) => row.name,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Name' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.roles.overview.tableColumns.name')}
+        />
       ),
       meta: {
         variant: 'text',
-        placeholder: 'Name',
-        label: 'Name',
+        placeholder: i18n.t('pages.roles.overview.tableColumns.name'),
+        label: i18n.t('pages.roles.overview.tableColumns.name'),
         icon: Text,
       },
       cell: ({ row }) => (
@@ -53,7 +57,10 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       id: ColumnKey.permissions,
       accessorFn: (row) => row.permissions,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Permissions' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.roles.overview.tableColumns.permissions')}
+        />
       ),
       cell: ({ row }) => (
         <p className='truncate overflow-hidden'>
@@ -70,10 +77,13 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       id: ColumnKey.createdAt,
       accessorFn: (row) => row.createdAt,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Created At' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.roles.overview.tableColumns.createdAt')}
+        />
       ),
       meta: {
-        label: 'Created At',
+        label: i18n.t('pages.roles.overview.tableColumns.createdAt'),
       },
       cell: ({ row }) => (
         <p className='truncate overflow-hidden'>
@@ -86,7 +96,10 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       id: 'actions',
       accessorKey: 'actions',
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Actions' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.roles.overview.tableColumns.actions')}
+        />
       ),
       cell: ({ row }) => <ComponentTableRowActions row={row} />,
       size: 40,

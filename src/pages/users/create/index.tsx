@@ -23,7 +23,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { ConfigDrawer } from '@/components/config-drawer'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -63,8 +62,8 @@ export function PageUserCreate() {
   return (
     <>
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -77,7 +76,7 @@ export function PageUserCreate() {
             <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
               <div className='flex flex-row space-x-2'>
                 <h2 className='text-2xl font-bold tracking-tight'>
-                  Create New User
+                  {t('pages.users.create.title')}
                 </h2>
               </div>
               <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -100,9 +99,9 @@ export function PageUserCreate() {
 
             <Card>
               <CardHeader>
-                <CardTitle>User Information</CardTitle>
+                <CardTitle> {t('pages.users.create.title')}</CardTitle>
                 <CardDescription>
-                  Fill in the details to create a new user account.
+                  {t('pages.users.create.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
@@ -111,7 +110,9 @@ export function PageUserCreate() {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Email Address</FormLabel>
+                      <FormLabel required>
+                        {t('pages.users.create.fields.email')}
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder='test@example.com' {...field} />
                       </FormControl>
@@ -124,7 +125,9 @@ export function PageUserCreate() {
                   name='firstName'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>First name</FormLabel>
+                      <FormLabel required>
+                        {t('pages.users.create.fields.firstName')}
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder='John' {...field} />
                       </FormControl>
@@ -137,26 +140,11 @@ export function PageUserCreate() {
                   name='lastName'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Last name</FormLabel>
+                      <FormLabel required>
+                        {t('pages.users.create.fields.lastName')}
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder='Doe' {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name='username'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder='example@2025'
-                          {...field}
-                          value={field.value ?? undefined}
-                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -167,12 +155,11 @@ export function PageUserCreate() {
                   name='password'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Password</FormLabel>
+                      <FormLabel required>
+                        {t('pages.users.create.fields.password')}
+                      </FormLabel>
                       <FormControl>
-                        <PasswordInput
-                          placeholder='Enter password'
-                          {...field}
-                        />
+                        <PasswordInput placeholder='***********' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -183,36 +170,16 @@ export function PageUserCreate() {
                   name='confirmPassword'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>Confirm Password</FormLabel>
+                      <FormLabel required>
+                        {t('pages.users.create.fields.confirmPassword')}
+                      </FormLabel>
                       <FormControl>
-                        <PasswordInput
-                          placeholder='Confirm password'
-                          {...field}
-                        />
+                        <PasswordInput placeholder='***********' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <div className='col-span-3'>
-                  <FormField
-                    control={form.control}
-                    name='bio'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Bio</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            value={field.value ?? ''}
-                            placeholder='Write a short bio about the admin'
-                          ></Textarea>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
               </CardContent>
             </Card>
 

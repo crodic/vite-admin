@@ -23,7 +23,6 @@ import {
   Form,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Main } from '@/components/layout/main'
 import { apiEditUser } from '../queries'
 import { type UserEditSchema, userEditSchema, type UserSchema } from '../schema'
@@ -72,7 +71,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
           <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
             <div className='flex flex-row space-x-2'>
               <h2 className='text-2xl font-bold tracking-tight'>
-                Create New User
+                {t('pages.users.edit.title')}
               </h2>
             </div>
             <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -95,9 +94,9 @@ export function UserEditForm({ data }: { data: UserSchema }) {
 
           <Card>
             <CardHeader>
-              <CardTitle>User Information</CardTitle>
+              <CardTitle>{t('pages.users.edit.title')}</CardTitle>
               <CardDescription>
-                Fill in the details to update account.
+                {t('pages.users.edit.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
@@ -106,7 +105,9 @@ export function UserEditForm({ data }: { data: UserSchema }) {
                 name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>Email Address</FormLabel>
+                    <FormLabel required>
+                      {t('pages.users.edit.fields.email')}
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder='test@example.com' {...field} />
                     </FormControl>
@@ -119,7 +120,9 @@ export function UserEditForm({ data }: { data: UserSchema }) {
                 name='firstName'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>First name</FormLabel>
+                    <FormLabel required>
+                      {t('pages.users.edit.fields.firstName')}
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder='John' {...field} />
                     </FormControl>
@@ -132,7 +135,9 @@ export function UserEditForm({ data }: { data: UserSchema }) {
                 name='lastName'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>Last name</FormLabel>
+                    <FormLabel required>
+                      {t('pages.users.edit.fields.lastName')}
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder='Doe' {...field} />
                     </FormControl>
@@ -140,42 +145,6 @@ export function UserEditForm({ data }: { data: UserSchema }) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name='username'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder='example@2025'
-                        {...field}
-                        value={field.value ?? undefined}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className='col-span-3'>
-                <FormField
-                  control={form.control}
-                  name='bio'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Bio</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder='Write a short bio about the user'
-                          onChange={field.onChange}
-                          value={field.value || ''}
-                        ></Textarea>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
             </CardContent>
           </Card>
 

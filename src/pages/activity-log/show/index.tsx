@@ -27,8 +27,8 @@ export default function PageActivityLogShow() {
   return (
     <>
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -39,7 +39,7 @@ export default function PageActivityLogShow() {
         <div className='space-y-8'>
           <div className='flex items-center justify-between'>
             <h1 className='text-2xl font-bold'>
-              {t('pages.activityLogDetail.title')}
+              {t('pages.activityLogs.show.title')}
             </h1>
             <div className='flex items-center gap-2'>
               <Button onClick={() => navigate(-1)} variant='outline'>
@@ -51,20 +51,20 @@ export default function PageActivityLogShow() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.activityLogDetail.cardTitle')}</CardTitle>
+              <CardTitle>{t('pages.activityLogs.show.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem
-                  label={t('pages.activityLogDetail.fields.id')}
+                  label={t('pages.activityLogs.show.fields.id')}
                   value={data.id}
                 />
                 <DescriptionItem
-                  label={t('pages.activityLogDetail.fields.actor')}
+                  label={t('pages.activityLogs.show.fields.actor')}
                   value={data.userId || '-'}
                 />
                 <DescriptionItem
-                  label={t('pages.activityLogDetail.fields.actorInformation')}
+                  label={t('pages.activityLogs.show.fields.actorInformation')}
                   value={
                     data.user
                       ? `[${data.user?.id}] ${data.user?.fullName} (${data.user?.email})`
@@ -72,15 +72,15 @@ export default function PageActivityLogShow() {
                   }
                 />
                 <DescriptionItem
-                  label={t('pages.activityLogDetail.fields.action')}
+                  label={t('pages.activityLogs.show.fields.action')}
                   value={data.action || ''}
                 />
                 <DescriptionItem
-                  label={t('pages.activityLogDetail.fields.entity')}
+                  label={t('pages.activityLogs.show.fields.entity')}
                   value={data.entity}
                 />
                 <DescriptionItem
-                  label={t('pages.activityLogDetail.fields.timestamp')}
+                  label={t('pages.activityLogs.show.fields.timestamp')}
                   value={format(data.createdAt, 'yyyy-MM-dd HH:mm aa')}
                 />
 

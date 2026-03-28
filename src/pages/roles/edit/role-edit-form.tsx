@@ -108,7 +108,7 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.roleEdit.title')}
+              {t('pages.roles.edit.title')}
             </h2>
             <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
               <Button
@@ -128,9 +128,9 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.roleEdit.title')}</CardTitle>
+              <CardTitle>{t('pages.roles.edit.title')}</CardTitle>
               <CardDescription>
-                {t('pages.roleEdit.description')}
+                {t('pages.roles.edit.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
@@ -141,12 +141,12 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
                 render={({ field }) => (
                   <FormItem className='md:col-span-3'>
                     <FormLabel required>
-                      {t('pages.roleEdit.fields.name')}
+                      {t('pages.roles.edit.fields.name')}
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder={t('pages.roleEdit.fields.name')}
+                        placeholder={t('pages.roles.edit.fields.name')}
                         disabled={isSystemRole}
                       />
                     </FormControl>
@@ -163,7 +163,7 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
                     'font-semibold'
                   )}
                 >
-                  {t('pages.roleEdit.fields.permissions')}
+                  {t('pages.roles.edit.fields.permissions')}
                 </h6>
                 <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
                   {groupPermission

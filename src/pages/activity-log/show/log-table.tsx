@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   Table,
   TableBody,
@@ -32,6 +33,7 @@ export default function LogTable({
   oldValue = {},
   newValue = {},
 }: ChangesTableProps) {
+  const { t } = useTranslation()
   const allKeys = Array.from(
     new Set([...Object.keys(oldValue), ...Object.keys(newValue)])
   ).filter((key) => !IGNORE_KEYS.includes(key))
@@ -40,9 +42,9 @@ export default function LogTable({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Field</TableHead>
-          <TableHead>Old</TableHead>
-          <TableHead>New</TableHead>
+          <TableHead>{t('pages.activityLogs.show.fields.field')}</TableHead>
+          <TableHead>{t('pages.activityLogs.show.fields.old')}</TableHead>
+          <TableHead>{t('pages.activityLogs.show.fields.new')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

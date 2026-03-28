@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 import {
   Card,
@@ -8,10 +9,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { AuthLayout } from '../auth-layout'
-import { UserAuthForm } from './components/user-auth-form'
+import { UserAuthForm } from './user-auth-form'
 
 export function SignIn() {
-  // const { redirect } = useSearch({ from: '/(auth)/sign-in' })
+  const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const redirect = searchParams.get('redirect') || '/'
 
@@ -19,10 +20,11 @@ export function SignIn() {
     <AuthLayout>
       <Card className='gap-4'>
         <CardHeader>
-          <CardTitle className='text-lg tracking-tight'>Sign in</CardTitle>
+          <CardTitle className='text-lg tracking-tight'>
+            {t('pages.auth.signIn.title')}
+          </CardTitle>
           <CardDescription>
-            Enter your email and password below to <br />
-            log into your account
+            {t('pages.auth.signIn.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>

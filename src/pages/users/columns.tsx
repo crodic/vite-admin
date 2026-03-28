@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import type { ColumnDef } from '@tanstack/react-table'
-import { Calendar, MailIcon, UserIcon, UserRoundCheckIcon } from 'lucide-react'
+import i18n from '@/i18n'
+import { Calendar, MailIcon, TextIcon, UserRoundCheckIcon } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
 import { ColumnKey, type UserSchema } from '../users/schema'
@@ -56,12 +57,15 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
       id: ColumnKey.email,
       accessorFn: (row) => row.email,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Email' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.users.overview.tableColumns.email')}
+        />
       ),
       cell: ({ row }) => <div className='truncate'>{row.original.email}</div>,
       meta: {
-        label: 'Email',
-        placeholder: 'Search by email...',
+        label: i18n.t('pages.users.overview.tableColumns.email'),
+        placeholder: i18n.t('pages.users.overview.tableColumns.email'),
         variant: 'text',
         icon: MailIcon,
       },
@@ -70,31 +74,38 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
       enableHiding: false,
     },
     {
-      id: ColumnKey.username,
-      accessorFn: (row) => row.username,
+      id: ColumnKey.fullname,
+      accessorFn: (row) => row.fullName,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Username' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.users.overview.tableColumns.fullName')}
+        />
       ),
-      cell: ({ row }) => <p className='truncate'>{row.original.username}</p>,
+      cell: ({ row }) => (
+        <div className='truncate'>{row.original.fullName}</div>
+      ),
       meta: {
-        label: 'Username',
-        placeholder: 'Search by username...',
+        label: i18n.t('pages.users.overview.tableColumns.fullName'),
+        placeholder: i18n.t('pages.users.overview.tableColumns.fullName'),
         variant: 'text',
-        icon: UserIcon,
+        icon: TextIcon,
       },
+      enableSorting: false,
       enableColumnFilter: true,
       enableHiding: false,
-      enableSorting: false,
-      minSize: 170,
     },
     {
       id: ColumnKey.createdAt,
       accessorFn: (row) => row.createdAt,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Created At' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.users.overview.tableColumns.createdAt')}
+        />
       ),
       meta: {
-        label: 'Created At',
+        label: i18n.t('pages.users.overview.tableColumns.createdAt'),
         variant: 'dateRange',
         icon: Calendar,
       },
@@ -107,12 +118,12 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
       id: 'actions',
       accessorKey: 'actions',
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Actions' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.users.overview.tableColumns.actions')}
+        />
       ),
       cell: ({ row }) => <ComponentTableRowActions row={row} />,
-      meta: {
-        variant: 'reset',
-      },
       size: 40,
       enableColumnFilter: true,
       enableHiding: false,

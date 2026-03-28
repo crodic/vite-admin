@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Loader2, LogIn } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
 import { toast } from 'sonner'
-import { IconFacebook, IconGithub } from '@/assets/brand-icons'
 import { useAuthStore } from '@/stores/auth-store'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -19,8 +19,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
-import { apiLogin } from '../../queries'
-import { loginSchema, type LoginSchema } from '../../schema'
+import { apiLogin } from '../queries'
+import { loginSchema, type LoginSchema } from '../schema'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLFormElement> {
   redirectTo?: string
@@ -31,6 +31,7 @@ export function UserAuthForm({
   redirectTo,
   ...props
 }: UserAuthFormProps) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { login } = useAuthStore()
 
@@ -86,7 +87,7 @@ export function UserAuthForm({
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t('pages.auth.signIn.fields.email')}</FormLabel>
               <FormControl>
                 <Input placeholder='name@example.com' {...field} />
               </FormControl>
@@ -99,7 +100,7 @@ export function UserAuthForm({
           name='password'
           render={({ field }) => (
             <FormItem className='relative'>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t('pages.auth.signIn.fields.password')}</FormLabel>
               <FormControl>
                 <PasswordInput placeholder='********' {...field} />
               </FormControl>
@@ -108,7 +109,7 @@ export function UserAuthForm({
                 to='/forgot-password'
                 className='text-muted-foreground absolute end-0 -top-0.5 text-sm font-medium hover:opacity-75'
               >
-                Forgot password?
+                {t('pages.auth.signIn.messages.forgotPassword')}
               </Link>
             </FormItem>
           )}
@@ -119,10 +120,10 @@ export function UserAuthForm({
           ) : (
             <LogIn />
           )}
-          Sign in
+          {t('pages.auth.signIn.messages.signIn')}
         </Button>
 
-        <div className='relative my-2'>
+        {/* <div className='relative my-2'>
           <div className='absolute inset-0 flex items-center'>
             <span className='w-full border-t' />
           </div>
@@ -148,7 +149,7 @@ export function UserAuthForm({
           >
             <IconFacebook className='h-4 w-4' /> Facebook
           </Button>
-        </div>
+        </div> */}
       </form>
     </Form>
   )

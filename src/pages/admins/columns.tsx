@@ -1,4 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table'
+import i18n from '@/i18n'
 import { CheckSquareIcon, MailIcon, TextIcon, XSquareIcon } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
@@ -39,12 +40,15 @@ export function getAdminsTableColumns({
       id: ColumnKeys.email,
       accessorFn: (row) => row.email,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Email' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.adminUsers.overview.tableColumns.email')}
+        />
       ),
       meta: {
         variant: 'text',
-        placeholder: 'Email',
-        label: 'Email',
+        placeholder: i18n.t('pages.adminUsers.overview.tableColumns.email'),
+        label: i18n.t('pages.adminUsers.overview.tableColumns.email'),
         icon: MailIcon,
       },
       cell: ({ row }) => <div>{row.original.email}</div>,
@@ -54,15 +58,18 @@ export function getAdminsTableColumns({
       id: ColumnKeys.fullName,
       accessorFn: (row) => row.fullName,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Fullname' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.adminUsers.overview.tableColumns.fullName')}
+        />
       ),
       cell: ({ row }) => (
         <p className='truncate overflow-hidden'>{row.original.fullName}</p>
       ),
       meta: {
         variant: 'text',
-        placeholder: 'Fullname',
-        label: 'Fullname',
+        placeholder: i18n.t('pages.adminUsers.overview.tableColumns.fullName'),
+        label: i18n.t('pages.adminUsers.overview.tableColumns.fullName'),
         icon: TextIcon,
       },
       enableHiding: false,
@@ -73,11 +80,14 @@ export function getAdminsTableColumns({
       id: ColumnKeys.role,
       accessorFn: (row) => row.role.id,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Role' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.adminUsers.overview.tableColumns.role')}
+        />
       ),
       meta: {
         variant: 'multiSelect',
-        label: 'Role',
+        label: i18n.t('pages.adminUsers.overview.tableColumns.role'),
         options: roles.map((role) => ({ label: role.name, value: role.id })),
       },
       cell: ({ row }) => <p>{row.original.role.name}</p>,
@@ -89,7 +99,10 @@ export function getAdminsTableColumns({
       id: ColumnKeys.verifiedAt,
       accessorFn: (row) => row.verifiedAt,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Verified' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.adminUsers.overview.tableColumns.emailVerified')}
+        />
       ),
       cell: ({ row }) => (
         <div className='flex items-center'>
@@ -108,7 +121,10 @@ export function getAdminsTableColumns({
       id: 'actions',
       accessorKey: 'actions',
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label='Actions' />
+        <DataTableColumnHeader
+          column={column}
+          label={i18n.t('pages.adminUsers.overview.tableColumns.action')}
+        />
       ),
       cell: ({ row }) => <ComponentTableRowActions row={row} />,
       size: 40,

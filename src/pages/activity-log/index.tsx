@@ -76,8 +76,8 @@ export function PageActivityLogOverview() {
   return (
     <>
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -88,10 +88,10 @@ export function PageActivityLogOverview() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.activityLogOverview.title')}
+              {t('pages.activityLogs.overview.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.activityLogOverview.description')}
+              {t('pages.activityLogs.overview.description')}
             </p>
           </div>
         </div>

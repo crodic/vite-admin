@@ -93,7 +93,7 @@ export default function PageRoleShow() {
         <div className='space-y-8'>
           <div className='flex items-center justify-between'>
             <h1 className='text-2xl font-bold'>
-              {t('pages.roleDetail.title')}
+              {t('pages.roles.show.title')}
             </h1>
             <div className='flex items-center gap-2'>
               <Button onClick={() => navigate(-1)} variant='outline'>
@@ -121,24 +121,24 @@ export default function PageRoleShow() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.roleDetail.cardTitle')}</CardTitle>
+              <CardTitle>{t('pages.roles.show.cardTitle')}</CardTitle>
               <CardDescription>
-                {t('pages.roleDetail.description')}
+                {t('pages.roles.show.description')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem
-                  label={t('pages.roleDetail.fields.id')}
+                  label={t('pages.roles.show.fields.id')}
                   value={data.id}
                 />
                 <DescriptionItem
-                  label={t('pages.roleDetail.fields.name')}
+                  label={t('pages.roles.show.fields.name')}
                   value={data.name}
                 />
                 <div className='col-span-3'>
                   <DescriptionItem
-                    label={t('pages.roleDetail.fields.permissions')}
+                    label={t('pages.roles.show.fields.permissions')}
                     value={
                       isSuperAdmin
                         ? 'SUPER ADMIN'
@@ -149,11 +149,11 @@ export default function PageRoleShow() {
                   />
                 </div>
                 <DescriptionItem
-                  label={t('pages.roleDetail.fields.createdAt')}
+                  label={t('pages.roles.show.fields.createdAt')}
                   value={format(data.createdAt, 'yyyy-MM-dd HH:mm aa')}
                 />
                 <DescriptionItem
-                  label={t('pages.roleDetail.fields.updatedAt')}
+                  label={t('pages.roles.show.fields.updatedAt')}
                   value={format(data.updatedAt, 'yyyy-MM-dd HH:mm aa')}
                 />
               </Descriptions>

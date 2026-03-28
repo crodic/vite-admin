@@ -90,10 +90,10 @@ export function PageAdminShow() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.adminDetail.title')}
+              {t('pages.adminUsers.show.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.adminDetail.description')}
+              {t('pages.adminUsers.show.description')}
             </p>
           </div>
           <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -150,25 +150,21 @@ export function PageAdminShow() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.adminDetail.cardTitle')}</CardTitle>
+              <CardTitle>{t('pages.adminUsers.show.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem label='Email' value={data?.email} />
                 <DescriptionItem
-                  label={t('pages.adminDetail.fields.username')}
-                  value={data?.username ?? undefined}
-                />
-                <DescriptionItem
-                  label={t('pages.adminDetail.fields.fullName')}
+                  label={t('pages.adminUsers.show.fields.fullName')}
                   value={data?.fullName}
                 />
                 <DescriptionItem
-                  label={t('pages.adminDetail.fields.phoneNumber')}
+                  label={t('pages.adminUsers.show.fields.phoneNumber')}
                   value={data?.phone ?? ''}
                 />
                 <DescriptionItem
-                  label={t('pages.adminDetail.fields.birthday')}
+                  label={t('pages.adminUsers.show.fields.birthday')}
                   value={
                     data.birthday
                       ? format(data.birthday, 'dd/MM/yyyy')
@@ -176,15 +172,15 @@ export function PageAdminShow() {
                   }
                 />
                 <DescriptionItem
-                  label={t('pages.adminDetail.fields.emailVerified')}
+                  label={t('pages.adminUsers.show.fields.emailVerified')}
                   value={data?.verifiedAt ? 'Active' : 'Inactive'}
                 />
                 <DescriptionItem
-                  label={t('pages.adminDetail.fields.createdAt')}
+                  label={t('pages.adminUsers.show.fields.createdAt')}
                   value={format(data.createdAt, 'dd/MM/yyyy HH:mm aa')}
                 />
                 <DescriptionItem
-                  label={t('pages.adminDetail.fields.updatedAt')}
+                  label={t('pages.adminUsers.show.fields.updatedAt')}
                   value={format(data.updatedAt, 'dd/MM/yyyy HH:mm aa')}
                 />
               </Descriptions>

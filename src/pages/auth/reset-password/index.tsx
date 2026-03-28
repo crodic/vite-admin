@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Navigate, useSearchParams } from 'react-router'
 import {
   Card,
@@ -11,6 +12,7 @@ import { AuthLayout } from '../auth-layout'
 import { ResetPasswordForm } from './components/reset-password-form'
 
 export function ResetPassword() {
+  const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
 
@@ -23,10 +25,10 @@ export function ResetPassword() {
       <Card className='gap-4'>
         <CardHeader>
           <CardTitle className='text-lg tracking-tight'>
-            Reset Password
+            {t('pages.auth.resetPassword.title')}
           </CardTitle>
           <CardDescription>
-            Enter your new password to want reset.
+            {t('pages.auth.resetPassword.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>

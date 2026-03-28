@@ -109,7 +109,7 @@ export default function PageRoleCreate() {
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='flex items-center justify-between'>
               <h3 className='text-2xl font-bold'>
-                {t('pages.roleCreate.title')}
+                {t('pages.roles.create.title')}
               </h3>
               <div className='flex items-center gap-2'>
                 <Button
@@ -135,12 +135,12 @@ export default function PageRoleCreate() {
                   render={({ field }) => (
                     <FormItem className='md:col-span-3'>
                       <FormLabel required>
-                        {t('pages.roleCreate.fields.name')}
+                        {t('pages.roles.create.fields.name')}
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder={t('pages.roleCreate.fields.name')}
+                          placeholder={t('pages.roles.create.fields.name')}
                         />
                       </FormControl>
                       <FormMessage />
@@ -155,7 +155,7 @@ export default function PageRoleCreate() {
                       'font-semibold'
                     )}
                   >
-                    {t('pages.roleCreate.fields.permissions')}
+                    {t('pages.roles.create.fields.permissions')}
                   </h6>
                   <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
                     {groupPermission

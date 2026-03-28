@@ -91,7 +91,7 @@ export function PageUserOverview() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.userOverview.title')}
+              {t('pages.users.overview.title')}
             </h2>
           </div>
           <div>

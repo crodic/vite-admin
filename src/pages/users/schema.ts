@@ -8,6 +8,7 @@ export const ColumnKey = {
   updatedAt: 'updatedAt',
   image: 'image',
   verifiedAt: 'verifiedAt',
+  fullname: 'fullname',
   all: 'all',
 }
 

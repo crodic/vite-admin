@@ -81,8 +81,8 @@ export function PageAdminOverview() {
   return (
     <>
       <Header fixed>
-        <Search />
         <div className='ms-auto flex items-center space-x-4'>
+          <Search />
           <ThemeSwitch />
           <ConfigDrawer />
           <ProfileDropdown />
@@ -93,10 +93,10 @@ export function PageAdminOverview() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.adminOverview.title')}
+              {t('pages.adminUsers.overview.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.adminOverview.description')}
+              {t('pages.adminUsers.overview.description')}
             </p>
           </div>
           <div>

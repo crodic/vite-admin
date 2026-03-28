@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
@@ -23,6 +24,7 @@ export function ResetPasswordForm({
   className,
   ...props
 }: ResetPasswordFormProps) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token') as string
@@ -59,10 +61,12 @@ export function ResetPasswordForm({
           name='newPassword'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>New Password</FormLabel>
+              <FormLabel>
+                {t('pages.auth.resetPassword.fields.password')}
+              </FormLabel>
               <FormControl>
                 <PasswordInput
-                  placeholder='Enter new password'
+                  placeholder='************'
                   autoComplete='new-password'
                   {...field}
                 />
@@ -76,10 +80,12 @@ export function ResetPasswordForm({
           name='confirmPassword'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel>
+                {t('pages.auth.resetPassword.fields.confirmPassword')}
+              </FormLabel>
               <FormControl>
                 <PasswordInput
-                  placeholder='Confirm new password'
+                  placeholder='************'
                   autoComplete='new-password'
                   {...field}
                 />
@@ -89,7 +95,9 @@ export function ResetPasswordForm({
           )}
         />
         <Button type='submit' disabled={isLoading} className='mt-2'>
-          {isLoading ? 'Resetting...' : 'Reset Password'}
+          {isLoading
+            ? t('pages.auth.resetPassword.button.resetting')
+            : t('pages.auth.resetPassword.button.reset')}
         </Button>
       </form>
     </Form>
