@@ -53,7 +53,7 @@ export function NavUser() {
                 className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
               >
                 <Avatar className='h-8 w-8 rounded-lg'>
-                  <AvatarImage src={data.image} alt={data.username} />
+                  <AvatarImage src={data.image} alt={data.fullName} />
                   <AvatarFallback className='rounded-lg'>SN</AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-start text-sm leading-tight'>
@@ -74,11 +74,11 @@ export function NavUser() {
               <DropdownMenuLabel className='p-0 font-normal'>
                 <div className='flex items-center gap-2 px-1 py-1.5 text-start text-sm'>
                   <Avatar className='h-8 w-8 rounded-lg'>
-                    <AvatarImage src={data.image} alt={data.username} />
+                    <AvatarImage src={data.image} alt={data.fullName} />
                     <AvatarFallback className='rounded-lg'>
-                      {data.username
-                        ? data.username?.charAt(0).toUpperCase() +
-                          data.username.charAt(1).toUpperCase()
+                      {data.fullName
+                        ? data.fullName?.charAt(0).toUpperCase() +
+                          data.fullName?.charAt(1).toUpperCase()
                         : 'SN'}
                     </AvatarFallback>
                   </Avatar>
