@@ -12,6 +12,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { NotFoundError } from '@/pages/errors/not-found-error'
 import { useDataGetLogDetail } from '../queries'
 import LogTable from './log-table'
 
@@ -22,7 +23,9 @@ export default function PageActivityLogShow() {
 
   const { data, isFetching } = useDataGetLogDetail(params.id as string)
 
-  if (isFetching || !data) return <DataLoader />
+  if (isFetching) return <DataLoader />
+
+  if (!data) return <NotFoundError />
 
   return (
     <>

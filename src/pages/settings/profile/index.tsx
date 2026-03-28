@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
-import { Navigate } from 'react-router'
 import DataLoader from '@/components/layout/data-loader'
 import { apiGetMe } from '@/pages/auth/queries'
+import { NotFoundError } from '@/pages/errors/not-found-error'
 import { ContentSection } from '../components/content-section'
 import { ProfileForm } from './profile-form'
 
@@ -15,7 +15,7 @@ export function SettingsProfile() {
 
   if (isFetching) return <DataLoader />
 
-  if (!currentUser) return <Navigate to='/errors/not-found' />
+  if (!currentUser) return <NotFoundError />
 
   return (
     <ContentSection

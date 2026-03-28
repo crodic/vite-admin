@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ArrowLeftIcon, Edit2Icon, Trash2Icon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -23,6 +23,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { NotFoundError } from '@/pages/errors/not-found-error'
 import { apiDeleteRole, useDataRoleById } from '../queries'
 
 export default function PageRoleShow() {
@@ -67,7 +68,7 @@ export default function PageRoleShow() {
   if (isFetching) return <DataLoader />
 
   if (!data) {
-    return <Navigate to='/errors/not-found' />
+    return <NotFoundError />
   }
 
   return (
