@@ -123,14 +123,11 @@ export function PageUserShow() {
                 <Avatar className='inline-block h-24 w-24'>
                   <AvatarFallback>CN</AvatarFallback>
                   <AvatarImage
-                    src={data?.image ?? undefined}
-                    alt={data?.fullName}
+                    src={data?.avatar ?? undefined}
+                    alt={data?.fullname}
                   />
                 </Avatar>
-                <h3 className='text-lg font-bold'>{data?.fullName}</h3>
-                <p className='text-sm font-normal italic'>
-                  {data?.bio || 'Empty'}
-                </p>
+                <h3 className='text-lg font-bold'>{data?.fullname}</h3>
               </div>
             </CardContent>
           </Card>
@@ -147,7 +144,7 @@ export function PageUserShow() {
                 />
                 <DescriptionItem
                   label={t('pages.users.show.fields.fullName')}
-                  value={data?.fullName}
+                  value={data?.fullname}
                 />
                 <DescriptionItem
                   label={t('pages.users.show.fields.emailVerified')}

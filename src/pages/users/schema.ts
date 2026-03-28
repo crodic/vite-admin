@@ -3,10 +3,9 @@ import z from 'zod'
 export const ColumnKey = {
   id: 'id',
   email: 'email',
-  username: 'username',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  image: 'image',
+  avatar: 'avatar',
   verifiedAt: 'verifiedAt',
   fullname: 'fullname',
   all: 'all',
@@ -14,13 +13,11 @@ export const ColumnKey = {
 
 export const userSchema = z.object({
   id: z.string(),
-  username: z.string().nullable(),
   email: z.string(),
-  bio: z.string().nullish(),
-  image: z.string().nullish(),
-  firstName: z.string(),
-  lastName: z.string().nullable(),
-  fullName: z.string(),
+  avatar: z.string().nullish(),
+  firstname: z.string(),
+  lastname: z.string().nullable(),
+  fullname: z.string(),
   verifiedAt: z.boolean(),
   createdAt: z.string(),
   updatedAt: z.string(),
@@ -47,15 +44,13 @@ const passwordSchema = z
 
 export const userCreateSchema = z
   .object({
-    username: z.string().nullish(),
-    firstName: z.string().min(1, 'First name is required'),
-    lastName: z.string().optional(),
+    firstname: z.string().min(1, 'First name is required'),
+    lastname: z.string().optional(),
     email: z.email('Invalid email address'),
     password: passwordSchema,
     confirmPassword: z
       .string()
       .min(8, 'Confirm Password must be at least 8 characters'),
-    bio: z.string().nullish(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
@@ -65,11 +60,9 @@ export const userCreateSchema = z
 export type UserCreateSchema = z.infer<typeof userCreateSchema>
 
 export const userEditSchema = z.object({
-  username: z.string().nullish(),
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().optional(),
+  firstname: z.string().min(1, 'First name is required'),
+  lastname: z.string().optional(),
   email: z.email('Invalid email address'),
-  bio: z.string().nullish(),
 })
 
 export type UserEditSchema = z.infer<typeof userEditSchema>

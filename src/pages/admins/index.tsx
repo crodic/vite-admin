@@ -20,11 +20,11 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { useDataRoleFormOptions } from '../roles/queries'
 import { getAdminsTableColumns } from './columns'
 import { useDataAdminOverview } from './queries'
-import { type AdminSchema, ColumnKeys } from './schema'
+import { type AdminSchema, ColumnKey } from './schema'
 
 const adminsFilterParsers = {
   email: parseAsString,
-  fullName: parseAsString,
+  fullname: parseAsString,
   role: parseAsArrayOf(parseAsString, ','),
 } as const
 
@@ -38,11 +38,7 @@ export function PageAdminOverview() {
     sorting: sort,
     filter,
   } = useGetFilterParams<AdminSchema, typeof adminsFilterParsers>({
-    allowedSorts: [
-      ColumnKeys.email,
-      ColumnKeys.fullName,
-      ColumnKeys.verifiedAt,
-    ],
+    allowedSorts: [ColumnKey.email, ColumnKey.fullname, ColumnKey.verifiedAt],
     filterParsers: adminsFilterParsers,
   })
 
@@ -50,7 +46,7 @@ export function PageAdminOverview() {
     .page(page)
     .limit(perPage)
     .ilike('email', filter.email)
-    .ilike('fullName', filter.fullName)
+    .ilike('fullname', filter.fullname)
     .in('role.id', filter.role || [])
     .sortBy(sortParser(sort).sortBy, sortParser(sort).sortDirection)
 

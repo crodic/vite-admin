@@ -3,30 +3,28 @@ import { IMAGE_ACCEPTED_FORMATS, MAX_IMAGE_SIZE_MB } from '@/global'
 import i18n from '@/i18n'
 import { roleSchema } from '../roles/schema'
 
-export const ColumnKeys = {
+export const ColumnKey = {
   email: 'email',
-  username: 'username',
-  firstName: 'firstName',
-  lastName: 'lastName',
-  fullName: 'fullName',
+  firstname: 'firstname',
+  lastname: 'lastname',
+  fullname: 'fullname',
   verifiedAt: 'verifiedAt',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  image: 'image',
+  avatar: 'avatar',
 }
 
 export const adminSchema = z.object({
   id: z.string(),
-  username: z.string().nullable(),
-  firstName: z.string(),
-  lastName: z.string(),
-  fullName: z.string(),
+  firstname: z.string(),
+  lastname: z.string(),
+  fullname: z.string(),
   phone: z.string().nullable(),
   birthday: z.string().nullable(),
   email: z.string(),
   bio: z.string().nullish(),
-  image: z.string().nullish(),
+  avatar: z.string().nullish(),
   verifiedAt: z.boolean(),
   role: roleSchema,
   createdAt: z.string(),
@@ -54,11 +52,10 @@ const passwordSchema = z
 
 export const adminCreateSchema = z
   .object({
-    username: z.string().optional(),
-    firstName: z
+    firstname: z
       .string({ error: i18n.t('validation.required') })
       .min(1, 'First name is required'),
-    lastName: z
+    lastname: z
       .string({ error: i18n.t('validation.required') })
       .min(1, 'Last name is required'),
     phone: z.string().optional(),
@@ -70,7 +67,7 @@ export const adminCreateSchema = z
       .min(8, 'Confirm Password must be at least 8 characters'),
     roleId: z.string({ error: i18n.t('validation.required') }),
     bio: z.string().optional(),
-    image: z
+    avatar: z
       .instanceof(File)
       .optional()
       .refine(
@@ -90,11 +87,10 @@ export const adminCreateSchema = z
 export type AdminCreateSchema = z.infer<typeof adminCreateSchema>
 
 export const adminEditSchema = z.object({
-  username: z.string().nullish(),
-  firstName: z
+  firstname: z
     .string({ error: i18n.t('validation.required') })
     .min(1, 'First name is required'),
-  lastName: z
+  lastname: z
     .string({ error: i18n.t('validation.required') })
     .min(1, 'Last name is required'),
   phone: z.string().optional(),
@@ -102,7 +98,7 @@ export const adminEditSchema = z.object({
   email: z.email('Invalid email address'),
   roleId: z.string({ error: i18n.t('validation.required') }),
   bio: z.string({ error: i18n.t('validation.required') }).nullish(),
-  image: z
+  avatar: z
     .instanceof(File)
     .optional()
     .refine((f) => !f || f.size <= MAX_IMAGE_SIZE_MB, 'File size is too large')

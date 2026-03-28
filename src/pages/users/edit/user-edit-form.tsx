@@ -35,10 +35,8 @@ export function UserEditForm({ data }: { data: UserSchema }) {
   const form = useForm<UserEditSchema>({
     defaultValues: {
       email: data.email,
-      firstName: data.firstName,
-      lastName: data.lastName ?? undefined,
-      username: data.username || undefined,
-      bio: data.bio,
+      firstname: data.firstname,
+      lastname: data.lastname ?? undefined,
     },
     resolver: zodResolver(userEditSchema),
   })
@@ -109,7 +107,11 @@ export function UserEditForm({ data }: { data: UserSchema }) {
                       {t('pages.users.edit.fields.email')}
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder='test@example.com' {...field} />
+                      <Input
+                        placeholder='test@example.com'
+                        {...field}
+                        disabled
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,7 +119,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
               />
               <FormField
                 control={form.control}
-                name='firstName'
+                name='firstname'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>
@@ -132,7 +134,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
               />
               <FormField
                 control={form.control}
-                name='lastName'
+                name='lastname'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>

@@ -2,7 +2,6 @@ import { isAxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { type User } from '@/types/auth.type'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { showSubmittedData } from '@/lib/show-submitted-data'
@@ -19,19 +18,20 @@ import {
 import { Input } from '@/components/ui/input'
 import { DatePickerForm } from '@/components/forms/date-picker-form'
 import { PhoneInput } from '@/components/forms/phone-input'
+import { type AdminSchema } from '@/pages/admins/schema'
 import { apiUpdateCurrentAccount } from '@/pages/auth/queries'
 import { accountFormSchema, type AccountFormSchema } from '../schema'
 
-export function AccountForm({ user }: { user: User }) {
+export function AccountForm({ user }: { user: AdminSchema }) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const form = useForm<AccountFormSchema>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: {
-      firstName: user?.firstName,
-      lastName: user?.lastName,
+      firstname: user.firstname,
+      lastname: user.lastname,
       birthday: user?.birthday,
-      phone: user?.phone,
+      phone: user?.phone ?? undefined,
     },
   })
 
@@ -58,14 +58,14 @@ export function AccountForm({ user }: { user: User }) {
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
           <FormField
             control={form.control}
-            name='firstName'
+            name='firstname'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
                   {t('pages.settings.account.fields.firstName')}
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder={user.firstName} {...field} />
+                  <Input placeholder={user.firstname} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,14 +73,14 @@ export function AccountForm({ user }: { user: User }) {
           />
           <FormField
             control={form.control}
-            name='lastName'
+            name='lastname'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
                   {t('pages.settings.account.fields.lastName')}
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder={user.lastName} {...field} />
+                  <Input placeholder={user.lastname} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

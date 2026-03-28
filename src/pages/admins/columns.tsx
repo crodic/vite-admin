@@ -5,7 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
 import { type RoleSchema } from '../roles/schema'
 import ComponentTableRowActions from './component-table-row-action'
-import { ColumnKeys, type AdminSchema } from './schema'
+import { ColumnKey, type AdminSchema } from './schema'
 
 export function getAdminsTableColumns({
   roles = [],
@@ -37,7 +37,7 @@ export function getAdminsTableColumns({
       enableHiding: false,
     },
     {
-      id: ColumnKeys.email,
+      id: ColumnKey.email,
       accessorFn: (row) => row.email,
       header: ({ column }) => (
         <DataTableColumnHeader
@@ -55,8 +55,8 @@ export function getAdminsTableColumns({
       enableColumnFilter: true,
     },
     {
-      id: ColumnKeys.fullName,
-      accessorFn: (row) => row.fullName,
+      id: ColumnKey.fullname,
+      accessorFn: (row) => row.fullname,
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
@@ -64,7 +64,7 @@ export function getAdminsTableColumns({
         />
       ),
       cell: ({ row }) => (
-        <p className='truncate overflow-hidden'>{row.original.fullName}</p>
+        <p className='truncate overflow-hidden'>{row.original.fullname}</p>
       ),
       meta: {
         variant: 'text',
@@ -77,7 +77,7 @@ export function getAdminsTableColumns({
       enableColumnFilter: true,
     },
     {
-      id: ColumnKeys.role,
+      id: ColumnKey.role,
       accessorFn: (row) => row.role.id,
       header: ({ column }) => (
         <DataTableColumnHeader
@@ -96,7 +96,7 @@ export function getAdminsTableColumns({
       enableSorting: false,
     },
     {
-      id: ColumnKeys.verifiedAt,
+      id: ColumnKey.verifiedAt,
       accessorFn: (row) => row.verifiedAt,
       header: ({ column }) => (
         <DataTableColumnHeader

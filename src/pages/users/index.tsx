@@ -24,7 +24,6 @@ import { UsersTableActionBar } from './users-table-action-bar'
 
 const userFilterParsers = {
   [ColumnKey.email]: parseAsString,
-  [ColumnKey.username]: parseAsString,
   [ColumnKey.createdAt]: parseAsArrayOf(parseAsInteger, ','),
   [ColumnKey.id]: parseAsString,
 } as const
@@ -58,7 +57,6 @@ export function PageUserOverview() {
     .limit(perPage)
     .btw('createdAt', createdFrom, createdTo)
     .ilike('email', filter.email)
-    .ilike('username', filter.username)
     .eq('id', filter.id)
     .sortBy(sortParser(sort).sortBy, sortParser(sort).sortDirection)
     .search(search)

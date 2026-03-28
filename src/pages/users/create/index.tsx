@@ -122,7 +122,7 @@ export function PageUserCreate() {
                 />
                 <FormField
                   control={form.control}
-                  name='firstName'
+                  name='firstname'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
@@ -137,7 +137,7 @@ export function PageUserCreate() {
                 />
                 <FormField
                   control={form.control}
-                  name='lastName'
+                  name='lastname'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>

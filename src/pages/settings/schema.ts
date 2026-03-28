@@ -3,7 +3,7 @@ import { IMAGE_ACCEPTED_FORMATS, MAX_FILE_SIZE } from '@/global'
 
 export const profileFormSchema = z.object({
   bio: z.string().max(160).min(4).nullish(),
-  image: z.union([
+  avatar: z.union([
     z
       .instanceof(File)
       .refine((file) => IMAGE_ACCEPTED_FORMATS.includes(file.type), {
@@ -21,8 +21,8 @@ export const profileFormSchema = z.object({
 export type ProfileFormSchema = z.infer<typeof profileFormSchema>
 
 export const accountFormSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
+  firstname: z.string().min(1, 'First name is required'),
+  lastname: z.string().min(1, 'Last name is required'),
   birthday: z.string().nullable(),
   phone: z.string().optional(),
 })

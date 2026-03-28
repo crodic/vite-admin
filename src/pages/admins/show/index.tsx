@@ -133,12 +133,12 @@ export function PageAdminShow() {
                 <Avatar className='inline-block h-24 w-24'>
                   <AvatarFallback>CN</AvatarFallback>
                   <AvatarImage
-                    src={data?.image || ''}
-                    alt={data?.fullName}
+                    src={data?.avatar || ''}
+                    alt={data?.fullname || ''}
                     className='rounded-full'
                   />
                 </Avatar>
-                <h3 className='text-lg font-bold'>{data?.fullName}</h3>
+                <h3 className='text-lg font-bold'>{data?.fullname || ''}</h3>
                 <p className='text-sm font-normal italic'>
                   {data?.bio || 'Empty'}
                 </p>
@@ -158,18 +158,18 @@ export function PageAdminShow() {
                 <DescriptionItem label='Email' value={data?.email} />
                 <DescriptionItem
                   label={t('pages.adminUsers.show.fields.fullName')}
-                  value={data?.fullName}
+                  value={data?.fullname}
                 />
                 <DescriptionItem
                   label={t('pages.adminUsers.show.fields.phoneNumber')}
-                  value={data?.phone ?? ''}
+                  value={data?.phone}
                 />
                 <DescriptionItem
                   label={t('pages.adminUsers.show.fields.birthday')}
                   value={
                     data.birthday
                       ? format(data.birthday, 'dd/MM/yyyy')
-                      : 'Not available'
+                      : undefined
                   }
                 />
                 <DescriptionItem

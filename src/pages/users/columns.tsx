@@ -75,7 +75,7 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
     },
     {
       id: ColumnKey.fullname,
-      accessorFn: (row) => row.fullName,
+      accessorFn: (row) => row.fullname,
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
@@ -83,7 +83,7 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
         />
       ),
       cell: ({ row }) => (
-        <div className='truncate'>{row.original.fullName}</div>
+        <div className='truncate'>{row.original.fullname}</div>
       ),
       meta: {
         label: i18n.t('pages.users.overview.tableColumns.fullName'),

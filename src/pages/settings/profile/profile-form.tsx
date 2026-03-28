@@ -2,7 +2,6 @@ import { isAxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { type User } from '@/types/auth.type'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -17,14 +16,15 @@ import {
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 import AvatarUploader from '@/components/forms/avatar-uploader'
+import { type AdminSchema } from '@/pages/admins/schema'
 import { apiUpdateMe } from '@/pages/auth/queries'
 import { profileFormSchema, type ProfileFormSchema } from '../schema'
 
-export function ProfileForm({ user }: { user: User }) {
+export function ProfileForm({ user }: { user: AdminSchema }) {
   const { t } = useTranslation()
   const form = useForm<ProfileFormSchema>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues: { bio: user?.bio, image: undefined },
+    defaultValues: { bio: user?.bio, avatar: undefined },
     mode: 'onChange',
   })
   const queryClient = useQueryClient()
@@ -43,7 +43,7 @@ export function ProfileForm({ user }: { user: User }) {
   })
 
   const onSubmit = (values: ProfileFormSchema) => {
-    if (values.image === null) {
+    if (values.avatar === null) {
       values.removeAvatar = true
     }
     updateMeMutation.mutate(values)
@@ -54,7 +54,7 @@ export function ProfileForm({ user }: { user: User }) {
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
         <FormField
           control={form.control}
-          name='image'
+          name='avatar'
           render={({ field }) => (
             <FormItem>
               <FormLabel>{t('pages.settings.profile.fields.avatar')}</FormLabel>
@@ -65,7 +65,7 @@ export function ProfileForm({ user }: { user: User }) {
                   field={field}
                   aspect={1}
                   cropShape='round'
-                  defaultUri={user?.image}
+                  defaultUri={user?.avatar ?? undefined}
                 />
               </FormControl>
               <FormMessage />
