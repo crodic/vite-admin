@@ -20,7 +20,7 @@ export const logSchema = z.object({
   user: z
     .object({
       id: z.string(),
-      fullName: z.string().nullable(),
+      fullname: z.string().nullable(),
       email: z.string().nullable(),
     })
     .nullish(),
