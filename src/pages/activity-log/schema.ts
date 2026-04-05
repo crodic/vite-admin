@@ -6,7 +6,7 @@ export const ColumnKey = {
   entity: 'entity',
   action: 'action',
   userId: 'userId',
-  createdAt: 'createdAt',
+  timestamp: 'timestamp',
 }
 
 export const logSchema = z.object({
@@ -17,14 +17,12 @@ export const logSchema = z.object({
   userId: z.string().nullish(),
   oldValue: z.any().nullish(),
   newValue: z.any().nullish(),
-  user: z
-    .object({
-      id: z.string(),
-      fullname: z.string().nullable(),
-      email: z.string().nullable(),
-    })
-    .nullish(),
-  createdAt: z.string(),
+  metadata: z.any().nullish(),
+  description: z.string().nullish(),
+  requestId: z.string().nullish(),
+  ip: z.string().nullish(),
+  userAgent: z.string().nullish(),
+  timestamp: z.string(),
 })
 
 export type ActivityLogSchema = z.infer<typeof logSchema>

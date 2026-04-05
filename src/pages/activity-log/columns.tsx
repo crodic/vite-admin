@@ -96,14 +96,7 @@ export function getActivitiesTableColumns({
       ),
       cell: ({ row }) => (
         <p className='truncate overflow-hidden'>
-          {row.original.user ? (
-            <span>
-              [ID: {row.original.user?.id}] {row.original.user?.fullName} (
-              {row.original.user?.email})
-            </span>
-          ) : (
-            <span>{row.original.userId}</span>
-          )}
+          <span>{row.original.userId}</span>
         </p>
       ),
       meta: {
@@ -117,8 +110,8 @@ export function getActivitiesTableColumns({
       enableColumnFilter: true,
     },
     {
-      id: ColumnKey.createdAt,
-      accessorFn: (row) => row.createdAt,
+      id: ColumnKey.timestamp,
+      accessorFn: (row) => row.timestamp,
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
@@ -127,7 +120,7 @@ export function getActivitiesTableColumns({
       ),
       cell: ({ row }) => (
         <p className='truncate overflow-hidden'>
-          {format(row.original.createdAt, 'dd/MM/yyyy HH:mm aa')}
+          {format(row.original.timestamp, 'dd/MM/yyyy HH:mm aa')}
         </p>
       ),
       enableColumnFilter: false,

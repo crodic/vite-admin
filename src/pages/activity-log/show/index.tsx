@@ -68,11 +68,7 @@ export default function PageActivityLogShow() {
                 />
                 <DescriptionItem
                   label={t('pages.activityLogs.show.fields.actorInformation')}
-                  value={
-                    data.user
-                      ? `[${data.user?.id}] ${data.user?.fullName} (${data.user?.email})`
-                      : undefined
-                  }
+                  value={data.userAgent || '-'}
                 />
                 <DescriptionItem
                   label={t('pages.activityLogs.show.fields.action')}
@@ -84,7 +80,7 @@ export default function PageActivityLogShow() {
                 />
                 <DescriptionItem
                   label={t('pages.activityLogs.show.fields.timestamp')}
-                  value={format(data.createdAt, 'yyyy-MM-dd HH:mm aa')}
+                  value={format(data.timestamp, 'yyyy-MM-dd HH:mm aa')}
                 />
 
                 <div className='col-span-1 sm:col-span-2 md:col-span-3'>

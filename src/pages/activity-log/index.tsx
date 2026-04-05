@@ -36,7 +36,7 @@ export function PageActivityLogOverview() {
     sorting: sort,
     filter,
   } = useGetFilterParams<ActivityLogSchema, typeof activitiesFilterParsers>({
-    allowedSorts: [ColumnKey.entityId, ColumnKey.createdAt],
+    allowedSorts: [ColumnKey.entityId, ColumnKey.timestamp],
     filterParsers: activitiesFilterParsers,
   })
 
