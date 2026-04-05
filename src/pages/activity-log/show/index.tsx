@@ -68,7 +68,7 @@ export default function PageActivityLogShow() {
                 />
                 <DescriptionItem
                   label={t('pages.activityLogs.show.fields.actorInformation')}
-                  value={data.userAgent || '-'}
+                  value={JSON.stringify(data.metadata, null, 2)}
                 />
                 <DescriptionItem
                   label={t('pages.activityLogs.show.fields.action')}
