@@ -96,7 +96,12 @@ export function getActivitiesTableColumns({
       ),
       cell: ({ row }) => (
         <p className='truncate overflow-hidden'>
-          <span>{`${row.original.metadata?.role || 'Guest'}:${row.original.metadata?.actorId || '-'}`}</span>
+          <span>
+            {`Type: ${row.original.metadata?.userType ?? 'Guest'}`}
+            {row.original.metadata?.actorId != null
+              ? ` | Actor ID: ${row.original.metadata.actorId}`
+              : ''}
+          </span>
         </p>
       ),
       meta: {
