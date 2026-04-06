@@ -68,7 +68,14 @@ export default function PageActivityLogShow() {
                 />
                 <DescriptionItem
                   label={t('pages.activityLogs.show.fields.actorInformation')}
-                  value={JSON.stringify(data.metadata, null, 2)}
+                  value={
+                    <span>
+                      {`Type: ${data.metadata?.userType ?? 'Guest'}`}
+                      {data.metadata?.actorId != null
+                        ? ` | Actor ID: ${data.metadata.actorId}`
+                        : ''}
+                    </span>
+                  }
                 />
                 <DescriptionItem
                   label={t('pages.activityLogs.show.fields.action')}
