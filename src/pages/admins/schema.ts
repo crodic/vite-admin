@@ -5,9 +5,9 @@ import { roleSchema } from '../roles/schema'
 
 export const ColumnKey = {
   email: 'email',
-  firstname: 'firstname',
-  lastname: 'lastname',
-  fullname: 'fullname',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  fullName: 'fullName',
   verifiedAt: 'verifiedAt',
   role: 'role',
   createdAt: 'createdAt',
@@ -17,9 +17,9 @@ export const ColumnKey = {
 
 export const adminSchema = z.object({
   id: z.string(),
-  firstname: z.string(),
-  lastname: z.string(),
-  fullname: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  fullName: z.string(),
   phone: z.string().nullable(),
   birthday: z.string().nullable(),
   email: z.string(),
@@ -52,10 +52,10 @@ const passwordSchema = z
 
 export const adminCreateSchema = z
   .object({
-    firstname: z
+    firstName: z
       .string({ error: i18n.t('validation.required') })
       .min(1, 'First name is required'),
-    lastname: z
+    lastName: z
       .string({ error: i18n.t('validation.required') })
       .min(1, 'Last name is required'),
     phone: z.string().optional(),
@@ -87,10 +87,10 @@ export const adminCreateSchema = z
 export type AdminCreateSchema = z.infer<typeof adminCreateSchema>
 
 export const adminEditSchema = z.object({
-  firstname: z
+  firstName: z
     .string({ error: i18n.t('validation.required') })
     .min(1, 'First name is required'),
-  lastname: z
+  lastName: z
     .string({ error: i18n.t('validation.required') })
     .min(1, 'Last name is required'),
   phone: z.string().optional(),

@@ -35,8 +35,8 @@ export function UserEditForm({ data }: { data: UserSchema }) {
   const form = useForm<UserEditSchema>({
     defaultValues: {
       email: data.email,
-      firstname: data.firstname,
-      lastname: data.lastname ?? undefined,
+      firstName: data.firstName,
+      lastName: data.lastName ?? undefined,
     },
     resolver: zodResolver(userEditSchema),
   })
@@ -119,7 +119,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
               />
               <FormField
                 control={form.control}
-                name='firstname'
+                name='firstName'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>
@@ -134,7 +134,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
               />
               <FormField
                 control={form.control}
-                name='lastname'
+                name='lastName'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>

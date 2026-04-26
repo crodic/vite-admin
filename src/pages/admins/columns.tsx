@@ -55,8 +55,8 @@ export function getAdminsTableColumns({
       enableColumnFilter: true,
     },
     {
-      id: ColumnKey.fullname,
-      accessorFn: (row) => row.fullname,
+      id: ColumnKey.fullName,
+      accessorFn: (row) => row.fullName,
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
@@ -64,7 +64,7 @@ export function getAdminsTableColumns({
         />
       ),
       cell: ({ row }) => (
-        <p className='truncate overflow-hidden'>{row.original.fullname}</p>
+        <p className='truncate overflow-hidden'>{row.original.fullName}</p>
       ),
       meta: {
         variant: 'text',

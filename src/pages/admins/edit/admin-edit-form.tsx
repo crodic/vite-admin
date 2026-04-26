@@ -45,8 +45,8 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
   const form = useForm<AdminEditSchema>({
     defaultValues: {
       email: data.email,
-      firstname: data.firstname,
-      lastname: data.lastname,
+      firstName: data.firstName,
+      lastName: data.lastName,
       roleId: data.role.id,
       bio: data.bio,
       birthday: data.birthday || undefined,
@@ -115,7 +115,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
             <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
               <FormField
                 control={form.control}
-                name='firstname'
+                name='firstName'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>
@@ -130,7 +130,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
               />
               <FormField
                 control={form.control}
-                name='lastname'
+                name='lastName'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>

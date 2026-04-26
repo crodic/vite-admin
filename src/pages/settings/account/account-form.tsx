@@ -28,8 +28,8 @@ export function AccountForm({ user }: { user: AdminSchema }) {
   const form = useForm<AccountFormSchema>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: {
-      firstname: user.firstname,
-      lastname: user.lastname,
+      firstName: user.firstName,
+      lastName: user.lastName,
       birthday: user?.birthday,
       phone: user?.phone ?? undefined,
     },
@@ -58,14 +58,14 @@ export function AccountForm({ user }: { user: AdminSchema }) {
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
           <FormField
             control={form.control}
-            name='firstname'
+            name='firstName'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
                   {t('pages.settings.account.fields.firstName')}
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder={user.firstname} {...field} />
+                  <Input placeholder={user.firstName} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,14 +73,14 @@ export function AccountForm({ user }: { user: AdminSchema }) {
           />
           <FormField
             control={form.control}
-            name='lastname'
+            name='lastName'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
                   {t('pages.settings.account.fields.lastName')}
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder={user.lastname} {...field} />
+                  <Input placeholder={user.lastName} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

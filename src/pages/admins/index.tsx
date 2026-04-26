@@ -24,7 +24,7 @@ import { type AdminSchema, ColumnKey } from './schema'
 
 const adminsFilterParsers = {
   email: parseAsString,
-  fullname: parseAsString,
+  fullName: parseAsString,
   role: parseAsArrayOf(parseAsString, ','),
 } as const
 
@@ -38,7 +38,7 @@ export function PageAdminOverview() {
     sorting: sort,
     filter,
   } = useGetFilterParams<AdminSchema, typeof adminsFilterParsers>({
-    allowedSorts: [ColumnKey.email, ColumnKey.fullname, ColumnKey.verifiedAt],
+    allowedSorts: [ColumnKey.email, ColumnKey.fullName, ColumnKey.verifiedAt],
     filterParsers: adminsFilterParsers,
   })
 
@@ -46,7 +46,7 @@ export function PageAdminOverview() {
     .page(page)
     .limit(perPage)
     .ilike('email', filter.email)
-    .ilike('fullname', filter.fullname)
+    .ilike('fullName', filter.fullName)
     .in('role.id', filter.role || [])
     .sortBy(sortParser(sort).sortBy, sortParser(sort).sortDirection)
 

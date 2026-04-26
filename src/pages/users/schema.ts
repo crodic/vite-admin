@@ -7,7 +7,7 @@ export const ColumnKey = {
   updatedAt: 'updatedAt',
   avatar: 'avatar',
   verifiedAt: 'verifiedAt',
-  fullname: 'fullname',
+  fullName: 'fullName',
   all: 'all',
 }
 
@@ -15,9 +15,9 @@ export const userSchema = z.object({
   id: z.string(),
   email: z.string(),
   avatar: z.string().nullish(),
-  firstname: z.string(),
-  lastname: z.string().nullable(),
-  fullname: z.string(),
+  firstName: z.string(),
+  lastName: z.string().nullable(),
+  fullName: z.string(),
   verifiedAt: z.boolean(),
   createdAt: z.string(),
   updatedAt: z.string(),
@@ -44,8 +44,8 @@ const passwordSchema = z
 
 export const userCreateSchema = z
   .object({
-    firstname: z.string().min(1, 'First name is required'),
-    lastname: z.string().optional(),
+    firstName: z.string().min(1, 'First name is required'),
+    lastName: z.string().optional(),
     email: z.email('Invalid email address'),
     password: passwordSchema,
     confirmPassword: z
@@ -60,8 +60,8 @@ export const userCreateSchema = z
 export type UserCreateSchema = z.infer<typeof userCreateSchema>
 
 export const userEditSchema = z.object({
-  firstname: z.string().min(1, 'First name is required'),
-  lastname: z.string().optional(),
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().optional(),
   email: z.email('Invalid email address'),
 })
 

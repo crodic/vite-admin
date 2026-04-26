@@ -134,11 +134,11 @@ export function PageAdminShow() {
                   <AvatarFallback>CN</AvatarFallback>
                   <AvatarImage
                     src={data?.avatar || ''}
-                    alt={data?.fullname || ''}
+                    alt={data?.fullName || ''}
                     className='rounded-full'
                   />
                 </Avatar>
-                <h3 className='text-lg font-bold'>{data?.fullname || ''}</h3>
+                <h3 className='text-lg font-bold'>{data?.fullName || ''}</h3>
                 <p className='text-sm font-normal italic'>
                   {data?.bio || 'Empty'}
                 </p>
@@ -158,7 +158,7 @@ export function PageAdminShow() {
                 <DescriptionItem label='Email' value={data?.email} />
                 <DescriptionItem
                   label={t('pages.adminUsers.show.fields.fullName')}
-                  value={data?.fullname}
+                  value={data?.fullName}
                 />
                 <DescriptionItem
                   label={t('pages.adminUsers.show.fields.phoneNumber')}

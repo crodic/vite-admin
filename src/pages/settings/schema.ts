@@ -21,8 +21,8 @@ export const profileFormSchema = z.object({
 export type ProfileFormSchema = z.infer<typeof profileFormSchema>
 
 export const accountFormSchema = z.object({
-  firstname: z.string().min(1, 'First name is required'),
-  lastname: z.string().min(1, 'Last name is required'),
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
   birthday: z.string().nullable(),
   phone: z.string().optional(),
 })
