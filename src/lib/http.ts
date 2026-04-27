@@ -48,8 +48,8 @@ http.interceptors.response.use(
 
         refreshTokenPromise = apiRefreshToken(refreshToken)
           .then((res) => {
-            const accessToken = res.data.accessToken
-            const refreshToken = res.data.refreshToken
+            const accessToken = res.accessToken
+            const refreshToken = res.refreshToken
             useAuthStore.getState().setToken({
               accessToken,
               refreshToken,
