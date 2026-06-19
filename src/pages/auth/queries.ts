@@ -1,5 +1,5 @@
 import http from '@/lib/http'
-import { type AdminSchema } from '../admins/schema'
+import { adminSchema, type AdminSchema } from '../admins/schema'
 import {
   type AccountFormSchema,
   type ProfileFormSchema,
@@ -33,7 +33,7 @@ export async function apiRefreshToken(token: string) {
 export async function apiGetMe(): Promise<AdminSchema> {
   const res = await http.get('/auth/me')
 
-  return res.data
+  return adminSchema.parse(res.data)
 }
 
 export async function apiForgotPassword(email: string) {

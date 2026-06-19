@@ -47,7 +47,7 @@ export function PageAdminOverview() {
     .limit(perPage)
     .ilike('email', filter.email)
     .ilike('fullName', filter.fullName)
-    .in('role.id', filter.role || [])
+    .in('roles.id', filter.role || [])
     .sortBy(sortParser(sort).sortBy, sortParser(sort).sortDirection)
 
   const { data, isFetching } = useDataAdminOverview(builder.build())

@@ -14,6 +14,7 @@ import { useNavigate, useParams } from 'react-router'
 import { toast } from 'sonner'
 import { useAuthStore } from '@/stores/auth-store'
 import { AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { DeleteAlertDialog } from '@/components/common/delete-alert-dialog'
@@ -144,7 +145,7 @@ export function PageAdminShow() {
                 </p>
                 <p className='flex items-center gap-2 text-center font-bold'>
                   <ShieldUserIcon />
-                  {data?.role.name}
+                  {data.roles.map((role) => role.name).join(', ')}
                 </p>
               </div>
             </CardContent>
@@ -176,6 +177,17 @@ export function PageAdminShow() {
                   label={t('pages.adminUsers.show.fields.emailVerified')}
                   value={data?.verifiedAt ? 'Active' : 'Inactive'}
                 />
+                <DescriptionItem
+                  label={t('pages.adminUsers.show.fields.role')}
+                >
+                  <div className='mt-2 flex flex-wrap gap-1'>
+                    {data.roles.map((role) => (
+                      <Badge key={role.id} variant='secondary'>
+                        {role.name}
+                      </Badge>
+                    ))}
+                  </div>
+                </DescriptionItem>
                 <DescriptionItem
                   label={t('pages.adminUsers.show.fields.createdAt')}
                   value={format(data.createdAt, 'dd/MM/yyyy HH:mm aa')}

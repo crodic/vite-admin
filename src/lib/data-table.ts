@@ -50,6 +50,8 @@ export function getFilterOperators(filterVariant: FilterVariant) {
     boolean: dataTableConfig.booleanOperators,
     select: dataTableConfig.selectOperators,
     multiSelect: dataTableConfig.multiSelectOperators,
+    asyncSelect: dataTableConfig.selectOperators,
+    multiAsyncSelect: dataTableConfig.multiSelectOperators,
   }
 
   return operatorMap[filterVariant] ?? dataTableConfig.textOperators

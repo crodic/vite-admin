@@ -45,7 +45,9 @@ export function PageAdminCreate() {
   const { data, isLoading } = useDataRoleFormOptions()
 
   const form = useForm<AdminCreateSchema>({
-    defaultValues: {},
+    defaultValues: {
+      roleIds: [],
+    },
     resolver: zodResolver(adminCreateSchema),
   })
 
@@ -234,7 +236,7 @@ export function PageAdminCreate() {
                 />
                 <FormField
                   control={form.control}
-                  name='roleId'
+                  name='roleIds'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
@@ -250,6 +252,7 @@ export function PageAdminCreate() {
                             })) || []
                           }
                           isClearable={false}
+                          isMulti
                           isLoading={isLoading}
                           placeholder='Select role'
                         />

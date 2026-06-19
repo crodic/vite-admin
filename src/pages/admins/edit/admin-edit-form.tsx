@@ -47,7 +47,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
-      roleId: data.role.id,
+      roleIds: data.roleIds,
       bio: data.bio,
       birthday: data.birthday || undefined,
       phone: data.phone || undefined,
@@ -190,7 +190,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
               />
               <FormField
                 control={form.control}
-                name='roleId'
+                name='roleIds'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>
@@ -206,6 +206,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
                           })) || []
                         }
                         isClearable={false}
+                        isMulti
                         isLoading={isLoading}
                         placeholder='Select role'
                       />

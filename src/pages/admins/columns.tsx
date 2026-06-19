@@ -2,6 +2,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import i18n from '@/i18n'
 import { CheckSquareIcon, MailIcon, TextIcon, XSquareIcon } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header'
 import { type RoleSchema } from '../roles/schema'
 import ComponentTableRowActions from './component-table-row-action'
@@ -78,7 +79,7 @@ export function getAdminsTableColumns({
     },
     {
       id: ColumnKey.role,
-      accessorFn: (row) => row.role.id,
+      accessorFn: (row) => row.roleIds,
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
@@ -90,7 +91,15 @@ export function getAdminsTableColumns({
         label: i18n.t('pages.adminUsers.overview.tableColumns.role'),
         options: roles.map((role) => ({ label: role.name, value: role.id })),
       },
-      cell: ({ row }) => <p>{row.original.role.name}</p>,
+      cell: ({ row }) => (
+        <div className='flex flex-wrap gap-1'>
+          {row.original.roles.map((role) => (
+            <Badge key={role.id} variant='secondary'>
+              {role.name}
+            </Badge>
+          ))}
+        </div>
+      ),
       enableColumnFilter: true,
       enableHiding: false,
       enableSorting: false,
