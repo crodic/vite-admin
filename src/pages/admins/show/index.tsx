@@ -3,12 +3,7 @@ import { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { Avatar } from '@radix-ui/react-avatar'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import {
-  ArrowLeftIcon,
-  EditIcon,
-  ShieldUserIcon,
-  TrashIcon,
-} from 'lucide-react'
+import { ArrowLeftIcon, EditIcon, TrashIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 import { toast } from 'sonner'
@@ -143,10 +138,6 @@ export function PageAdminShow() {
                 <p className='text-sm font-normal italic'>
                   {data?.bio || 'Empty'}
                 </p>
-                <p className='flex items-center gap-2 text-center font-bold'>
-                  <ShieldUserIcon />
-                  {data.roles.map((role) => role.name).join(', ')}
-                </p>
               </div>
             </CardContent>
           </Card>
@@ -177,9 +168,7 @@ export function PageAdminShow() {
                   label={t('pages.adminUsers.show.fields.emailVerified')}
                   value={data?.verifiedAt ? 'Active' : 'Inactive'}
                 />
-                <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.role')}
-                >
+                <DescriptionItem label={t('pages.adminUsers.show.fields.role')}>
                   <div className='mt-2 flex flex-wrap gap-1'>
                     {data.roles.map((role) => (
                       <Badge key={role.id} variant='secondary'>

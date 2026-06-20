@@ -20,6 +20,7 @@ import { MaintenanceError } from '@/pages/errors/maintenance-error'
 import { NotFoundError } from '@/pages/errors/not-found-error'
 import { UnauthorizedError } from '@/pages/errors/unauthorized-error'
 import { PageHelpCenter } from '@/pages/help-center'
+import { PageImpersonationLogOverview } from '@/pages/impersonation-logs'
 import { PagePermissionOverview } from '@/pages/permissions'
 import { PagePermissionEdit } from '@/pages/permissions/edit'
 import PagePermissionShow from '@/pages/permissions/show'
@@ -291,7 +292,7 @@ const routes: RouteObject[] = [
           {
             path: ':id/show',
             element: (
-              <RouteAuthorize action='read' subject='ADMIN'>
+              <RouteAuthorize action='read' subject='USER'>
                 <PageUserShow />
               </RouteAuthorize>
             ),
@@ -318,6 +319,14 @@ const routes: RouteObject[] = [
             ),
           },
         ],
+      },
+      {
+        path: 'impersonation-logs',
+        element: (
+          <RouteAuthorize action='read' subject='IMPERSONATE_LOG'>
+            <PageImpersonationLogOverview />
+          </RouteAuthorize>
+        ),
       },
       {
         path: '/errors',

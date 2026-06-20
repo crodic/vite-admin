@@ -13,6 +13,7 @@ export default {
       items: {
         dashboard: 'Bảng điều khiển',
         activityLogs: 'Nhật ký hoạt động',
+        impersonationLogs: 'Nhật ký impersonation',
       },
     },
     management: {

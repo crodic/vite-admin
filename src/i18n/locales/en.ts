@@ -13,6 +13,7 @@ export default {
       items: {
         dashboard: 'Dashboard',
         activityLogs: 'Activity logs',
+        impersonationLogs: 'Impersonation logs',
       },
     },
     management: {

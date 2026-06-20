@@ -9,6 +9,7 @@ import {
   Group,
   UserLock,
   FileClock,
+  HistoryIcon,
   ShieldCheck,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
@@ -28,6 +29,12 @@ export const sidebarLink: SidebarData = {
           title: 'navigation.general.items.activityLogs',
           url: '/logs',
           icon: FileClock,
+        },
+        {
+          title: 'navigation.general.items.impersonationLogs',
+          url: '/impersonation-logs',
+          icon: HistoryIcon,
+          permission: 'IMPERSONATE_LOG',
         },
       ],
     },

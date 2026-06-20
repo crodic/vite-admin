@@ -3,13 +3,14 @@ import { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { Avatar } from '@radix-ui/react-avatar'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { ArrowLeftIcon, EditIcon, TrashIcon } from 'lucide-react'
+import { ArrowLeftIcon, EditIcon, ShieldIcon, TrashIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 import { toast } from 'sonner'
 import { AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Authorize } from '@/components/authorize'
 import { DeleteAlertDialog } from '@/components/common/delete-alert-dialog'
 import { DescriptionItem, Descriptions } from '@/components/common/descriptions'
 import { ConfigDrawer } from '@/components/config-drawer'
@@ -19,6 +20,7 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { apiImpersonateUser } from '@/pages/auth/queries'
 import { NotFoundError } from '@/pages/errors/not-found-error'
 import { apiDeleteUser, useDataGetUserDetail } from '../queries'
 
@@ -31,6 +33,29 @@ export function PageUserShow() {
   const [isShowDeleteDialog, setIsShowDeleteDialog] = useState(false)
 
   const { data, isFetching } = useDataGetUserDetail(id)
+
+  const impersonateMutation = useMutation({
+    mutationFn: apiImpersonateUser,
+    onSuccess: (response) => {
+      const redirectUrl = response.redirectUrl || response.callbackUrl
+
+      toast.success('Impersonation session created')
+
+      if (redirectUrl) {
+        window.open(redirectUrl, '_blank', 'noopener,noreferrer')
+      }
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        toast.error(
+          error.response?.data.message || 'Failed to impersonate user'
+        )
+        return
+      }
+
+      toast.error('Failed to impersonate user')
+    },
+  })
 
   const deleteUserMutation = useMutation({
     mutationFn: apiDeleteUser,
@@ -53,6 +78,15 @@ export function PageUserShow() {
     if (params.id) {
       deleteUserMutation.mutate(id)
     }
+  }
+
+  const handleImpersonate = () => {
+    impersonateMutation.mutate({
+      userId: id,
+      callbackUrl:
+        import.meta.env.VITE_IMPERSONATION_CALLBACK_URL ||
+        window.location.origin,
+    })
   }
 
   if (isFetching) return <DataLoader />
@@ -105,6 +139,16 @@ export function PageUserShow() {
               <EditIcon className='h-4 w-4' />
               {t('buttons.edit')}
             </Button>
+            <Authorize action='impersonate' subject='USER'>
+              <Button
+                variant='secondary'
+                onClick={handleImpersonate}
+                disabled={impersonateMutation.isPending}
+              >
+                <ShieldIcon className='h-4 w-4' />
+                Impersonate
+              </Button>
+            </Authorize>
             <Button
               variant='destructive'
               onClick={() => setIsShowDeleteDialog(true)}

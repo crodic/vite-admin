@@ -1,7 +1,7 @@
 export const groupPermission = [
   {
     group: 'USER',
-    permissions: ['create', 'read', 'update', 'delete'],
+    permissions: ['create', 'read', 'update', 'delete', 'impersonate'],
   },
   {
     group: 'ADMIN',
@@ -16,6 +16,10 @@ export const groupPermission = [
     permissions: ['read'],
   },
   {
+    group: 'IMPERSONATE_LOG',
+    permissions: ['read'],
+  },
+  {
     group: 'manage',
     permissions: ['all'],
   },
@@ -27,6 +31,7 @@ export const permissions = [
   { action: 'read', subject: 'USER' },
   { action: 'update', subject: 'USER' },
   { action: 'delete', subject: 'USER' },
+  { action: 'impersonate', subject: 'USER' },
 
   // ROLE
   { action: 'create', subject: 'ROLE' },
@@ -42,6 +47,7 @@ export const permissions = [
 
   // LOG
   { action: 'read', subject: 'LOG' },
+  { action: 'read', subject: 'IMPERSONATE_LOG' },
 
   // SUPER
   { action: 'manage', subject: 'all' },
