@@ -14,6 +14,10 @@ import { ResetPassword } from '@/pages/auth/reset-password'
 import { SignIn } from '@/pages/auth/sign-in'
 import { SignUp } from '@/pages/auth/sign-up'
 import { Dashboard } from '@/pages/dashboard'
+import { PageEmailLogOverview } from '@/pages/email-logs'
+import PageEmailLogShow from '@/pages/email-logs/show'
+import { PageMyEmails } from '@/pages/emails'
+import PageMyEmailShow from '@/pages/emails/show'
 import { ForbiddenError } from '@/pages/errors/forbidden'
 import { GeneralError } from '@/pages/errors/general-error'
 import { MaintenanceError } from '@/pages/errors/maintenance-error'
@@ -303,6 +307,48 @@ const routes: RouteObject[] = [
             <PageImpersonationLogOverview />
           </RouteAuthorize>
         ),
+      },
+      {
+        path: 'emails',
+        children: [
+          {
+            index: true,
+            element: (
+              <RouteAuthorize action='read' subject='EMAIL'>
+                <PageMyEmails />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: ':id/show',
+            element: (
+              <RouteAuthorize action='read' subject='EMAIL'>
+                <PageMyEmailShow />
+              </RouteAuthorize>
+            ),
+          },
+        ],
+      },
+      {
+        path: 'email-logs',
+        children: [
+          {
+            index: true,
+            element: (
+              <RouteAuthorize action='read' subject='EMAIL_LOG'>
+                <PageEmailLogOverview />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: ':id/show',
+            element: (
+              <RouteAuthorize action='read' subject='EMAIL_LOG'>
+                <PageEmailLogShow />
+              </RouteAuthorize>
+            ),
+          },
+        ],
       },
       {
         path: '/errors',

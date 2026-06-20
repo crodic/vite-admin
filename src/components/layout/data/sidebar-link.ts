@@ -12,6 +12,8 @@ import {
   HistoryIcon,
   ShieldCheck,
   Globe,
+  Mail,
+  MailSearch,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -36,6 +38,12 @@ export const sidebarLink: SidebarData = {
           url: '/impersonation-logs',
           icon: HistoryIcon,
           permission: 'IMPERSONATE_LOG',
+        },
+        {
+          title: 'navigation.general.items.emailLogs',
+          url: '/email-logs',
+          icon: MailSearch,
+          permission: 'EMAIL_LOG',
         },
         {
           title: 'navigation.general.items.website',
@@ -96,6 +104,12 @@ export const sidebarLink: SidebarData = {
               icon: Palette,
             },
           ],
+        },
+        {
+          title: 'navigation.orders.items.myEmails',
+          url: '/emails',
+          icon: Mail,
+          permission: 'EMAIL',
         },
         {
           title: 'navigation.other.items.helpCenter',

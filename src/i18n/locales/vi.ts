@@ -14,6 +14,7 @@ export default {
         dashboard: 'Bảng điều khiển',
         activityLogs: 'Nhật ký hoạt động',
         impersonationLogs: 'Nhật ký impersonation',
+        emailLogs: 'Nhật ký email',
         website: 'Website',
       },
     },
@@ -24,6 +25,12 @@ export default {
         users: 'Người dùng',
         roles: 'Vai trò',
         permissions: 'Quyền hạn',
+      },
+    },
+    orders: {
+      title: 'Đơn hàng',
+      items: {
+        myEmails: 'Email của tôi',
       },
     },
     other: {

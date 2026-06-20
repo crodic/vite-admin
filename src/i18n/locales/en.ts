@@ -14,6 +14,7 @@ export default {
         dashboard: 'Dashboard',
         activityLogs: 'Activity logs',
         impersonationLogs: 'Impersonation logs',
+        emailLogs: 'Email Logs',
         website: 'Website',
       },
     },
@@ -24,6 +25,12 @@ export default {
         users: 'Users',
         roles: 'Roles',
         permissions: 'Permissions',
+      },
+    },
+    orders: {
+      title: 'Orders',
+      items: {
+        myEmails: 'My Emails',
       },
     },
     other: {
