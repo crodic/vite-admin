@@ -20,6 +20,9 @@ import { GeneralError } from '@/pages/errors/general-error'
 import { MaintenanceError } from '@/pages/errors/maintenance-error'
 import { NotFoundError } from '@/pages/errors/not-found-error'
 import { UnauthorizedError } from '@/pages/errors/unauthorized-error'
+import { PagePermissionOverview } from '@/pages/permissions'
+import { PagePermissionEdit } from '@/pages/permissions/edit'
+import PagePermissionShow from '@/pages/permissions/show'
 import { PageRoleOverview } from '@/pages/roles'
 import PageRoleCreate from '@/pages/roles/create'
 import { PageRoleEdit } from '@/pages/roles/edit'
@@ -125,6 +128,35 @@ const routes: RouteObject[] = [
             element: (
               <RouteAuthorize action='read' subject='ADMIN'>
                 <PageAdminShow />
+              </RouteAuthorize>
+            ),
+          },
+        ],
+      },
+      {
+        path: '/permissions',
+        children: [
+          {
+            index: true,
+            element: (
+              <RouteAuthorize action='read' subject='ROLE'>
+                <PagePermissionOverview />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: ':id/show',
+            element: (
+              <RouteAuthorize action='read' subject='ROLE'>
+                <PagePermissionShow />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: ':id/edit',
+            element: (
+              <RouteAuthorize action='update' subject='ROLE'>
+                <PagePermissionEdit />
               </RouteAuthorize>
             ),
           },

@@ -9,6 +9,7 @@ import {
   Group,
   UserLock,
   FileClock,
+  ShieldCheck,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -43,6 +44,12 @@ export const sidebarLink: SidebarData = {
           title: 'navigation.management.items.roles',
           icon: Group,
           url: '/roles',
+          permission: 'ROLE',
+        },
+        {
+          title: 'navigation.management.items.permissions',
+          icon: ShieldCheck,
+          url: '/permissions',
           permission: 'ROLE',
         },
         {

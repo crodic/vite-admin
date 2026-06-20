@@ -4,11 +4,13 @@ export interface RoleLike {
   id?: RoleId | null
   name?: string | null
   permissions?: string[] | null
+  permissionIds?: string[] | null
 }
 
 export interface AdminRoleLike {
   role?: RoleLike | null
   roles?: RoleLike[] | null
+  permissions?: string[] | null
   roleId?: RoleId | null
   role_id?: RoleId | null
   roleIds?: RoleId[] | null
@@ -50,9 +52,12 @@ export function getAdminRoleIds(admin?: AdminRoleLike | null): string[] {
 }
 
 export function getAdminPermissions(admin?: AdminRoleLike | null): string[] {
-  const permissions = getAdminRoles(admin).flatMap((role) =>
-    Array.isArray(role.permissions) ? role.permissions : []
-  )
+  const permissions = [
+    ...(Array.isArray(admin?.permissions) ? admin.permissions : []),
+    ...getAdminRoles(admin).flatMap((role) =>
+      Array.isArray(role.permissions) ? role.permissions : []
+    ),
+  ]
 
   return [...new Set(permissions)]
 }

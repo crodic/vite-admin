@@ -2,6 +2,11 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { AppAbilityClass, type AppAbility, type Claim } from '@/lib/ability'
+import {
+  permissions as appPermissions,
+  type Actions,
+  type Subjects,
+} from '@/lib/permissions'
 
 const AUTH_KEY = import.meta.env.VITE_AUTH_KEY || 'auth'
 
@@ -9,10 +14,25 @@ type PermissionStatus = 'loading' | 'fetched'
 
 export function parsePermissions(permissions: string[]): Claim[] {
   if (!Array.isArray(permissions)) return []
-  return permissions.map((perm) => {
-    const [action, subject = 'all'] = perm.split(':')
-    return { action, subject } as Claim
-  })
+
+  const validClaims = new Set(
+    appPermissions.map(
+      (permission) => `${permission.action}:${permission.subject}`
+    )
+  )
+
+  return permissions
+    .map((permission) => {
+      const [action, subject = 'all'] = permission.split(':')
+      const claim = `${action}:${subject}`
+
+      if (!validClaims.has(claim)) {
+        return null
+      }
+
+      return { action: action as Actions, subject: subject as Subjects }
+    })
+    .filter((claim): claim is Claim => claim !== null)
 }
 
 interface AuthenticationState {

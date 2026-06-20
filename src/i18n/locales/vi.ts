@@ -21,6 +21,7 @@ export default {
         admins: 'Quản trị viên',
         users: 'Người dùng',
         roles: 'Vai trò',
+        permissions: 'Quyền hạn',
       },
     },
     other: {

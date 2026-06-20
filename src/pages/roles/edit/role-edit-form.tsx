@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { isAxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,8 +6,6 @@ import { ArrowLeftIcon, SaveIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { toast } from 'sonner'
-import { groupPermission } from '@/lib/permissions'
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -17,7 +14,6 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   FormControl,
   FormField,
@@ -28,8 +24,15 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Main } from '@/components/layout/main'
+import { useDataPermissionFormOptions } from '@/pages/permissions/queries'
 import { apiEditRole } from '@/pages/roles/queries'
-import { roleFormSchema, type RoleFormSchema, type RoleSchema } from '../schema'
+import { RolePermissionsField } from '../components/role-permissions-field'
+import {
+  isProtectedRole,
+  roleFormSchema,
+  type RoleFormSchema,
+  type RoleSchema,
+} from '../schema'
 
 export function RoleEditForm({ data }: { data: RoleSchema }) {
   const navigate = useNavigate()
@@ -40,16 +43,18 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
     defaultValues: {
       name: data.name,
       description: data.description,
-      permissions: data.permissions || [],
+      permissionIds: data.permissionIds || [],
     },
     resolver: zodResolver(roleFormSchema),
   })
+
+  const permissionsQuery = useDataPermissionFormOptions()
 
   const editRoleMutation = useMutation({
     mutationFn: apiEditRole,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['role'] })
-      queryClient.invalidateQueries({ queryKey: ['role'] })
+      queryClient.invalidateQueries({ queryKey: ['roles'] })
       toast.success('Role updated successfully')
       navigate(-1)
     },
@@ -61,46 +66,33 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
   })
 
   const onSubmit = (values: RoleFormSchema) => {
+    if (isProtectedRole(data)) {
+      toast.error('System roles cannot be updated')
+      return
+    }
+
+    const assignablePermissionIds = new Set(
+      (permissionsQuery.data ?? []).map((permission) => permission.id)
+    )
+
+    if (
+      values.permissionIds.some(
+        (permissionId) => !assignablePermissionIds.has(permissionId)
+      )
+    ) {
+      form.setError('permissionIds', {
+        message: 'Invalid permission selected',
+      })
+      toast.error('Invalid permission selected')
+      return
+    }
+
     if (data.id) {
       editRoleMutation.mutate({ id: data.id, data: values })
     }
   }
 
-  const selectedPermissions = form.watch('permissions')
-  const permissionKey = (action: string, subject: string) =>
-    `${action}:${subject}`
-
-  const handleParentChange = (group: string, checked: boolean) => {
-    const perms =
-      groupPermission.find((g) => g.group === group)?.permissions || []
-    const current = new Set(selectedPermissions)
-    perms.forEach((action) => {
-      const key = permissionKey(action, group)
-      checked ? current.add(key) : current.delete(key)
-    })
-    form.setValue('permissions', Array.from(current))
-  }
-
-  const handleChildChange = (group: string, perm: string, checked: boolean) => {
-    const key = permissionKey(perm, group)
-    const current = new Set(selectedPermissions)
-    checked ? current.add(key) : current.delete(key)
-    form.setValue('permissions', Array.from(current))
-  }
-
-  const isGroupChecked = (group: string) => {
-    const perms =
-      groupPermission.find((g) => g.group === group)?.permissions || []
-    return perms.every((action) =>
-      selectedPermissions.includes(permissionKey(action, group))
-    )
-  }
-
-  const isPermissionChecked = (subject: string, action: string) => {
-    return selectedPermissions.includes(permissionKey(action, subject))
-  }
-
-  const isSystemRole = data.permissions.includes('manage:all')
+  const isProtected = isProtectedRole(data)
 
   return (
     <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
@@ -119,7 +111,15 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
                 <ArrowLeftIcon className='h-4 w-4' />
                 {t('buttons.cancel')}
               </Button>
-              <Button type='submit' disabled={isSystemRole}>
+              <Button
+                type='submit'
+                disabled={
+                  isProtected ||
+                  editRoleMutation.isPending ||
+                  permissionsQuery.isLoading ||
+                  permissionsQuery.isError
+                }
+              >
                 <SaveIcon className='h-4 w-4' />
                 {t('buttons.save')}
               </Button>
@@ -147,7 +147,7 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
                       <Input
                         {...field}
                         placeholder={t('pages.roles.edit.fields.name')}
-                        disabled={isSystemRole}
+                        disabled={isProtected}
                       />
                     </FormControl>
                     <FormMessage />
@@ -155,65 +155,13 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
                 )}
               />
 
-              {/* Permissions */}
-              <div className='col-span-3 space-y-2'>
-                <h6
-                  className={cn(
-                    form.formState.errors.permissions && 'text-destructive',
-                    'font-semibold'
-                  )}
-                >
-                  {t('pages.roles.edit.fields.permissions')}
-                </h6>
-                <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
-                  {groupPermission
-                    .filter((gr) => gr.group !== 'manage')
-                    .map((group) => (
-                      <div
-                        key={group.group}
-                        className='space-y-2 rounded-md border p-4'
-                      >
-                        <FormItem className='flex items-center space-x-2'>
-                          <Checkbox
-                            checked={isGroupChecked(group.group)}
-                            onCheckedChange={(checked) =>
-                              handleParentChange(group.group, Boolean(checked))
-                            }
-                            disabled={isSystemRole}
-                          />
-                          <label className='font-semibold'>{group.group}</label>
-                        </FormItem>
-
-                        <div className='space-y-2 pl-6'>
-                          {group.permissions.map((perm) => (
-                            <FormItem
-                              key={`${group.group}:${perm}`}
-                              className='flex items-center space-x-2'
-                            >
-                              <Checkbox
-                                checked={isPermissionChecked(group.group, perm)}
-                                onCheckedChange={(checked) =>
-                                  handleChildChange(
-                                    group.group,
-                                    perm,
-                                    Boolean(checked)
-                                  )
-                                }
-                                disabled={isSystemRole}
-                              />
-                              <label>{perm.toUpperCase()}</label>
-                            </FormItem>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                </div>
-                {form.formState.errors.permissions && (
-                  <p className='text-sm text-red-500'>
-                    {form.formState.errors.permissions.message}
-                  </p>
-                )}
-              </div>
+              <RolePermissionsField
+                form={form}
+                permissions={permissionsQuery.data ?? []}
+                isLoading={permissionsQuery.isLoading}
+                isError={permissionsQuery.isError}
+                disabled={isProtected || editRoleMutation.isPending}
+              />
             </CardContent>
           </Card>
         </form>
