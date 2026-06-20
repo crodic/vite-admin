@@ -43,7 +43,10 @@ export function RoleEditForm({ data }: { data: RoleSchema }) {
     defaultValues: {
       name: data.name,
       description: data.description,
-      permissionIds: data.permissionIds || [],
+      permissionIds:
+        data.permissionIds?.length > 0
+          ? data.permissionIds
+          : data.permissionDetails.map((permission) => permission.id),
     },
     resolver: zodResolver(roleFormSchema),
   })

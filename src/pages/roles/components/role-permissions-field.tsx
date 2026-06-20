@@ -89,6 +89,10 @@ export function RolePermissionsField({
   )
 
   useEffect(() => {
+    if (isLoading || isError || permissions.length === 0) {
+      return
+    }
+
     const nextPermissionIds = selectedPermissionIds.filter((permissionId) =>
       assignablePermissionIds.has(permissionId)
     )
@@ -96,7 +100,14 @@ export function RolePermissionsField({
     if (nextPermissionIds.length !== selectedPermissionIds.length) {
       setPermissionIds(nextPermissionIds)
     }
-  }, [assignablePermissionIds, selectedPermissionIds, setPermissionIds])
+  }, [
+    assignablePermissionIds,
+    isError,
+    isLoading,
+    permissions.length,
+    selectedPermissionIds,
+    setPermissionIds,
+  ])
 
   const groupedPermissions = useMemo(() => {
     return assignablePermissions.reduce<Record<string, PermissionSchema[]>>(
@@ -253,7 +264,7 @@ export function RolePermissionsField({
                       <ShieldCheckIcon className='text-muted-foreground size-4' />
                     </div>
 
-                    <div className='divide-y'>
+                    <div className='max-h-[348px] divide-y overflow-y-auto'>
                       {groupPermissions.map((permission) => (
                         <FormItem
                           key={permission.id}

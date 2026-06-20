@@ -23,12 +23,12 @@ export const sidebarLink: SidebarData = {
           title: 'navigation.general.items.dashboard',
           url: '/',
           icon: LayoutDashboard,
-          permission: 'USER',
         },
         {
           title: 'navigation.general.items.activityLogs',
           url: '/logs',
           icon: FileClock,
+          permission: 'LOG',
         },
         {
           title: 'navigation.general.items.impersonationLogs',

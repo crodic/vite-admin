@@ -48,10 +48,6 @@ const routes: RouteObject[] = [
     path: '/sign-in',
     element: <SignIn />,
   },
-  // {
-  //   path: '/sign-in-2',
-  //   element: <SignIn2 />,
-  // },
   {
     path: '/sign-up',
     element: <SignUp />,
@@ -60,10 +56,6 @@ const routes: RouteObject[] = [
     path: '/forgot-password',
     element: <ForgotPassword />,
   },
-  // {
-  //   path: '/otp',
-  //   element: <Otp />,
-  // },
   {
     path: '/reset-password',
     element: <ResetPassword />,
@@ -76,27 +68,11 @@ const routes: RouteObject[] = [
       {
         index: true,
         element: (
-          <RouteAuthorize action='read' subject='ADMIN'>
+          <RouteAuthorize isAnyPermission>
             <Dashboard />
           </RouteAuthorize>
         ),
       },
-      // {
-      //   path: '/apps',
-      //   element: (
-      //     <RouteAuthorize action='read' subject='ADMIN'>
-      //       <Apps />
-      //     </RouteAuthorize>
-      //   ),
-      // },
-      // {
-      //   path: '/chats',
-      //   element: (
-      //     <RouteAuthorize action='read' subject='ADMIN'>
-      //       <Chats />
-      //     </RouteAuthorize>
-      //   ),
-      // },
       {
         path: '/admins',
         children: [
