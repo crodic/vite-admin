@@ -39,7 +39,7 @@ export const sidebarLink: SidebarData = {
         },
         {
           title: 'navigation.general.items.website',
-          url: '/settings/website',
+          url: '/website-settings',
           icon: Globe,
         },
       ],

@@ -228,15 +228,15 @@ const routes: RouteObject[] = [
               </RouteAuthorize>
             ),
           },
-          {
-            path: 'website',
-            element: (
-              <RouteAuthorize isAnyPermission>
-                <SettingsWebsite />
-              </RouteAuthorize>
-            ),
-          },
         ],
+      },
+      {
+        path: '/website-settings',
+        element: (
+          <RouteAuthorize isAnyPermission>
+            <SettingsWebsite />
+          </RouteAuthorize>
+        ),
       },
       {
         path: '/users',

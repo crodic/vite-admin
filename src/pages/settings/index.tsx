@@ -1,4 +1,4 @@
-import { Globe, Palette, Wrench, UserCog, LockIcon } from 'lucide-react'
+import { Palette, Wrench, UserCog, LockIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Outlet } from 'react-router'
 import { Separator } from '@/components/ui/separator'
@@ -30,11 +30,6 @@ const sidebarNavItems = [
     title: 'navigation.other.items.appearance',
     href: '/settings/appearance',
     icon: <Palette size={18} />,
-  },
-  {
-    title: 'navigation.other.items.website',
-    href: '/settings/website',
-    icon: <Globe size={18} />,
   },
 ]
 
