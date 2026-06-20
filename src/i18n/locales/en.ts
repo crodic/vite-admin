@@ -14,6 +14,7 @@ export default {
         dashboard: 'Dashboard',
         activityLogs: 'Activity logs',
         impersonationLogs: 'Impersonation logs',
+        website: 'Website',
       },
     },
     management: {
@@ -34,6 +35,7 @@ export default {
         account: 'Account',
         helpCenter: 'Help Center',
         password: 'Password',
+        website: 'Website',
       },
     },
   },
@@ -328,6 +330,10 @@ export default {
         button: {
           update: 'Update Appearance',
         },
+      },
+      website: {
+        title: 'Website',
+        description: 'Manage brand identity, logos, and browser assets.',
       },
       password: {
         title: 'Password',

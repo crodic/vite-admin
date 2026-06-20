@@ -14,6 +14,7 @@ export default {
         dashboard: 'Bảng điều khiển',
         activityLogs: 'Nhật ký hoạt động',
         impersonationLogs: 'Nhật ký impersonation',
+        website: 'Website',
       },
     },
     management: {
@@ -34,6 +35,7 @@ export default {
         account: 'Tài khoản',
         helpCenter: 'Trung tâm trợ giúp',
         password: 'Đổi mật khẩu',
+        website: 'Website',
       },
     },
   },
@@ -323,6 +325,10 @@ export default {
         button: {
           update: 'Cập nhật giao diện',
         },
+      },
+      website: {
+        title: 'Website',
+        description: 'Quản lý thương hiệu, logo và favicon của portal.',
       },
       password: {
         title: 'Mật khẩu',

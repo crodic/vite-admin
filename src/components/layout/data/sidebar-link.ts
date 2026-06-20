@@ -11,6 +11,7 @@ import {
   FileClock,
   HistoryIcon,
   ShieldCheck,
+  Globe,
 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -35,6 +36,11 @@ export const sidebarLink: SidebarData = {
           url: '/impersonation-logs',
           icon: HistoryIcon,
           permission: 'IMPERSONATE_LOG',
+        },
+        {
+          title: 'navigation.general.items.website',
+          url: '/settings/website',
+          icon: Globe,
         },
       ],
     },
