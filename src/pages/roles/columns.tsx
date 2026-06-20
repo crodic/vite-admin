@@ -39,13 +39,13 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.roles.overview.tableColumns.name')}
+          label={i18n.t('roles.table.name')}
         />
       ),
       meta: {
         variant: 'text',
-        placeholder: i18n.t('pages.roles.overview.tableColumns.name'),
-        label: i18n.t('pages.roles.overview.tableColumns.name'),
+        placeholder: i18n.t('roles.table.name'),
+        label: i18n.t('roles.table.name'),
         icon: Text,
       },
       cell: ({ row }) => (
@@ -59,7 +59,7 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.roles.overview.tableColumns.permissions')}
+          label={i18n.t('roles.table.permissions')}
         />
       ),
       cell: ({ row }) => (
@@ -79,11 +79,11 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.roles.overview.tableColumns.createdAt')}
+          label={i18n.t('roles.table.createdAt')}
         />
       ),
       meta: {
-        label: i18n.t('pages.roles.overview.tableColumns.createdAt'),
+        label: i18n.t('roles.table.createdAt'),
       },
       cell: ({ row }) => (
         <p className='truncate overflow-hidden'>
@@ -98,7 +98,7 @@ export function getRolesTableColumns(): ColumnDef<RoleSchema>[] {
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.roles.overview.tableColumns.actions')}
+          label={i18n.t('roles.table.actions')}
         />
       ),
       cell: ({ row }) => <ComponentTableRowActions row={row} />,

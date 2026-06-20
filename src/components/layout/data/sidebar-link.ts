@@ -23,30 +23,30 @@ export const sidebarLink: SidebarData = {
       title: 'navigation.general.title',
       items: [
         {
-          title: 'navigation.general.items.dashboard',
+          title: 'navigation.general.dashboard',
           url: '/',
           icon: LayoutDashboard,
         },
         {
-          title: 'navigation.general.items.activityLogs',
+          title: 'navigation.general.activityLogs',
           url: '/logs',
           icon: FileClock,
           permission: 'LOG',
         },
         {
-          title: 'navigation.general.items.impersonationLogs',
+          title: 'navigation.general.impersonationLogs',
           url: '/impersonation-logs',
           icon: HistoryIcon,
           permission: 'IMPERSONATE_LOG',
         },
         {
-          title: 'navigation.general.items.emailLogs',
+          title: 'navigation.general.emailLogs',
           url: '/email-logs',
           icon: MailSearch,
           permission: 'EMAIL_LOG',
         },
         {
-          title: 'navigation.general.items.website',
+          title: 'navigation.general.website',
           url: '/website-settings',
           icon: Globe,
         },
@@ -56,25 +56,25 @@ export const sidebarLink: SidebarData = {
       title: 'navigation.management.title',
       items: [
         {
-          title: 'navigation.management.items.admins',
+          title: 'navigation.management.admins',
           url: '/admins',
           icon: UserCog2,
           permission: 'ADMIN',
         },
         {
-          title: 'navigation.management.items.roles',
+          title: 'navigation.management.roles',
           icon: Group,
           url: '/roles',
           permission: 'ROLE',
         },
         {
-          title: 'navigation.management.items.permissions',
+          title: 'navigation.management.permissions',
           icon: ShieldCheck,
           url: '/permissions',
           permission: 'ROLE',
         },
         {
-          title: 'navigation.management.items.users',
+          title: 'navigation.management.users',
           url: '/users',
           icon: UserLock,
           permission: 'USER',
@@ -85,34 +85,34 @@ export const sidebarLink: SidebarData = {
       title: 'navigation.other.title',
       items: [
         {
-          title: 'navigation.other.items.settings',
+          title: 'navigation.other.settings',
           icon: Settings,
           items: [
             {
-              title: 'navigation.other.items.profiles',
+              title: 'navigation.other.profiles',
               url: '/settings',
               icon: UserCog,
             },
             {
-              title: 'navigation.other.items.account',
+              title: 'navigation.other.account',
               url: '/settings/account',
               icon: Wrench,
             },
             {
-              title: 'navigation.other.items.appearance',
+              title: 'navigation.other.appearance',
               url: '/settings/appearance',
               icon: Palette,
             },
           ],
         },
         {
-          title: 'navigation.orders.items.myEmails',
+          title: 'navigation.orders.myEmails',
           url: '/emails',
           icon: Mail,
           permission: 'EMAIL',
         },
         {
-          title: 'navigation.other.items.helpCenter',
+          title: 'navigation.other.helpCenter',
           url: '/help-center',
           icon: HelpCircle,
         },

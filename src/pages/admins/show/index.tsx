@@ -87,10 +87,10 @@ export function PageAdminShow() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.adminUsers.show.title')}
+              {t('adminUsers.show.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.adminUsers.show.description')}
+              {t('adminUsers.show.description')}
             </p>
           </div>
           <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -143,21 +143,21 @@ export function PageAdminShow() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.adminUsers.show.cardTitle')}</CardTitle>
+              <CardTitle>{t('adminUsers.show.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem label='Email' value={data?.email} />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.fullName')}
+                  label={t('adminUsers.show.fullName')}
                   value={data?.fullName}
                 />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.phoneNumber')}
+                  label={t('adminUsers.show.phoneNumber')}
                   value={data?.phone}
                 />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.birthday')}
+                  label={t('adminUsers.show.birthday')}
                   value={
                     data.birthday
                       ? format(data.birthday, 'dd/MM/yyyy')
@@ -165,10 +165,10 @@ export function PageAdminShow() {
                   }
                 />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.emailVerified')}
+                  label={t('adminUsers.show.emailVerified')}
                   value={data?.verifiedAt ? 'Active' : 'Inactive'}
                 />
-                <DescriptionItem label={t('pages.adminUsers.show.fields.role')}>
+                <DescriptionItem label={t('adminUsers.show.role')}>
                   <div className='mt-2 flex flex-wrap gap-1'>
                     {data.roles.map((role) => (
                       <Badge key={role.id} variant='secondary'>
@@ -178,11 +178,11 @@ export function PageAdminShow() {
                   </div>
                 </DescriptionItem>
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.createdAt')}
+                  label={t('adminUsers.show.createdAt')}
                   value={format(data.createdAt, 'dd/MM/yyyy HH:mm aa')}
                 />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.updatedAt')}
+                  label={t('adminUsers.show.updatedAt')}
                   value={format(data.updatedAt, 'dd/MM/yyyy HH:mm aa')}
                 />
               </Descriptions>

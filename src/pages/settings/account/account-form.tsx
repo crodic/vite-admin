@@ -61,9 +61,7 @@ export function AccountForm({ user }: { user: AdminSchema }) {
             name='firstName'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t('pages.settings.account.fields.firstName')}
-                </FormLabel>
+                <FormLabel>{t('settings.account.firstName')}</FormLabel>
                 <FormControl>
                   <Input placeholder={user.firstName} {...field} />
                 </FormControl>
@@ -76,9 +74,7 @@ export function AccountForm({ user }: { user: AdminSchema }) {
             name='lastName'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t('pages.settings.account.fields.lastName')}
-                </FormLabel>
+                <FormLabel>{t('settings.account.lastName')}</FormLabel>
                 <FormControl>
                   <Input placeholder={user.lastName} {...field} />
                 </FormControl>
@@ -92,9 +88,7 @@ export function AccountForm({ user }: { user: AdminSchema }) {
           name='birthday'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>
-                {t('pages.settings.account.fields.birthday')}
-              </FormLabel>
+              <FormLabel>{t('settings.account.birthday')}</FormLabel>
               <DatePickerForm
                 field={field}
                 disabled={(date: Date) =>
@@ -102,7 +96,7 @@ export function AccountForm({ user }: { user: AdminSchema }) {
                 }
               />
               <FormDescription>
-                {t('pages.settings.account.messages.birthdayDescription')}
+                {t('settings.account.messageBirthdayDescription')}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -113,14 +107,11 @@ export function AccountForm({ user }: { user: AdminSchema }) {
           name='phone'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>
-                {t('pages.settings.account.fields.phoneNumber')}
-              </FormLabel>
+              <FormLabel>{t('settings.account.phoneNumber')}</FormLabel>
               <FormControl>
                 <PhoneInput
                   placeholder={
-                    user.phone ||
-                    t('pages.settings.account.fields.phoneNumberPlaceholder')
+                    user.phone || t('settings.account.phoneNumberPlaceholder')
                   }
                   defaultCountry='VN'
                   international
@@ -132,9 +123,7 @@ export function AccountForm({ user }: { user: AdminSchema }) {
             </FormItem>
           )}
         />
-        <Button type='submit'>
-          {t('pages.settings.account.button.update')}
-        </Button>
+        <Button type='submit'>{t('settings.account.buttonUpdate')}</Button>
       </form>
     </Form>
   )

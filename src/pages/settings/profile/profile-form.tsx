@@ -57,7 +57,7 @@ export function ProfileForm({ user }: { user: AdminSchema }) {
           name='avatar'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('pages.settings.profile.fields.avatar')}</FormLabel>
+              <FormLabel>{t('settings.profile.avatar')}</FormLabel>
               <FormControl>
                 <AvatarUploader
                   viewportWidth={100}
@@ -77,27 +77,23 @@ export function ProfileForm({ user }: { user: AdminSchema }) {
           name='bio'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('pages.settings.profile.fields.bio')}</FormLabel>
+              <FormLabel>{t('settings.profile.bio')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder={t(
-                    'pages.settings.profile.fields.bioPlaceholder'
-                  )}
+                  placeholder={t('settings.profile.bioPlaceholder')}
                   className='resize-none'
                   {...field}
                   value={field.value ?? ''}
                 />
               </FormControl>
               <FormDescription>
-                {t('pages.settings.profile.messages.bioDescription')}
+                {t('settings.profile.messageBioDescription')}
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>
-          {t('pages.settings.profile.button.update')}
-        </Button>
+        <Button type='submit'>{t('settings.profile.buttonUpdate')}</Button>
       </form>
     </Form>
   )

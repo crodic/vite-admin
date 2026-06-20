@@ -87,7 +87,7 @@ export function UserAuthForm({
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('pages.auth.signIn.fields.email')}</FormLabel>
+              <FormLabel>{t('auth.signIn.email')}</FormLabel>
               <FormControl>
                 <Input placeholder='name@example.com' {...field} />
               </FormControl>
@@ -100,7 +100,7 @@ export function UserAuthForm({
           name='password'
           render={({ field }) => (
             <FormItem className='relative'>
-              <FormLabel>{t('pages.auth.signIn.fields.password')}</FormLabel>
+              <FormLabel>{t('auth.signIn.password')}</FormLabel>
               <FormControl>
                 <PasswordInput placeholder='********' {...field} />
               </FormControl>
@@ -109,7 +109,7 @@ export function UserAuthForm({
                 to='/forgot-password'
                 className='text-muted-foreground absolute end-0 -top-0.5 text-sm font-medium hover:opacity-75'
               >
-                {t('pages.auth.signIn.messages.forgotPassword')}
+                {t('auth.signIn.messageForgotPassword')}
               </Link>
             </FormItem>
           )}
@@ -120,7 +120,7 @@ export function UserAuthForm({
           ) : (
             <LogIn />
           )}
-          {t('pages.auth.signIn.messages.signIn')}
+          {t('auth.signIn.messageSignIn')}
         </Button>
       </form>
     </Form>

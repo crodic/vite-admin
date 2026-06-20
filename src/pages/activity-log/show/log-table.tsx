@@ -42,9 +42,9 @@ export default function LogTable({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>{t('pages.activityLogs.show.fields.field')}</TableHead>
-          <TableHead>{t('pages.activityLogs.show.fields.old')}</TableHead>
-          <TableHead>{t('pages.activityLogs.show.fields.new')}</TableHead>
+          <TableHead>{t('activityLogs.show.field')}</TableHead>
+          <TableHead>{t('activityLogs.show.old')}</TableHead>
+          <TableHead>{t('activityLogs.show.new')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

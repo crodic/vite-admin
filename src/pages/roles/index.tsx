@@ -80,10 +80,10 @@ export function PageRoleOverview() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.roles.overview.title')}
+              {t('roles.overview.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.roles.overview.description')}
+              {t('roles.overview.description')}
             </p>
           </div>
           <div>

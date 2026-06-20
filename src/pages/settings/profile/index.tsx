@@ -19,8 +19,8 @@ export function SettingsProfile() {
 
   return (
     <ContentSection
-      title={t('pages.settings.profile.title')}
-      desc={t('pages.settings.profile.description')}
+      title={t('settings.profile.title')}
+      desc={t('settings.profile.description')}
     >
       <ProfileForm user={currentUser} />
     </ContentSection>

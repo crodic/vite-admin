@@ -29,10 +29,10 @@ export function SignOutDialog({ open, onOpenChange }: SignOutDialogProps) {
     <ConfirmDialog
       open={open}
       onOpenChange={onOpenChange}
-      title={t('pages.signOut.title')}
-      desc={t('pages.signOut.description')}
-      confirmText={t('pages.signOut.button.signOut')}
-      cancelBtnText={t('pages.signOut.button.cancel')}
+      title={t('signOut.title')}
+      desc={t('signOut.description')}
+      confirmText={t('signOut.buttonSignOut')}
+      cancelBtnText={t('signOut.buttonCancel')}
       destructive
       handleConfirm={handleSignOut}
       className='sm:max-w-sm'

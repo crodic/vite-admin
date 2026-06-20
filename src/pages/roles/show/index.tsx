@@ -161,7 +161,7 @@ export default function PageRoleShow() {
                 {isSuperAdmin && <Badge>Full access</Badge>}
               </div>
               <p className='text-muted-foreground text-sm'>
-                {data.description || t('pages.roles.show.description')}
+                {data.description || t('roles.show.description')}
               </p>
             </div>
 
@@ -244,9 +244,7 @@ export default function PageRoleShow() {
             <CardHeader>
               <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
                 <div>
-                  <CardTitle>
-                    {t('pages.roles.show.fields.permissions')}
-                  </CardTitle>
+                  <CardTitle>{t('roles.show.permissions')}</CardTitle>
                   <CardDescription>
                     Permissions are grouped by functional area for easier
                     review.

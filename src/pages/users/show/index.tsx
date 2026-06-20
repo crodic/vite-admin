@@ -118,10 +118,10 @@ export function PageUserShow() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.users.show.title')}
+              {t('users.show.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.users.show.description')}
+              {t('users.show.description')}
             </p>
           </div>
           <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -177,28 +177,28 @@ export function PageUserShow() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.users.show.cardTitle')}</CardTitle>
+              <CardTitle>{t('users.show.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem
-                  label={t('pages.users.show.fields.email')}
+                  label={t('users.show.email')}
                   value={data?.email}
                 />
                 <DescriptionItem
-                  label={t('pages.users.show.fields.fullName')}
+                  label={t('users.show.fullName')}
                   value={data?.fullName}
                 />
                 <DescriptionItem
-                  label={t('pages.users.show.fields.emailVerified')}
+                  label={t('users.show.emailVerified')}
                   value={data?.verifiedAt ? 'Active' : 'Inactive'}
                 />
                 <DescriptionItem
-                  label={t('pages.users.show.fields.createdAt')}
+                  label={t('users.show.createdAt')}
                   value={format(data.createdAt, 'dd/MM/yyyy HH:mm aa')}
                 />
                 <DescriptionItem
-                  label={t('pages.users.show.fields.updatedAt')}
+                  label={t('users.show.updatedAt')}
                   value={format(data.updatedAt, 'dd/MM/yyyy HH:mm aa')}
                 />
               </Descriptions>

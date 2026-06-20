@@ -25,10 +25,10 @@ export function SettingsWebsite() {
       <Main>
         <div className='space-y-0.5'>
           <h1 className='text-2xl font-bold tracking-tight md:text-xl'>
-            {t('pages.settings.website.title')}
+            {t('settings.website.title')}
           </h1>
           <p className='text-muted-foreground'>
-            {t('pages.settings.website.description')}
+            {t('settings.website.description')}
           </p>
         </div>
         <Separator className='my-4 lg:my-6' />

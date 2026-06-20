@@ -19,10 +19,10 @@ export function ForgotPassword() {
       <Card className='gap-4'>
         <CardHeader>
           <CardTitle className='text-lg tracking-tight'>
-            {t('pages.auth.forgotPassword.title')}
+            {t('auth.forgotPassword.title')}
           </CardTitle>
           <CardDescription>
-            {t('pages.auth.forgotPassword.description')}
+            {t('auth.forgotPassword.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>

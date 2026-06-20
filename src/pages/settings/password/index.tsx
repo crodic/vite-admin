@@ -6,8 +6,8 @@ export function SettingsPassword() {
   const { t } = useTranslation()
   return (
     <ContentSection
-      title={t('pages.settings.password.title')}
-      desc={t('pages.settings.password.description')}
+      title={t('settings.password.title')}
+      desc={t('settings.password.description')}
     >
       <PasswordForm />
     </ContentSection>

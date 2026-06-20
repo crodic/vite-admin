@@ -65,9 +65,7 @@ export function AppearanceForm() {
           name='font'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t('pages.settings.appearance.fields.font')}
-              </FormLabel>
+              <FormLabel>{t('settings.appearance.font')}</FormLabel>
               <div className='relative w-max'>
                 <FormControl>
                   <select
@@ -88,7 +86,7 @@ export function AppearanceForm() {
                 <ChevronDownIcon className='absolute end-3 top-2.5 h-4 w-4 opacity-50' />
               </div>
               <FormDescription className='font-manrope'>
-                {t('pages.settings.appearance.fields.fontDescription')}
+                {t('settings.appearance.fontDescription')}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -99,11 +97,9 @@ export function AppearanceForm() {
           name='theme'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t('pages.settings.appearance.fields.theme')}
-              </FormLabel>
+              <FormLabel>{t('settings.appearance.theme')}</FormLabel>
               <FormDescription>
-                {t('pages.settings.appearance.fields.themeDescription')}
+                {t('settings.appearance.themeDescription')}
               </FormDescription>
               <FormMessage />
               <RadioGroup
@@ -133,7 +129,7 @@ export function AppearanceForm() {
                       </div>
                     </div>
                     <span className='block w-full p-2 text-center font-normal'>
-                      {t('pages.settings.appearance.fields.light')}
+                      {t('settings.appearance.light')}
                     </span>
                   </FormLabel>
                 </FormItem>
@@ -159,7 +155,7 @@ export function AppearanceForm() {
                       </div>
                     </div>
                     <span className='block w-full p-2 text-center font-normal'>
-                      {t('pages.settings.appearance.fields.dark')}
+                      {t('settings.appearance.dark')}
                     </span>
                   </FormLabel>
                 </FormItem>
@@ -170,19 +166,17 @@ export function AppearanceForm() {
 
         <Field>
           <FieldLabel>
-            <span>{t('pages.settings.appearance.fields.languages')}</span>
+            <span>{t('settings.appearance.languages')}</span>
           </FieldLabel>
           <FieldContent>
             <LanguageSelect />
           </FieldContent>
           <FieldDescription>
-            {t('pages.settings.appearance.fields.languagesDescription')}
+            {t('settings.appearance.languagesDescription')}
           </FieldDescription>
         </Field>
 
-        <Button type='submit'>
-          {t('pages.settings.appearance.button.update')}
-        </Button>
+        <Button type='submit'>{t('settings.appearance.buttonUpdate')}</Button>
       </form>
     </Form>
   )

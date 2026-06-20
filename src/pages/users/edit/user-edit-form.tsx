@@ -69,7 +69,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
           <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
             <div className='flex flex-row space-x-2'>
               <h2 className='text-2xl font-bold tracking-tight'>
-                {t('pages.users.edit.title')}
+                {t('users.edit.title')}
               </h2>
             </div>
             <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -92,10 +92,8 @@ export function UserEditForm({ data }: { data: UserSchema }) {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.users.edit.title')}</CardTitle>
-              <CardDescription>
-                {t('pages.users.edit.description')}
-              </CardDescription>
+              <CardTitle>{t('users.edit.title')}</CardTitle>
+              <CardDescription>{t('users.edit.description')}</CardDescription>
             </CardHeader>
             <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
               <FormField
@@ -103,9 +101,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
                 name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>
-                      {t('pages.users.edit.fields.email')}
-                    </FormLabel>
+                    <FormLabel required>{t('users.edit.email')}</FormLabel>
                     <FormControl>
                       <Input
                         placeholder='test@example.com'
@@ -122,9 +118,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
                 name='firstName'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>
-                      {t('pages.users.edit.fields.firstName')}
-                    </FormLabel>
+                    <FormLabel required>{t('users.edit.firstName')}</FormLabel>
                     <FormControl>
                       <Input placeholder='John' {...field} />
                     </FormControl>
@@ -137,9 +131,7 @@ export function UserEditForm({ data }: { data: UserSchema }) {
                 name='lastName'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>
-                      {t('pages.users.edit.fields.lastName')}
-                    </FormLabel>
+                    <FormLabel required>{t('users.edit.lastName')}</FormLabel>
                     <FormControl>
                       <Input placeholder='Doe' {...field} />
                     </FormControl>

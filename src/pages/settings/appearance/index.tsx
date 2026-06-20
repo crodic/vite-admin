@@ -6,8 +6,8 @@ export function SettingsAppearance() {
   const { t } = useTranslation()
   return (
     <ContentSection
-      title={t('pages.settings.appearance.title')}
-      desc={t('pages.settings.appearance.description')}
+      title={t('settings.appearance.title')}
+      desc={t('settings.appearance.description')}
     >
       <AppearanceForm />
     </ContentSection>

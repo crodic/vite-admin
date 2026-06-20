@@ -180,7 +180,7 @@ export function RolePermissionsField({
               'font-semibold'
             )}
           >
-            {t('pages.roles.create.fields.permissions')}
+            {t('roles.create.permissions')}
           </h6>
           <p className='text-muted-foreground text-sm'>
             Select the capabilities this role should have. Full system access is

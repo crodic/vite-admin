@@ -25,10 +25,10 @@ export function ResetPassword() {
       <Card className='gap-4'>
         <CardHeader>
           <CardTitle className='text-lg tracking-tight'>
-            {t('pages.auth.resetPassword.title')}
+            {t('auth.resetPassword.title')}
           </CardTitle>
           <CardDescription>
-            {t('pages.auth.resetPassword.description')}
+            {t('auth.resetPassword.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>

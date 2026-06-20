@@ -20,8 +20,8 @@ export function SettingsAccount() {
 
   return (
     <ContentSection
-      title={t('pages.settings.account.title')}
-      desc={t('pages.settings.account.description')}
+      title={t('settings.account.title')}
+      desc={t('settings.account.description')}
     >
       <div className='space-y-8'>
         <AccountForm user={currentUser} />

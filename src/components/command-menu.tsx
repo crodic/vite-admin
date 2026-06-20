@@ -74,13 +74,13 @@ export function CommandMenu() {
             </CommandGroup>
           ))}
           <CommandSeparator />
-          <CommandGroup heading={t('pages.settings.appearance.fields.theme')}>
+          <CommandGroup heading={t('settings.appearance.theme')}>
             <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
-              <Sun /> <span>{t('pages.settings.appearance.fields.light')}</span>
+              <Sun /> <span>{t('settings.appearance.light')}</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
               <Moon className='scale-90' />
-              <span>{t('pages.settings.appearance.fields.dark')}</span>
+              <span>{t('settings.appearance.dark')}</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>
               <Laptop />

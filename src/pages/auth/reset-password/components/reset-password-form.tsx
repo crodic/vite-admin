@@ -61,9 +61,7 @@ export function ResetPasswordForm({
           name='newPassword'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t('pages.auth.resetPassword.fields.password')}
-              </FormLabel>
+              <FormLabel>{t('auth.resetPassword.password')}</FormLabel>
               <FormControl>
                 <PasswordInput
                   placeholder='************'
@@ -80,9 +78,7 @@ export function ResetPasswordForm({
           name='confirmPassword'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t('pages.auth.resetPassword.fields.confirmPassword')}
-              </FormLabel>
+              <FormLabel>{t('auth.resetPassword.confirmPassword')}</FormLabel>
               <FormControl>
                 <PasswordInput
                   placeholder='************'
@@ -96,8 +92,8 @@ export function ResetPasswordForm({
         />
         <Button type='submit' disabled={isLoading} className='mt-2'>
           {isLoading
-            ? t('pages.auth.resetPassword.button.resetting')
-            : t('pages.auth.resetPassword.button.reset')}
+            ? t('auth.resetPassword.buttonResetting')
+            : t('auth.resetPassword.buttonReset')}
         </Button>
       </form>
     </Form>

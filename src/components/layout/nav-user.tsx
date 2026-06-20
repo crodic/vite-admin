@@ -101,19 +101,19 @@ export function NavUser() {
                 <DropdownMenuItem asChild>
                   <Link to='/settings/account'>
                     <UserCheck />
-                    {t('pages.settings.account.title')}
+                    {t('settings.account.title')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to='/settings/appearance'>
                     <BrickWallIcon />
-                    {t('pages.settings.appearance.title')}
+                    {t('settings.appearance.title')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to='/settings/password'>
                     <Lock />
-                    {t('pages.settings.password.title')}
+                    {t('settings.password.title')}
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuGroup>

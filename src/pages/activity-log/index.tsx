@@ -88,10 +88,10 @@ export function PageActivityLogOverview() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.activityLogs.overview.title')}
+              {t('activityLogs.overview.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.activityLogs.overview.description')}
+              {t('activityLogs.overview.description')}
             </p>
           </div>
         </div>

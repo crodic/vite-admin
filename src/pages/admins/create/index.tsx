@@ -85,7 +85,7 @@ export function PageAdminCreate() {
             <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
               <div className='flex flex-row space-x-2'>
                 <h2 className='text-2xl font-bold tracking-tight'>
-                  {t('pages.adminUsers.create.title')}
+                  {t('adminUsers.create.title')}
                 </h2>
               </div>
               <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -108,9 +108,9 @@ export function PageAdminCreate() {
 
             <Card>
               <CardHeader>
-                <CardTitle>{t('pages.adminUsers.create.title')}</CardTitle>
+                <CardTitle>{t('adminUsers.create.title')}</CardTitle>
                 <CardDescription>
-                  {t('pages.adminUsers.create.description')}
+                  {t('adminUsers.create.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
@@ -120,7 +120,7 @@ export function PageAdminCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.adminUsers.create.fields.email')}
+                        {t('adminUsers.create.email')}
                       </FormLabel>
                       <FormControl>
                         <Input placeholder='test@example.com' {...field} />
@@ -135,7 +135,7 @@ export function PageAdminCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.adminUsers.create.fields.firstName')}
+                        {t('adminUsers.create.firstName')}
                       </FormLabel>
                       <FormControl>
                         <Input placeholder='John' {...field} />
@@ -150,7 +150,7 @@ export function PageAdminCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.adminUsers.create.fields.lastName')}
+                        {t('adminUsers.create.lastName')}
                       </FormLabel>
                       <FormControl>
                         <Input placeholder='Doe' {...field} />
@@ -165,12 +165,12 @@ export function PageAdminCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        {t('pages.adminUsers.create.fields.phoneNumber')}
+                        {t('adminUsers.create.phoneNumber')}
                       </FormLabel>
                       <FormControl>
                         <PhoneInput
                           placeholder={t(
-                            'pages.adminUsers.create.fields.phoneNumberPlaceholder'
+                            'adminUsers.create.phoneNumberPlaceholder'
                           )}
                           defaultCountry='VN'
                           international
@@ -186,13 +186,11 @@ export function PageAdminCreate() {
                   name='birthday'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {t('pages.adminUsers.create.fields.birthday')}
-                      </FormLabel>
+                      <FormLabel>{t('adminUsers.create.birthday')}</FormLabel>
                       <FormControl>
                         <DatePickerForm
                           placeholder={t(
-                            'pages.adminUsers.create.fields.birthdayPlaceholder'
+                            'adminUsers.create.birthdayPlaceholder'
                           )}
                           field={field}
                           disabled={(date: Date) =>
@@ -210,7 +208,7 @@ export function PageAdminCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.adminUsers.create.fields.password')}
+                        {t('adminUsers.create.password')}
                       </FormLabel>
                       <FormControl>
                         <PasswordInput placeholder='*******' {...field} />
@@ -225,7 +223,7 @@ export function PageAdminCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.adminUsers.create.fields.confirmPassword')}
+                        {t('adminUsers.create.confirmPassword')}
                       </FormLabel>
                       <FormControl>
                         <PasswordInput placeholder='*******' {...field} />
@@ -240,7 +238,7 @@ export function PageAdminCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.adminUsers.create.fields.role')}
+                        {t('adminUsers.create.role')}
                       </FormLabel>
                       <FormControl>
                         <AutoCompleteSelectControl
@@ -267,16 +265,12 @@ export function PageAdminCreate() {
                     name='bio'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t('pages.adminUsers.create.fields.bio')}
-                        </FormLabel>
+                        <FormLabel>{t('adminUsers.create.bio')}</FormLabel>
                         <FormControl>
                           <Textarea
                             {...field}
                             value={field.value ?? ''}
-                            placeholder={t(
-                              'pages.adminUsers.create.fields.bioPlaceholder'
-                            )}
+                            placeholder={t('adminUsers.create.bioPlaceholder')}
                           ></Textarea>
                         </FormControl>
                         <FormMessage />

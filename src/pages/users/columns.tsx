@@ -59,13 +59,13 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.users.overview.tableColumns.email')}
+          label={i18n.t('users.table.email')}
         />
       ),
       cell: ({ row }) => <div className='truncate'>{row.original.email}</div>,
       meta: {
-        label: i18n.t('pages.users.overview.tableColumns.email'),
-        placeholder: i18n.t('pages.users.overview.tableColumns.email'),
+        label: i18n.t('users.table.email'),
+        placeholder: i18n.t('users.table.email'),
         variant: 'text',
         icon: MailIcon,
       },
@@ -79,15 +79,15 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.users.overview.tableColumns.fullName')}
+          label={i18n.t('users.table.fullName')}
         />
       ),
       cell: ({ row }) => (
         <div className='truncate'>{row.original.fullName}</div>
       ),
       meta: {
-        label: i18n.t('pages.users.overview.tableColumns.fullName'),
-        placeholder: i18n.t('pages.users.overview.tableColumns.fullName'),
+        label: i18n.t('users.table.fullName'),
+        placeholder: i18n.t('users.table.fullName'),
         variant: 'text',
         icon: TextIcon,
       },
@@ -101,11 +101,11 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.users.overview.tableColumns.createdAt')}
+          label={i18n.t('users.table.createdAt')}
         />
       ),
       meta: {
-        label: i18n.t('pages.users.overview.tableColumns.createdAt'),
+        label: i18n.t('users.table.createdAt'),
         variant: 'dateRange',
         icon: Calendar,
       },
@@ -120,7 +120,7 @@ export function getUsersTableColumns(): ColumnDef<UserSchema>[] {
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.users.overview.tableColumns.actions')}
+          label={i18n.t('users.table.actions')}
         />
       ),
       cell: ({ row }) => <ComponentTableRowActions row={row} />,
