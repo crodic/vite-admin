@@ -22,6 +22,7 @@ export default {
   'navigation.other.account': 'Account',
   'navigation.other.helpCenter': 'Help Center',
   'navigation.other.password': 'Password',
+  'navigation.other.security': 'Security',
   'navigation.other.website': 'Website',
   'validation.required': 'This field is required',
   'validation.email': 'The {{field}} must be a valid email',
@@ -224,6 +225,44 @@ export default {
   'settings.password.newPassword': 'New Password',
   'settings.password.confirmPassword': 'Confirm Password',
   'settings.password.buttonUpdate': 'Update Password',
+  'settings.security.title': 'Security',
+  'settings.security.description':
+    'Manage sign-in protection and two-factor authentication.',
+  'settings.security.statusTitle': 'Two-factor authentication',
+  'settings.security.statusDescription':
+    'Require an authenticator app code before completing admin sign-in.',
+  'settings.security.enabled': 'Enabled',
+  'settings.security.disabled': 'Disabled',
+  'settings.security.enableTitle': 'Enable two-factor authentication',
+  'settings.security.enableDescription':
+    'Confirm your password, scan the QR code, then verify the first code from your authenticator app.',
+  'settings.security.disableTitle': 'Disable two-factor authentication',
+  'settings.security.disableDescription':
+    'Disabling 2FA will make this admin account rely on password-only sign-in.',
+  'settings.security.currentPassword': 'Current password',
+  'settings.security.authenticationCode': 'Authentication code',
+  'settings.security.backupCodesTitle': 'Backup codes',
+  'settings.security.backupCodesDescription':
+    'Save these one-time codes somewhere safe. Each code can be used once if you lose access to your authenticator app.',
+  'settings.security.regenerateDescription':
+    'Generate a new set of one-time backup codes. Previous backup codes will stop working.',
+  'settings.security.scanQrHelp':
+    'Scan this QR code with Google Authenticator, 1Password, Authy, or another TOTP app.',
+  'settings.security.qrAlt': 'Two-factor setup QR code',
+  'settings.security.buttonStartSetup': 'Start setup',
+  'settings.security.buttonVerifyEnable': 'Verify and enable',
+  'settings.security.buttonDisable': 'Disable 2FA',
+  'settings.security.buttonRegenerateBackupCodes': 'Regenerate backup codes',
+  'settings.security.buttonCopyBackupCodes': 'Copy backup codes',
+  'settings.security.messageSetupStarted':
+    'Scan the QR code and enter the code from your authenticator app.',
+  'settings.security.messageEnabled':
+    'Two-factor authentication enabled successfully.',
+  'settings.security.messageDisabled':
+    'Two-factor authentication disabled successfully.',
+  'settings.security.messageBackupCodesGenerated':
+    'New backup codes generated.',
+  'settings.security.messageBackupCodesCopied': 'Backup codes copied.',
   'settings.profile.title': 'Profile',
   'settings.profile.description': 'Update your profile.',
   'settings.profile.avatar': 'Avatar',
@@ -273,6 +312,13 @@ export default {
   'auth.resetPassword.buttonBack': 'Back',
   'auth.resetPassword.messageResetPasswordSuccess':
     'Reset password successfully.',
+  'auth.twoFactor.title': 'Two-factor verification',
+  'auth.twoFactor.description':
+    'Enter the 6-digit code from your authenticator app, or use a backup code.',
+  'auth.twoFactor.pendingUser': 'Pending admin ID: {{id}}',
+  'auth.twoFactor.code': 'Authentication code',
+  'auth.twoFactor.buttonVerify': 'Verify and sign in',
+  'auth.twoFactor.buttonBack': 'Back to password',
   'signOut.title': 'Sign Out',
   'signOut.description':
     'Are you sure you want to sign out? You will need to sign in again to access your account.',

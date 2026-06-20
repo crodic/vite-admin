@@ -12,6 +12,15 @@ export const loginSchema = z.object({
 
 export type LoginSchema = z.infer<typeof loginSchema>
 
+export const twoFactorLoginSchema = z.object({
+  code: z
+    .string()
+    .min(6, 'Please enter your authentication code')
+    .max(16, 'Authentication code is too long'),
+})
+
+export type TwoFactorLoginSchema = z.infer<typeof twoFactorLoginSchema>
+
 export const forgotPasswordSchema = z.object({
   email: z.email(),
 })

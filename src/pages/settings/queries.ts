@@ -1,6 +1,8 @@
 import http from '@/lib/http'
 import {
   type PasswordFormSchema,
+  type TwoFactorPasswordSchema,
+  type TwoFactorVerifySchema,
   type WebsiteSettingsFormSchema,
   type WebsiteSettingsSchema,
   websiteSettingsSchema,
@@ -14,6 +16,53 @@ export async function apiChangePassword(
   data: PasswordFormSchema
 ): Promise<PasswordFormSchema> {
   const response = await http.post('/admin-users/me/change-password', data)
+
+  return response.data
+}
+
+export type TwoFactorStatus = {
+  enabled: boolean
+}
+
+export type EnableTwoFactorResponse = {
+  totpUri: string
+  backupCodes: string[]
+}
+
+export async function apiGetTwoFactorStatus(): Promise<TwoFactorStatus> {
+  const response = await http.get('/auth/me/2fa')
+
+  return response.data
+}
+
+export async function apiEnableTwoFactor(
+  data: TwoFactorPasswordSchema
+): Promise<EnableTwoFactorResponse> {
+  const response = await http.post('/auth/me/2fa/enable', data)
+
+  return response.data
+}
+
+export async function apiVerifyTwoFactorSetup(
+  data: TwoFactorVerifySchema
+): Promise<TwoFactorStatus> {
+  const response = await http.post('/auth/me/2fa/verify', data)
+
+  return response.data
+}
+
+export async function apiDisableTwoFactor(
+  data: TwoFactorPasswordSchema
+): Promise<TwoFactorStatus> {
+  const response = await http.post('/auth/me/2fa/disable', data)
+
+  return response.data
+}
+
+export async function apiGenerateTwoFactorBackupCodes(
+  data: TwoFactorPasswordSchema
+): Promise<{ backupCodes: string[] }> {
+  const response = await http.post('/auth/me/2fa/backup-codes', data)
 
   return response.data
 }

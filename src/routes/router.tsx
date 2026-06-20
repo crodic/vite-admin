@@ -39,6 +39,7 @@ import { SettingsDisplay } from '@/pages/settings/display'
 import { SettingsNotifications } from '@/pages/settings/notifications'
 import { SettingsPassword } from '@/pages/settings/password'
 import { SettingsProfile } from '@/pages/settings/profile'
+import { SettingsSecurity } from '@/pages/settings/security'
 import { SettingsWebsite } from '@/pages/settings/website'
 import { PageUserOverview } from '@/pages/users'
 import { PageUserCreate } from '@/pages/users/create'
@@ -205,6 +206,14 @@ const routes: RouteObject[] = [
             element: (
               <RouteAuthorize isAnyPermission>
                 <SettingsPassword />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: 'security',
+            element: (
+              <RouteAuthorize isAnyPermission>
+                <SettingsSecurity />
               </RouteAuthorize>
             ),
           },

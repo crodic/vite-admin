@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { Loader2, LogIn } from 'lucide-react'
+import { Loader2, LogIn, ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
 import { toast } from 'sonner'
@@ -19,8 +19,13 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
-import { apiLogin } from '../queries'
-import { loginSchema, type LoginSchema } from '../schema'
+import { apiLogin, apiVerifyTwoFactorLogin } from '../queries'
+import {
+  loginSchema,
+  twoFactorLoginSchema,
+  type LoginSchema,
+  type TwoFactorLoginSchema,
+} from '../schema'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLFormElement> {
   redirectTo?: string
@@ -34,23 +39,56 @@ export function UserAuthForm({
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { login } = useAuthStore()
+  const [twoFactorToken, setTwoFactorToken] = useState<string | null>(null)
+  const [pendingUserId, setPendingUserId] = useState<string | null>(null)
+
+  function completeLogin(payload: {
+    accessToken?: string
+    refreshToken?: string
+    userId: string
+  }) {
+    if (!payload.accessToken || !payload.refreshToken) {
+      toast.error('Login response is missing tokens.')
+      return
+    }
+
+    login({
+      accessToken: payload.accessToken,
+      refreshToken: payload.refreshToken,
+      id: payload.userId,
+    })
+
+    const targetPath = redirectTo || '/'
+    navigate(targetPath, { replace: true })
+
+    toast.success('Welcome back!')
+  }
 
   const loginMutation = useMutation({
     mutationFn: apiLogin,
     onSuccess: (payload) => {
-      login({
-        accessToken: payload.accessToken,
-        refreshToken: payload.refreshToken,
-        id: payload.userId,
-      })
+      if (payload.twoFactorRequired && payload.twoFactorToken) {
+        setTwoFactorToken(payload.twoFactorToken)
+        setPendingUserId(payload.userId)
+        twoFactorForm.reset({ code: '' })
+        toast.info('Enter your two-factor authentication code.')
+        return
+      }
 
-      const targetPath = redirectTo || '/'
-      navigate(targetPath, { replace: true })
-
-      toast.success('Welcome back!')
+      completeLogin(payload)
     },
     onError: () => {
       toast.error('Login failed. Please try again.')
+    },
+  })
+
+  const verifyTwoFactorMutation = useMutation({
+    mutationFn: apiVerifyTwoFactorLogin,
+    onSuccess: (payload) => {
+      completeLogin(payload)
+    },
+    onError: () => {
+      toast.error('Invalid two-factor code. Please try again.')
     },
   })
 
@@ -62,8 +100,24 @@ export function UserAuthForm({
     },
   })
 
+  const twoFactorForm = useForm<TwoFactorLoginSchema>({
+    resolver: zodResolver(twoFactorLoginSchema),
+    defaultValues: {
+      code: '',
+    },
+  })
+
   function onSubmit(data: LoginSchema) {
     loginMutation.mutate(data)
+  }
+
+  function onTwoFactorSubmit(data: TwoFactorLoginSchema) {
+    if (!twoFactorToken) return
+
+    verifyTwoFactorMutation.mutate({
+      ...data,
+      twoFactorToken,
+    })
   }
 
   useEffect(() => {
@@ -74,6 +128,79 @@ export function UserAuthForm({
       })
     }
   }, [form])
+
+  if (twoFactorToken) {
+    return (
+      <Form {...twoFactorForm}>
+        <form
+          onSubmit={twoFactorForm.handleSubmit(onTwoFactorSubmit)}
+          className={cn('grid gap-4', className)}
+          {...props}
+        >
+          <div className='bg-muted/40 rounded-lg border p-4'>
+            <div className='flex items-start gap-3'>
+              <div className='bg-primary/10 text-primary rounded-md p-2'>
+                <ShieldCheck className='size-4' />
+              </div>
+              <div className='space-y-1'>
+                <p className='text-sm font-medium'>
+                  {t('auth.twoFactor.title')}
+                </p>
+                <p className='text-muted-foreground text-sm'>
+                  {t('auth.twoFactor.description')}
+                </p>
+                {pendingUserId && (
+                  <p className='text-muted-foreground text-xs'>
+                    {t('auth.twoFactor.pendingUser', { id: pendingUserId })}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <FormField
+            control={twoFactorForm.control}
+            name='code'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('auth.twoFactor.code')}</FormLabel>
+                <FormControl>
+                  <Input
+                    autoComplete='one-time-code'
+                    placeholder='123456 or backup code'
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button disabled={verifyTwoFactorMutation.isPending}>
+            {verifyTwoFactorMutation.isPending ? (
+              <Loader2 className='animate-spin' />
+            ) : (
+              <ShieldCheck />
+            )}
+            {t('auth.twoFactor.buttonVerify')}
+          </Button>
+
+          <Button
+            type='button'
+            variant='ghost'
+            disabled={verifyTwoFactorMutation.isPending}
+            onClick={() => {
+              setTwoFactorToken(null)
+              setPendingUserId(null)
+              twoFactorForm.reset()
+            }}
+          >
+            {t('auth.twoFactor.buttonBack')}
+          </Button>
+        </form>
+      </Form>
+    )
+  }
 
   return (
     <Form {...form}>

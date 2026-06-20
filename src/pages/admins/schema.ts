@@ -16,35 +16,42 @@ export const ColumnKey = {
   avatar: 'avatar',
 }
 
-export const adminSchema = z.object({
-  id: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  fullName: z.string(),
-  phone: z.string().nullable(),
-  birthday: z.string().nullable(),
-  email: z.string(),
-  bio: z.string().nullish(),
-  avatar: z.string().nullish(),
-  verifiedAt: z.boolean(),
-  roles: z.array(roleSchema).nullish(),
-  role: roleSchema.nullish(),
-  roleIds: z.array(z.string()).nullish(),
-  role_ids: z.array(z.union([z.string(), z.number()])).nullish(),
-  roleId: z.union([z.string(), z.number()]).nullish(),
-  role_id: z.union([z.string(), z.number()]).nullish(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-}).transform((admin) => {
-  const roles = admin.roles?.length ? admin.roles : admin.role ? [admin.role] : []
+export const adminSchema = z
+  .object({
+    id: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    fullName: z.string(),
+    phone: z.string().nullable(),
+    birthday: z.string().nullable(),
+    email: z.string(),
+    bio: z.string().nullish(),
+    avatar: z.string().nullish(),
+    verifiedAt: z.boolean(),
+    twoFactorEnabled: z.boolean().default(false),
+    roles: z.array(roleSchema).nullish(),
+    role: roleSchema.nullish(),
+    roleIds: z.array(z.string()).nullish(),
+    role_ids: z.array(z.union([z.string(), z.number()])).nullish(),
+    roleId: z.union([z.string(), z.number()]).nullish(),
+    role_id: z.union([z.string(), z.number()]).nullish(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+  })
+  .transform((admin) => {
+    const roles = admin.roles?.length
+      ? admin.roles
+      : admin.role
+        ? [admin.role]
+        : []
 
-  return {
-    ...admin,
-    roles,
-    role: admin.role ?? roles[0],
-    roleIds: getAdminRoleIds({ ...admin, roles }),
-  }
-})
+    return {
+      ...admin,
+      roles,
+      role: admin.role ?? roles[0],
+      roleIds: getAdminRoleIds({ ...admin, roles }),
+    }
+  })
 
 export type AdminSchema = z.infer<typeof adminSchema>
 

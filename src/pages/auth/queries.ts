@@ -5,7 +5,11 @@ import {
   type AccountFormSchema,
   type ProfileFormSchema,
 } from '../settings/schema'
-import { type ResetPasswordSchema, type LoginSchema } from './schema'
+import {
+  type ResetPasswordSchema,
+  type LoginSchema,
+  type TwoFactorLoginSchema,
+} from './schema'
 
 export const sessionSchema = z.object({
   id: z.string(),
@@ -36,13 +40,25 @@ export const impersonateUserSchema = z.object({
 export type ImpersonateUserResponse = z.infer<typeof impersonateUserSchema>
 
 export interface ApiLoginResponse {
-  accessToken: string
-  refreshToken: string
+  accessToken?: string
+  refreshToken?: string
   userId: string
+  tokenExpires?: number
+  twoFactorRequired?: boolean
+  twoFactorToken?: string
+  twoFactorMethods?: string[]
 }
 
 export async function apiLogin(values: LoginSchema): Promise<ApiLoginResponse> {
   const res = await http.post('/auth/login', values)
+
+  return res.data
+}
+
+export async function apiVerifyTwoFactorLogin(
+  values: TwoFactorLoginSchema & { twoFactorToken: string }
+): Promise<ApiLoginResponse> {
+  const res = await http.post('/auth/2fa/verify-login', values)
 
   return res.data
 }

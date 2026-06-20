@@ -22,6 +22,7 @@ export default {
   'navigation.other.account': 'Tài khoản',
   'navigation.other.helpCenter': 'Trung tâm trợ giúp',
   'navigation.other.password': 'Đổi mật khẩu',
+  'navigation.other.security': 'Bảo mật',
   'navigation.other.website': 'Website',
   'validation.required': 'Trường này là bắt buộc',
   'validation.email': '{{field}} phải là email hợp lệ',
@@ -221,6 +222,41 @@ export default {
   'settings.password.newPassword': 'Mật khẩu mới',
   'settings.password.confirmPassword': 'Xác nhận mật khẩu',
   'settings.password.buttonUpdate': 'Cập nhật mật khẩu',
+  'settings.security.title': 'Bảo mật',
+  'settings.security.description':
+    'Quản lý bảo vệ đăng nhập và xác thực hai lớp.',
+  'settings.security.statusTitle': 'Xác thực hai lớp',
+  'settings.security.statusDescription':
+    'Yêu cầu mã từ ứng dụng xác thực trước khi hoàn tất đăng nhập admin.',
+  'settings.security.enabled': 'Đã bật',
+  'settings.security.disabled': 'Đã tắt',
+  'settings.security.enableTitle': 'Bật xác thực hai lớp',
+  'settings.security.enableDescription':
+    'Xác nhận mật khẩu, quét mã QR, sau đó nhập mã đầu tiên từ ứng dụng xác thực.',
+  'settings.security.disableTitle': 'Tắt xác thực hai lớp',
+  'settings.security.disableDescription':
+    'Khi tắt 2FA, tài khoản admin này sẽ chỉ còn bảo vệ bằng mật khẩu.',
+  'settings.security.currentPassword': 'Mật khẩu hiện tại',
+  'settings.security.authenticationCode': 'Mã xác thực',
+  'settings.security.backupCodesTitle': 'Mã khôi phục',
+  'settings.security.backupCodesDescription':
+    'Hãy lưu các mã dùng một lần này ở nơi an toàn. Mỗi mã chỉ dùng được một lần nếu bạn mất quyền truy cập ứng dụng xác thực.',
+  'settings.security.regenerateDescription':
+    'Tạo bộ mã khôi phục mới. Các mã khôi phục cũ sẽ không còn hoạt động.',
+  'settings.security.scanQrHelp':
+    'Quét mã QR này bằng Google Authenticator, 1Password, Authy hoặc ứng dụng TOTP khác.',
+  'settings.security.qrAlt': 'Mã QR thiết lập xác thực hai lớp',
+  'settings.security.buttonStartSetup': 'Bắt đầu thiết lập',
+  'settings.security.buttonVerifyEnable': 'Xác minh và bật',
+  'settings.security.buttonDisable': 'Tắt 2FA',
+  'settings.security.buttonRegenerateBackupCodes': 'Tạo lại mã khôi phục',
+  'settings.security.buttonCopyBackupCodes': 'Sao chép mã khôi phục',
+  'settings.security.messageSetupStarted':
+    'Hãy quét mã QR và nhập mã từ ứng dụng xác thực.',
+  'settings.security.messageEnabled': 'Bật xác thực hai lớp thành công.',
+  'settings.security.messageDisabled': 'Tắt xác thực hai lớp thành công.',
+  'settings.security.messageBackupCodesGenerated': 'Đã tạo mã khôi phục mới.',
+  'settings.security.messageBackupCodesCopied': 'Đã sao chép mã khôi phục.',
   'settings.profile.title': 'Hồ sơ',
   'settings.profile.description': 'Cập nhật hồ sơ.',
   'settings.profile.avatar': 'Ảnh đại diện',
@@ -270,6 +306,13 @@ export default {
   'auth.resetPassword.buttonBack': 'Quay lại',
   'auth.resetPassword.messageResetPasswordSuccess':
     'Đặt lại mật khẩu thành công.',
+  'auth.twoFactor.title': 'Xác minh hai lớp',
+  'auth.twoFactor.description':
+    'Nhập mã 6 chữ số từ ứng dụng xác thực hoặc dùng mã khôi phục.',
+  'auth.twoFactor.pendingUser': 'Admin ID đang chờ: {{id}}',
+  'auth.twoFactor.code': 'Mã xác thực',
+  'auth.twoFactor.buttonVerify': 'Xác minh và đăng nhập',
+  'auth.twoFactor.buttonBack': 'Quay lại mật khẩu',
   'signOut.title': 'Đăng xuất',
   'signOut.description':
     'Bạn có chắc chắn muốn đăng xuất?. Bạn sẽ phải đăng nhập lại nếu muốn truy cập vào tài khoản.',

@@ -52,6 +52,21 @@ export const passwordFormSchema = z
 
 export type PasswordFormSchema = z.infer<typeof passwordFormSchema>
 
+export const twoFactorPasswordSchema = z.object({
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+})
+
+export type TwoFactorPasswordSchema = z.infer<typeof twoFactorPasswordSchema>
+
+export const twoFactorVerifySchema = z.object({
+  code: z
+    .string()
+    .min(6, 'Please enter your authentication code')
+    .max(16, 'Authentication code is too long'),
+})
+
+export type TwoFactorVerifySchema = z.infer<typeof twoFactorVerifySchema>
+
 const optionalImageFileSchema = z.union([
   z
     .instanceof(File)
