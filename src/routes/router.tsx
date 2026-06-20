@@ -3,7 +3,6 @@ import {
   RouterProvider,
   type RouteObject,
 } from 'react-router'
-import { ComingSoon } from '@/components/coming-soon'
 import { PageActivityLogOverview } from '@/pages/activity-log'
 import PageActivityLogShow from '@/pages/activity-log/show'
 import { PageAdminOverview } from '@/pages/admins'
@@ -20,6 +19,7 @@ import { GeneralError } from '@/pages/errors/general-error'
 import { MaintenanceError } from '@/pages/errors/maintenance-error'
 import { NotFoundError } from '@/pages/errors/not-found-error'
 import { UnauthorizedError } from '@/pages/errors/unauthorized-error'
+import { PageHelpCenter } from '@/pages/help-center'
 import { PagePermissionOverview } from '@/pages/permissions'
 import { PagePermissionEdit } from '@/pages/permissions/edit'
 import PagePermissionShow from '@/pages/permissions/show'
@@ -346,7 +346,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 'help-center',
-        element: <ComingSoon />,
+        element: <PageHelpCenter />,
       },
       {
         path: '*',
