@@ -38,7 +38,7 @@ export function Settings() {
   return (
     <>
       {/* ===== Top Heading ===== */}
-      <Header>
+      <Header fixed>
         <div className='ms-auto flex items-center space-x-4'>
           <Search />
           <ThemeSwitch />
@@ -47,7 +47,7 @@ export function Settings() {
         </div>
       </Header>
 
-      <Main fixed>
+      <Main>
         <div className='space-y-0.5'>
           <h1 className='text-2xl font-bold tracking-tight md:text-xl'>
             {t('pages.settings.title')}
