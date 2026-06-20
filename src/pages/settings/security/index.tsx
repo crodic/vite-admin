@@ -50,6 +50,7 @@ import {
   type TwoFactorPasswordSchema,
   type TwoFactorVerifySchema,
 } from '../schema'
+import { SessionManager } from './session-manager'
 
 const TWO_FACTOR_STATUS_QUERY_KEY = ['two_factor_status'] as const
 
@@ -169,6 +170,8 @@ export function SettingsSecurity() {
             </Badge>
           </CardHeader>
         </Card>
+
+        <SessionManager />
 
         {!enabled && (
           <Card>

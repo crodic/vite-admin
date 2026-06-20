@@ -263,6 +263,34 @@ export default {
   'settings.security.messageBackupCodesGenerated':
     'New backup codes generated.',
   'settings.security.messageBackupCodesCopied': 'Backup codes copied.',
+  'settings.security.sessionsTitle': 'Active sessions',
+  'settings.security.sessionsDescription':
+    'Review signed-in devices and revoke access immediately.',
+  'settings.security.sessionsRevokeAll': 'Revoke all',
+  'settings.security.sessionsDevice': 'Device',
+  'settings.security.sessionsIpAddress': 'IP address',
+  'settings.security.sessionsCreated': 'Created',
+  'settings.security.sessionsAction': 'Action',
+  'settings.security.sessionsLoading': 'Loading sessions...',
+  'settings.security.sessionsEmpty': 'No active sessions found.',
+  'settings.security.sessionsRevoke': 'Revoke',
+  'settings.security.sessionsRevokeDialogTitle': 'Revoke this session?',
+  'settings.security.sessionsRevokeDialogDescription':
+    'This device will lose access immediately and must sign in again.',
+  'settings.security.sessionsRevokeAllDialogTitle': 'Revoke all sessions?',
+  'settings.security.sessionsRevokeAllDialogDescription':
+    'All signed-in devices, including this one, will lose access immediately. You will be redirected to sign in again.',
+  'settings.security.sessionsUnknownDevice': 'Unknown device',
+  'settings.security.sessionsUnknownAgent': 'Unknown user agent',
+  'settings.security.sessionsDeviceName': '{{browser}} on {{device}}',
+  'settings.security.sessionsSessionNumber': 'Session #{{id}}',
+  'settings.security.sessionsMessageRevoked':
+    'Session revoked successfully.',
+  'settings.security.sessionsMessageRevokeFailed':
+    'Failed to revoke session.',
+  'settings.security.sessionsMessageAllRevoked': 'All sessions revoked.',
+  'settings.security.sessionsMessageRevokeAllFailed':
+    'Failed to revoke sessions.',
   'settings.profile.title': 'Profile',
   'settings.profile.description': 'Update your profile.',
   'settings.profile.avatar': 'Avatar',

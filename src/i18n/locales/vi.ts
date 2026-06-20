@@ -257,6 +257,37 @@ export default {
   'settings.security.messageDisabled': 'Tắt xác thực hai lớp thành công.',
   'settings.security.messageBackupCodesGenerated': 'Đã tạo mã khôi phục mới.',
   'settings.security.messageBackupCodesCopied': 'Đã sao chép mã khôi phục.',
+  'settings.security.sessionsTitle': 'Phiên đăng nhập đang hoạt động',
+  'settings.security.sessionsDescription':
+    'Xem các thiết bị đã đăng nhập và thu hồi quyền truy cập khi cần.',
+  'settings.security.sessionsRevokeAll': 'Thu hồi tất cả',
+  'settings.security.sessionsDevice': 'Thiết bị',
+  'settings.security.sessionsIpAddress': 'Địa chỉ IP',
+  'settings.security.sessionsCreated': 'Thời gian tạo',
+  'settings.security.sessionsAction': 'Thao tác',
+  'settings.security.sessionsLoading': 'Đang tải phiên đăng nhập...',
+  'settings.security.sessionsEmpty': 'Không có phiên đăng nhập nào.',
+  'settings.security.sessionsRevoke': 'Thu hồi',
+  'settings.security.sessionsRevokeDialogTitle':
+    'Thu hồi phiên đăng nhập này?',
+  'settings.security.sessionsRevokeDialogDescription':
+    'Thiết bị này sẽ mất quyền truy cập ngay lập tức và cần đăng nhập lại.',
+  'settings.security.sessionsRevokeAllDialogTitle':
+    'Thu hồi tất cả phiên đăng nhập?',
+  'settings.security.sessionsRevokeAllDialogDescription':
+    'Tất cả thiết bị đã đăng nhập, bao gồm thiết bị hiện tại, sẽ mất quyền truy cập ngay lập tức. Bạn sẽ được chuyển về trang đăng nhập.',
+  'settings.security.sessionsUnknownDevice': 'Thiết bị không xác định',
+  'settings.security.sessionsUnknownAgent': 'User agent không xác định',
+  'settings.security.sessionsDeviceName': '{{browser}} trên {{device}}',
+  'settings.security.sessionsSessionNumber': 'Phiên #{{id}}',
+  'settings.security.sessionsMessageRevoked':
+    'Thu hồi phiên đăng nhập thành công.',
+  'settings.security.sessionsMessageRevokeFailed':
+    'Không thể thu hồi phiên đăng nhập.',
+  'settings.security.sessionsMessageAllRevoked':
+    'Đã thu hồi tất cả phiên đăng nhập.',
+  'settings.security.sessionsMessageRevokeAllFailed':
+    'Không thể thu hồi các phiên đăng nhập.',
   'settings.profile.title': 'Hồ sơ',
   'settings.profile.description': 'Cập nhật hồ sơ.',
   'settings.profile.avatar': 'Ảnh đại diện',
