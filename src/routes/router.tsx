@@ -3,7 +3,6 @@ import {
   RouterProvider,
   type RouteObject,
 } from 'react-router'
-import { ComingSoon } from '@/components/coming-soon'
 import { PageActivityLogOverview } from '@/pages/activity-log'
 import PageActivityLogShow from '@/pages/activity-log/show'
 import { PageAdminOverview } from '@/pages/admins'
@@ -15,11 +14,20 @@ import { ResetPassword } from '@/pages/auth/reset-password'
 import { SignIn } from '@/pages/auth/sign-in'
 import { SignUp } from '@/pages/auth/sign-up'
 import { Dashboard } from '@/pages/dashboard'
+import { PageEmailLogOverview } from '@/pages/email-logs'
+import PageEmailLogShow from '@/pages/email-logs/show'
+import { PageMyEmails } from '@/pages/emails'
+import PageMyEmailShow from '@/pages/emails/show'
 import { ForbiddenError } from '@/pages/errors/forbidden'
 import { GeneralError } from '@/pages/errors/general-error'
 import { MaintenanceError } from '@/pages/errors/maintenance-error'
 import { NotFoundError } from '@/pages/errors/not-found-error'
 import { UnauthorizedError } from '@/pages/errors/unauthorized-error'
+import { PageHelpCenter } from '@/pages/help-center'
+import { PageImpersonationLogOverview } from '@/pages/impersonation-logs'
+import { PagePermissionOverview } from '@/pages/permissions'
+import { PagePermissionEdit } from '@/pages/permissions/edit'
+import PagePermissionShow from '@/pages/permissions/show'
 import { PageRoleOverview } from '@/pages/roles'
 import PageRoleCreate from '@/pages/roles/create'
 import { PageRoleEdit } from '@/pages/roles/edit'
@@ -31,6 +39,7 @@ import { SettingsDisplay } from '@/pages/settings/display'
 import { SettingsNotifications } from '@/pages/settings/notifications'
 import { SettingsPassword } from '@/pages/settings/password'
 import { SettingsProfile } from '@/pages/settings/profile'
+import { SettingsSecurity } from '@/pages/settings/security'
 import { SettingsWebsite } from '@/pages/settings/website'
 import { PageUserOverview } from '@/pages/users'
 import { PageUserCreate } from '@/pages/users/create'
@@ -44,10 +53,6 @@ const routes: RouteObject[] = [
     path: '/sign-in',
     element: <SignIn />,
   },
-  // {
-  //   path: '/sign-in-2',
-  //   element: <SignIn2 />,
-  // },
   {
     path: '/sign-up',
     element: <SignUp />,
@@ -56,10 +61,6 @@ const routes: RouteObject[] = [
     path: '/forgot-password',
     element: <ForgotPassword />,
   },
-  // {
-  //   path: '/otp',
-  //   element: <Otp />,
-  // },
   {
     path: '/reset-password',
     element: <ResetPassword />,
@@ -72,27 +73,11 @@ const routes: RouteObject[] = [
       {
         index: true,
         element: (
-          <RouteAuthorize action='read' subject='ADMIN'>
+          <RouteAuthorize isAnyPermission>
             <Dashboard />
           </RouteAuthorize>
         ),
       },
-      // {
-      //   path: '/apps',
-      //   element: (
-      //     <RouteAuthorize action='read' subject='ADMIN'>
-      //       <Apps />
-      //     </RouteAuthorize>
-      //   ),
-      // },
-      // {
-      //   path: '/chats',
-      //   element: (
-      //     <RouteAuthorize action='read' subject='ADMIN'>
-      //       <Chats />
-      //     </RouteAuthorize>
-      //   ),
-      // },
       {
         path: '/admins',
         children: [
@@ -125,6 +110,35 @@ const routes: RouteObject[] = [
             element: (
               <RouteAuthorize action='read' subject='ADMIN'>
                 <PageAdminShow />
+              </RouteAuthorize>
+            ),
+          },
+        ],
+      },
+      {
+        path: '/permissions',
+        children: [
+          {
+            index: true,
+            element: (
+              <RouteAuthorize action='read' subject='ROLE'>
+                <PagePermissionOverview />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: ':id/show',
+            element: (
+              <RouteAuthorize action='read' subject='ROLE'>
+                <PagePermissionShow />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: ':id/edit',
+            element: (
+              <RouteAuthorize action='update' subject='ROLE'>
+                <PagePermissionEdit />
               </RouteAuthorize>
             ),
           },
@@ -196,6 +210,14 @@ const routes: RouteObject[] = [
             ),
           },
           {
+            path: 'security',
+            element: (
+              <RouteAuthorize isAnyPermission>
+                <SettingsSecurity />
+              </RouteAuthorize>
+            ),
+          },
+          {
             path: 'appearance',
             element: (
               <RouteAuthorize isAnyPermission>
@@ -219,15 +241,15 @@ const routes: RouteObject[] = [
               </RouteAuthorize>
             ),
           },
-          {
-            path: 'website',
-            element: (
-              <RouteAuthorize isAnyPermission>
-                <SettingsWebsite />
-              </RouteAuthorize>
-            ),
-          },
         ],
+      },
+      {
+        path: '/website-settings',
+        element: (
+          <RouteAuthorize isAnyPermission>
+            <SettingsWebsite />
+          </RouteAuthorize>
+        ),
       },
       {
         path: '/users',
@@ -259,7 +281,7 @@ const routes: RouteObject[] = [
           {
             path: ':id/show',
             element: (
-              <RouteAuthorize action='read' subject='ADMIN'>
+              <RouteAuthorize action='read' subject='USER'>
                 <PageUserShow />
               </RouteAuthorize>
             ),
@@ -282,6 +304,56 @@ const routes: RouteObject[] = [
             element: (
               <RouteAuthorize action='read' subject='LOG'>
                 <PageActivityLogShow />
+              </RouteAuthorize>
+            ),
+          },
+        ],
+      },
+      {
+        path: 'impersonation-logs',
+        element: (
+          <RouteAuthorize action='read' subject='IMPERSONATE_LOG'>
+            <PageImpersonationLogOverview />
+          </RouteAuthorize>
+        ),
+      },
+      {
+        path: 'emails',
+        children: [
+          {
+            index: true,
+            element: (
+              <RouteAuthorize action='read' subject='EMAIL'>
+                <PageMyEmails />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: ':id/show',
+            element: (
+              <RouteAuthorize action='read' subject='EMAIL'>
+                <PageMyEmailShow />
+              </RouteAuthorize>
+            ),
+          },
+        ],
+      },
+      {
+        path: 'email-logs',
+        children: [
+          {
+            index: true,
+            element: (
+              <RouteAuthorize action='read' subject='EMAIL_LOG'>
+                <PageEmailLogOverview />
+              </RouteAuthorize>
+            ),
+          },
+          {
+            path: ':id/show',
+            element: (
+              <RouteAuthorize action='read' subject='EMAIL_LOG'>
+                <PageEmailLogShow />
               </RouteAuthorize>
             ),
           },
@@ -314,7 +386,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 'help-center',
-        element: <ComingSoon />,
+        element: <PageHelpCenter />,
       },
       {
         path: '*',

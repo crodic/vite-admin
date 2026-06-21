@@ -54,9 +54,7 @@ export default function PasswordForm() {
             name='password'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t('pages.settings.password.fields.currentPassword')}
-                </FormLabel>
+                <FormLabel>{t('settings.password.currentPassword')}</FormLabel>
                 <FormControl>
                   <PasswordInput placeholder='***************' {...field} />
                 </FormControl>
@@ -69,9 +67,7 @@ export default function PasswordForm() {
             name='newPassword'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t('pages.settings.password.fields.newPassword')}
-                </FormLabel>
+                <FormLabel>{t('settings.password.newPassword')}</FormLabel>
                 <FormControl>
                   <PasswordInput placeholder='**************' {...field} />
                 </FormControl>
@@ -84,9 +80,7 @@ export default function PasswordForm() {
             name='confirmNewPassword'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t('pages.settings.password.fields.confirmPassword')}
-                </FormLabel>
+                <FormLabel>{t('settings.password.confirmPassword')}</FormLabel>
                 <FormControl>
                   <PasswordInput placeholder='**************' {...field} />
                 </FormControl>
@@ -95,9 +89,7 @@ export default function PasswordForm() {
             )}
           />
         </div>
-        <Button type='submit'>
-          {t('pages.settings.password.button.update')}
-        </Button>
+        <Button type='submit'>{t('settings.password.buttonUpdate')}</Button>
       </form>
     </Form>
   )

@@ -21,11 +21,9 @@ export function SignIn() {
       <Card className='gap-4'>
         <CardHeader>
           <CardTitle className='text-lg tracking-tight'>
-            {t('pages.auth.signIn.title')}
+            {t('auth.signIn.title')}
           </CardTitle>
-          <CardDescription>
-            {t('pages.auth.signIn.description')}
-          </CardDescription>
+          <CardDescription>{t('auth.signIn.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <UserAuthForm redirectTo={redirect} />

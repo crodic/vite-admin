@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { isAxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,11 +6,8 @@ import { ArrowLeftIcon, SaveIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { toast } from 'sonner'
-import { groupPermission } from '@/lib/permissions'
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -27,6 +23,8 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { useDataPermissionFormOptions } from '@/pages/permissions/queries'
+import { RolePermissionsField } from '../components/role-permissions-field'
 import { apiCreateRole } from '../queries'
 import { roleFormSchema, type RoleFormSchema } from '../schema'
 
@@ -38,9 +36,12 @@ export default function PageRoleCreate() {
   const form = useForm<RoleFormSchema>({
     resolver: zodResolver(roleFormSchema),
     defaultValues: {
-      permissions: [],
+      name: '',
+      permissionIds: [],
     },
   })
+
+  const permissionsQuery = useDataPermissionFormOptions()
 
   const createRoleMutate = useMutation({
     mutationFn: apiCreateRole,
@@ -55,43 +56,23 @@ export default function PageRoleCreate() {
   })
 
   const onSubmit = (values: RoleFormSchema) => {
-    createRoleMutate.mutate(values)
-  }
-
-  const selectedPermissions = form.watch('permissions')
-  const permissionKey = (action: string, subject: string) =>
-    `${action}:${subject}`
-
-  const handleParentChange = (group: string, checked: boolean) => {
-    const perms =
-      groupPermission.find((g) => g.group === group)?.permissions || []
-    const current = new Set(selectedPermissions)
-
-    perms.forEach((action) => {
-      const key = permissionKey(action, group)
-      checked ? current.add(key) : current.delete(key)
-    })
-
-    form.setValue('permissions', Array.from(current))
-  }
-
-  const handleChildChange = (group: string, perm: string, checked: boolean) => {
-    const key = permissionKey(perm, group)
-    const current = new Set(selectedPermissions)
-    checked ? current.add(key) : current.delete(key)
-    form.setValue('permissions', Array.from(current))
-  }
-
-  const isGroupChecked = (group: string) => {
-    const perms =
-      groupPermission.find((g) => g.group === group)?.permissions || []
-    return perms.every((action) =>
-      selectedPermissions.includes(permissionKey(action, group))
+    const assignablePermissionIds = new Set(
+      (permissionsQuery.data ?? []).map((permission) => permission.id)
     )
-  }
 
-  const isPermissionChecked = (subject: string, action: string) => {
-    return selectedPermissions.includes(permissionKey(action, subject))
+    if (
+      values.permissionIds.some(
+        (permissionId) => !assignablePermissionIds.has(permissionId)
+      )
+    ) {
+      form.setError('permissionIds', {
+        message: 'Invalid permission selected',
+      })
+      toast.error('Invalid permission selected')
+      return
+    }
+
+    createRoleMutate.mutate(values)
   }
 
   return (
@@ -108,9 +89,7 @@ export default function PageRoleCreate() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='flex items-center justify-between'>
-              <h3 className='text-2xl font-bold'>
-                {t('pages.roles.create.title')}
-              </h3>
+              <h3 className='text-2xl font-bold'>{t('roles.create.title')}</h3>
               <div className='flex items-center gap-2'>
                 <Button
                   type='button'
@@ -120,7 +99,14 @@ export default function PageRoleCreate() {
                   <ArrowLeftIcon size={16} />
                   {t('buttons.cancel')}
                 </Button>
-                <Button type='submit'>
+                <Button
+                  type='submit'
+                  disabled={
+                    createRoleMutate.isPending ||
+                    permissionsQuery.isLoading ||
+                    permissionsQuery.isError
+                  }
+                >
                   <SaveIcon size={16} />
                   {t('buttons.save')}
                 </Button>
@@ -134,13 +120,11 @@ export default function PageRoleCreate() {
                   name='name'
                   render={({ field }) => (
                     <FormItem className='md:col-span-3'>
-                      <FormLabel required>
-                        {t('pages.roles.create.fields.name')}
-                      </FormLabel>
+                      <FormLabel required>{t('roles.create.name')}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder={t('pages.roles.create.fields.name')}
+                          placeholder={t('roles.create.name')}
                         />
                       </FormControl>
                       <FormMessage />
@@ -148,70 +132,13 @@ export default function PageRoleCreate() {
                   )}
                 />
 
-                <div className='col-span-3 space-y-2'>
-                  <h6
-                    className={cn(
-                      form.formState.errors.permissions && 'text-destructive',
-                      'font-semibold'
-                    )}
-                  >
-                    {t('pages.roles.create.fields.permissions')}
-                  </h6>
-                  <div className='grid grid-cols-2 gap-8 md:grid-cols-4'>
-                    {groupPermission
-                      .filter((gr) => gr.group !== 'manage')
-                      .map((group) => (
-                        <div
-                          key={group.group}
-                          className='space-y-2 rounded-md border p-4'
-                        >
-                          <FormItem className='flex items-center space-x-2'>
-                            <Checkbox
-                              checked={isGroupChecked(group.group)}
-                              onCheckedChange={(checked) =>
-                                handleParentChange(
-                                  group.group,
-                                  Boolean(checked)
-                                )
-                              }
-                            />
-                            <label className='font-semibold'>
-                              {group.group}
-                            </label>
-                          </FormItem>
-
-                          <div className='space-y-2 pl-6'>
-                            {group.permissions.map((perm) => (
-                              <FormItem
-                                key={`${group.group}:${perm}`}
-                                className='flex items-center space-x-2'
-                              >
-                                <Checkbox
-                                  checked={isPermissionChecked(
-                                    group.group,
-                                    perm
-                                  )}
-                                  onCheckedChange={(checked) =>
-                                    handleChildChange(
-                                      group.group,
-                                      perm,
-                                      Boolean(checked)
-                                    )
-                                  }
-                                />
-                                <label>{perm.toUpperCase()}</label>
-                              </FormItem>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                  {form.formState.errors.permissions && (
-                    <p className='text-sm text-red-500'>
-                      {form.formState.errors.permissions.message}
-                    </p>
-                  )}
-                </div>
+                <RolePermissionsField
+                  form={form}
+                  permissions={permissionsQuery.data ?? []}
+                  isLoading={permissionsQuery.isLoading}
+                  isError={permissionsQuery.isError}
+                  disabled={createRoleMutate.isPending}
+                />
               </CardContent>
             </Card>
           </form>

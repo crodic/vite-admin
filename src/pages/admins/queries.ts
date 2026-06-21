@@ -24,7 +24,9 @@ async function getAdminListing(
 }
 
 export async function apiCreateAdmin(data: AdminCreateSchema) {
-  return await http.post('/admin-users', data)
+  const { confirmPassword: _confirmPassword, ...payload } = data
+
+  return await http.post('/admin-users', payload)
 }
 
 export async function apiGetAdminById(id: string): Promise<AdminSchema> {

@@ -8,7 +8,7 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { DeleteAlertDialog } from '@/components/common/delete-alert-dialog'
 import { apiDeleteRole } from './queries'
-import { type RoleSchema } from './schema'
+import { isProtectedRole, type RoleSchema } from './schema'
 
 export default function ComponentTableRowActions({
   row,
@@ -36,10 +36,15 @@ export default function ComponentTableRowActions({
   })
 
   const handleDelete = () => {
+    if (isProtectedRole(row.original)) {
+      toast.error('System roles cannot be deleted')
+      return
+    }
+
     deleteRoleMutation.mutate(row.original.id)
   }
 
-  const isSystemRole = row.original.permissions.includes('manage:all')
+  const isProtected = isProtectedRole(row.original)
 
   return (
     <div>
@@ -57,7 +62,7 @@ export default function ComponentTableRowActions({
         onClick={() => {
           navigate(`/roles/${row.original.id}/edit`)
         }}
-        disabled={isSystemRole}
+        disabled={isProtected}
       >
         <Edit2Icon size={16} className='text-primary' />
       </Button>
@@ -65,7 +70,7 @@ export default function ComponentTableRowActions({
         variant='ghost'
         size='icon'
         onClick={() => setIsShowDeleteDialog(true)}
-        disabled={isSystemRole}
+        disabled={isProtected}
       >
         <Trash2Icon size={16} className='text-destructive' />
       </Button>

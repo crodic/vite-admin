@@ -76,7 +76,7 @@ export function PageUserCreate() {
             <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
               <div className='flex flex-row space-x-2'>
                 <h2 className='text-2xl font-bold tracking-tight'>
-                  {t('pages.users.create.title')}
+                  {t('users.create.title')}
                 </h2>
               </div>
               <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -99,9 +99,9 @@ export function PageUserCreate() {
 
             <Card>
               <CardHeader>
-                <CardTitle> {t('pages.users.create.title')}</CardTitle>
+                <CardTitle> {t('users.create.title')}</CardTitle>
                 <CardDescription>
-                  {t('pages.users.create.description')}
+                  {t('users.create.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
@@ -110,9 +110,7 @@ export function PageUserCreate() {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel required>
-                        {t('pages.users.create.fields.email')}
-                      </FormLabel>
+                      <FormLabel required>{t('users.create.email')}</FormLabel>
                       <FormControl>
                         <Input placeholder='test@example.com' {...field} />
                       </FormControl>
@@ -126,7 +124,7 @@ export function PageUserCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.users.create.fields.firstName')}
+                        {t('users.create.firstName')}
                       </FormLabel>
                       <FormControl>
                         <Input placeholder='John' {...field} />
@@ -141,7 +139,7 @@ export function PageUserCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.users.create.fields.lastName')}
+                        {t('users.create.lastName')}
                       </FormLabel>
                       <FormControl>
                         <Input placeholder='Doe' {...field} />
@@ -156,7 +154,7 @@ export function PageUserCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.users.create.fields.password')}
+                        {t('users.create.password')}
                       </FormLabel>
                       <FormControl>
                         <PasswordInput placeholder='***********' {...field} />
@@ -171,7 +169,7 @@ export function PageUserCreate() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel required>
-                        {t('pages.users.create.fields.confirmPassword')}
+                        {t('users.create.confirmPassword')}
                       </FormLabel>
                       <FormControl>
                         <PasswordInput placeholder='***********' {...field} />

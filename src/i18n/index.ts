@@ -29,7 +29,8 @@ i18n
     resources,
     defaultNS,
     fallbackLng: 'en',
-    returnObjects: true,
+    keySeparator: false,
+    returnObjects: false,
     interpolation: {
       escapeValue: false, // react already safes from xss
     },

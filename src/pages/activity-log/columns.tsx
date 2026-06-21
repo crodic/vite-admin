@@ -28,15 +28,13 @@ export function getActivitiesTableColumns({
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.activityLogs.overview.tableColumns.resourceId')}
+          label={i18n.t('activityLogs.table.resourceId')}
         />
       ),
       meta: {
         variant: 'text',
-        placeholder: i18n.t(
-          'pages.activityLogs.overview.tableColumns.resourceId'
-        ),
-        label: i18n.t('pages.activityLogs.overview.tableColumns.resourceId'),
+        placeholder: i18n.t('activityLogs.table.resourceId'),
+        label: i18n.t('activityLogs.table.resourceId'),
         icon: Text,
       },
       cell: ({ row }) => (
@@ -50,7 +48,7 @@ export function getActivitiesTableColumns({
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.activityLogs.overview.tableColumns.entity')}
+          label={i18n.t('activityLogs.table.entity')}
         />
       ),
       cell: ({ row }) => (
@@ -58,8 +56,8 @@ export function getActivitiesTableColumns({
       ),
       meta: {
         variant: 'text',
-        placeholder: i18n.t('pages.activityLogs.overview.tableColumns.entity'),
-        label: i18n.t('pages.activityLogs.overview.tableColumns.entity'),
+        placeholder: i18n.t('activityLogs.table.entity'),
+        label: i18n.t('activityLogs.table.entity'),
         icon: TextIcon,
       },
       enableHiding: false,
@@ -72,12 +70,12 @@ export function getActivitiesTableColumns({
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.activityLogs.overview.tableColumns.action')}
+          label={i18n.t('activityLogs.table.action')}
         />
       ),
       meta: {
         variant: 'multiSelect',
-        label: i18n.t('pages.activityLogs.overview.tableColumns.action'),
+        label: i18n.t('activityLogs.table.action'),
         options: actions.map((action) => ({ value: action, label: action })),
       },
       cell: ({ row }) => <p>{row.original.action}</p>,
@@ -91,7 +89,7 @@ export function getActivitiesTableColumns({
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.activityLogs.overview.tableColumns.actor')}
+          label={i18n.t('activityLogs.table.actor')}
         />
       ),
       cell: ({ row }) => (
@@ -106,8 +104,8 @@ export function getActivitiesTableColumns({
       ),
       meta: {
         variant: 'text',
-        placeholder: i18n.t('pages.activityLogs.overview.tableColumns.actor'),
-        label: i18n.t('pages.activityLogs.overview.tableColumns.actor'),
+        placeholder: i18n.t('activityLogs.table.actor'),
+        label: i18n.t('activityLogs.table.actor'),
         icon: TextIcon,
       },
       enableHiding: false,
@@ -120,7 +118,7 @@ export function getActivitiesTableColumns({
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
-          label={i18n.t('pages.activityLogs.overview.tableColumns.timestamp')}
+          label={i18n.t('activityLogs.table.timestamp')}
         />
       ),
       cell: ({ row }) => (

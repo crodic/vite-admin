@@ -3,17 +3,13 @@ import { AxiosError } from 'axios'
 import { format } from 'date-fns'
 import { Avatar } from '@radix-ui/react-avatar'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import {
-  ArrowLeftIcon,
-  EditIcon,
-  ShieldUserIcon,
-  TrashIcon,
-} from 'lucide-react'
+import { ArrowLeftIcon, EditIcon, TrashIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 import { toast } from 'sonner'
 import { useAuthStore } from '@/stores/auth-store'
 import { AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { DeleteAlertDialog } from '@/components/common/delete-alert-dialog'
@@ -91,10 +87,10 @@ export function PageAdminShow() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.adminUsers.show.title')}
+              {t('adminUsers.show.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.adminUsers.show.description')}
+              {t('adminUsers.show.description')}
             </p>
           </div>
           <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -142,30 +138,26 @@ export function PageAdminShow() {
                 <p className='text-sm font-normal italic'>
                   {data?.bio || 'Empty'}
                 </p>
-                <p className='flex items-center gap-2 text-center font-bold'>
-                  <ShieldUserIcon />
-                  {data?.role.name}
-                </p>
               </div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.adminUsers.show.cardTitle')}</CardTitle>
+              <CardTitle>{t('adminUsers.show.cardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Descriptions>
                 <DescriptionItem label='Email' value={data?.email} />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.fullName')}
+                  label={t('adminUsers.show.fullName')}
                   value={data?.fullName}
                 />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.phoneNumber')}
+                  label={t('adminUsers.show.phoneNumber')}
                   value={data?.phone}
                 />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.birthday')}
+                  label={t('adminUsers.show.birthday')}
                   value={
                     data.birthday
                       ? format(data.birthday, 'dd/MM/yyyy')
@@ -173,15 +165,24 @@ export function PageAdminShow() {
                   }
                 />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.emailVerified')}
+                  label={t('adminUsers.show.emailVerified')}
                   value={data?.verifiedAt ? 'Active' : 'Inactive'}
                 />
+                <DescriptionItem label={t('adminUsers.show.role')}>
+                  <div className='mt-2 flex flex-wrap gap-1'>
+                    {data.roles.map((role) => (
+                      <Badge key={role.id} variant='secondary'>
+                        {role.name}
+                      </Badge>
+                    ))}
+                  </div>
+                </DescriptionItem>
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.createdAt')}
+                  label={t('adminUsers.show.createdAt')}
                   value={format(data.createdAt, 'dd/MM/yyyy HH:mm aa')}
                 />
                 <DescriptionItem
-                  label={t('pages.adminUsers.show.fields.updatedAt')}
+                  label={t('adminUsers.show.updatedAt')}
                   value={format(data.updatedAt, 'dd/MM/yyyy HH:mm aa')}
                 />
               </Descriptions>

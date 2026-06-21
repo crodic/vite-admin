@@ -14,6 +14,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { NotificationDropdown } from '@/components/notification-dropdown'
 import { SignOutDialog } from '@/components/sign-out-dialog'
 import { apiGetMe } from '@/pages/auth/queries'
 import { SidebarMenuSkeleton } from './ui/sidebar'
@@ -31,6 +32,8 @@ export function ProfileDropdown() {
 
   return (
     <>
+      <NotificationDropdown />
+
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
@@ -57,13 +60,13 @@ export function ProfileDropdown() {
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
               <Link to='/settings/account'>
-                {t('navigation.other.items.account')}
+                {t('navigation.other.account')}
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to='/settings'>
-                {t('navigation.other.items.settings')}
+                {t('navigation.other.settings')}
                 <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>

@@ -56,9 +56,7 @@ export function ForgotPasswordForm({
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t('pages.auth.forgotPassword.fields.email')}
-              </FormLabel>
+              <FormLabel>{t('auth.forgotPassword.email')}</FormLabel>
               <FormControl>
                 <Input placeholder='name@example.com' {...field} />
               </FormControl>

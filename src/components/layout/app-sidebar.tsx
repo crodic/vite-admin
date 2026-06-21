@@ -19,9 +19,15 @@ export function AppSidebar() {
   const socket = useSocket()
 
   useEffect(() => {
-    socket?.on('onlineCount', (data) => {
+    const handleOnlineCount = (data: number) => {
       setOnlineUsers(data)
-    })
+    }
+
+    socket?.on('onlineCount', handleOnlineCount)
+
+    return () => {
+      socket?.off('onlineCount', handleOnlineCount)
+    }
   }, [socket])
 
   return (

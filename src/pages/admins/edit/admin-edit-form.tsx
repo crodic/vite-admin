@@ -47,7 +47,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
-      roleId: data.role.id,
+      roleIds: data.roleIds,
       bio: data.bio,
       birthday: data.birthday || undefined,
       phone: data.phone || undefined,
@@ -84,7 +84,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
           <div className='mb-2 flex flex-col items-baseline justify-between space-y-2 sm:flex-row sm:items-center'>
             <div className='flex flex-row space-x-2'>
               <h2 className='text-2xl font-bold tracking-tight'>
-                {t('pages.adminUsers.edit.title')}
+                {t('adminUsers.edit.title')}
               </h2>
             </div>
             <div className='flex w-full flex-wrap justify-end gap-2 sm:block sm:w-auto sm:justify-normal sm:space-x-2'>
@@ -107,9 +107,9 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('pages.adminUsers.edit.title')}</CardTitle>
+              <CardTitle>{t('adminUsers.edit.title')}</CardTitle>
               <CardDescription>
-                {t('pages.adminUsers.edit.description')}
+                {t('adminUsers.edit.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className='mt-4 flex flex-col gap-4 sm:gap-8 md:grid md:grid-cols-3'>
@@ -119,7 +119,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>
-                      {t('pages.adminUsers.edit.fields.firstName')}
+                      {t('adminUsers.edit.firstName')}
                     </FormLabel>
                     <FormControl>
                       <Input placeholder='John' {...field} />
@@ -134,7 +134,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel required>
-                      {t('pages.adminUsers.edit.fields.lastName')}
+                      {t('adminUsers.edit.lastName')}
                     </FormLabel>
                     <FormControl>
                       <Input placeholder='Doe' {...field} />
@@ -148,13 +148,11 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
                 name='phone'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t('pages.adminUsers.edit.fields.phoneNumber')}
-                    </FormLabel>
+                    <FormLabel>{t('adminUsers.edit.phoneNumber')}</FormLabel>
                     <FormControl>
                       <PhoneInput
                         placeholder={t(
-                          'pages.adminUsers.edit.fields.phoneNumberPlaceholder'
+                          'adminUsers.edit.phoneNumberPlaceholder'
                         )}
                         defaultCountry='VN'
                         international
@@ -170,14 +168,10 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
                 name='birthday'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t('pages.adminUsers.edit.fields.birthday')}
-                    </FormLabel>
+                    <FormLabel>{t('adminUsers.edit.birthday')}</FormLabel>
                     <FormControl>
                       <DatePickerForm
-                        placeholder={t(
-                          'pages.adminUsers.edit.fields.birthdayPlaceholder'
-                        )}
+                        placeholder={t('adminUsers.edit.birthdayPlaceholder')}
                         field={field}
                         disabled={(date: Date) =>
                           date > new Date() || date < new Date('1900-01-01')
@@ -190,12 +184,10 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
               />
               <FormField
                 control={form.control}
-                name='roleId'
+                name='roleIds'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>
-                      {t('pages.adminUsers.edit.fields.role')}
-                    </FormLabel>
+                    <FormLabel required>{t('adminUsers.edit.role')}</FormLabel>
                     <FormControl>
                       <AutoCompleteSelectControl
                         {...field}
@@ -206,6 +198,7 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
                           })) || []
                         }
                         isClearable={false}
+                        isMulti
                         isLoading={isLoading}
                         placeholder='Select role'
                       />
@@ -220,14 +213,10 @@ export function AdminEditForm({ data }: { data: AdminSchema }) {
                   name='bio'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {t('pages.adminUsers.edit.fields.bio')}
-                      </FormLabel>
+                      <FormLabel>{t('adminUsers.edit.bio')}</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder={t(
-                            'pages.adminUsers.edit.fields.bioPlaceholder'
-                          )}
+                          placeholder={t('adminUsers.edit.bioPlaceholder')}
                           onChange={field.onChange}
                           value={field.value || ''}
                         ></Textarea>

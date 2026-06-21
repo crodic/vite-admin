@@ -1,6 +1,5 @@
-// import { Link } from '@tanstack/react-router'
 import { Link } from 'react-router'
-import Logo from '@/assets/images/logo.png'
+import { RuntimeLogo } from '@/components/runtime-logo'
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -10,6 +9,7 @@ import {
 
 export function AppTitle() {
   const { setOpenMobile } = useSidebar()
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -24,9 +24,9 @@ export function AppTitle() {
               onClick={() => setOpenMobile(false)}
               className='grid flex-1 text-start text-sm leading-tight'
             >
-              <img
-                className='mx-auto max-h-18 w-auto object-cover'
-                src={Logo}
+              <RuntimeLogo
+                className='mx-auto max-h-18'
+                placeholderClassName='mx-auto h-18 w-28'
               />
             </Link>
           </div>

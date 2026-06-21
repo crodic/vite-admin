@@ -47,7 +47,7 @@ export function PageAdminOverview() {
     .limit(perPage)
     .ilike('email', filter.email)
     .ilike('fullName', filter.fullName)
-    .in('role.id', filter.role || [])
+    .in('roles.id', filter.role || [])
     .sortBy(sortParser(sort).sortBy, sortParser(sort).sortDirection)
 
   const { data, isFetching } = useDataAdminOverview(builder.build())
@@ -89,10 +89,10 @@ export function PageAdminOverview() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              {t('pages.adminUsers.overview.title')}
+              {t('adminUsers.overview.title')}
             </h2>
             <p className='text-muted-foreground'>
-              {t('pages.adminUsers.overview.description')}
+              {t('adminUsers.overview.description')}
             </p>
           </div>
           <div>
