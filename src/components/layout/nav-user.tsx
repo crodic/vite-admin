@@ -28,6 +28,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { SignOutDialog } from '@/components/sign-out-dialog'
+import { VersionInfo } from '@/components/version-info'
 import { apiGetMe } from '@/pages/auth/queries'
 
 export function NavUser() {
@@ -117,6 +118,8 @@ export function NavUser() {
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <VersionInfo />
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 variant='destructive'

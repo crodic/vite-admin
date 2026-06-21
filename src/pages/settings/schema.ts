@@ -87,6 +87,7 @@ export const websiteSettingsSchema = z.object({
   site_logo: z.string().nullish(),
   site_dark_logo: z.string().nullish(),
   site_favicon: z.string().nullish(),
+  backend_version: z.string().optional(),
 })
 
 export type WebsiteSettingsSchema = z.infer<typeof websiteSettingsSchema>
